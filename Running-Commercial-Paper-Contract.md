@@ -107,7 +107,13 @@ The next section gets us ready to submit transactions which will exercise the co
  ++
 ## Application Start
 
-Change to the `application/nodejs` directory. There are two steps to the application lifecycle.  Firstly a local 'idwallet' needs to be created that contains the credentials for a specific user,  known to the Fabric infrastructure. The application itself can then issue transactions as that user. ++
+Change to the `application/javascript` directory. Install the requisite packages firstly:
+
+```
+npm install
+```
+
+There are two steps to the application lifecycle.  Firstly a local 'idwallet' needs to be created that contains the credentials for a specific user,  known to the Fabric infrastructure. The application itself can then issue transactions as that user. ++
 
 Issue this command to run a script to setup a local folder with the credential++
 
