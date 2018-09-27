@@ -54,7 +54,7 @@ The next step is start the fabric infrastructure; as we are developing - it is a
 
 ```
 $ ./start.sh
-$ ../monitor_docker.sh net_basic
+$ ../monitordocker.sh net_basic
 ```
 
 This window will now show all the docker container output.
