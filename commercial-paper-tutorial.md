@@ -9,10 +9,6 @@ The aim of this tutorial, is to enable you to deploy a sample Commercial Paper s
 ## Background
 Commercial Paper marketplaces have been going since at least the 19th century. What is it? Well, there is a fantastic description of that in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutional buyers to obtain funds, to meet short-term debt obligations. An example: MagnetoCorp issues a Commercial Paper (CP) on April 1st - face value of $1.1m. It promises to pay the bearer (the 'paper' is transferable, so can be re-sold) this amount in 6 months time (eg October 1st - the maturity date). On May 1st, the CP is purchased by an investment bank (Digibank) for a discounted price - $1m. If it holds this til maturity (and managing its investment risk in the meantime), then, as the bearer, it can redeem it at face value ($1.1m) with MagnetoCorp - a profit of $100,000. This is effectively the 'interest earned' on an investment of $1m for six months. Most investors tend to hold until maturity, but there are varying marketplaces, options and strategies - far beyond the scope of this little explainer !
 
-## Scenario
-
-Magnetocorp issue a Commercial Paper - this is performed by Isabella, an employee of MagnetoCorp. An investor, Digibank - through its investment trader Balaji - purchases the Commercial Paper. Digibank hold it for a period of time, and then redeem it at face value with MagnetoCorp for a small profit. You can read more on the Commercial paper example at https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html
-
 ## Pre-requisites
 
 You will need the following installed in order to use the extension:
@@ -35,6 +31,10 @@ You can check your versions using the following commands:
 ## Estimated time
 
 After the prerequisites are installed, this should take approximately *45 minutes* to complete.
+
+## Scenario
+
+Magnetocorp issue a Commercial Paper - this is performed by Isabella, an employee of MagnetoCorp. An investor, Digibank - through its investment trader Balaji - purchases the Commercial Paper. Digibank hold it for a period of time, and then redeem it at face value with MagnetoCorp for a small profit. You can read more on the Commercial paper example at https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html
 
 ## Step 1. Get the commercial Paper Sample
 
