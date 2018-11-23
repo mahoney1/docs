@@ -7,14 +7,11 @@ Using the new IBM Blockchain Platform IDE and the latest Hyperledger Fabric feat
 The aim of this tutorial, is to enable you to deploy a sample Commercial Paper smart contract to the Fabric blockchain, using the IBM Blockchain Platform IDE and then run it. Furthermore, you'll interact with the contract, and execute transactions, using a simple command line application. The sample is available from Github https://github.com/hyperledger/fabric-samples - note there is a separate tutorial, that builds on this - adding queries to the contract, to report upon the full transaction history of a Commercial Paper stored in the ledger. Link TBA.
 
 ## Background
-The Commercial Paper marketplace has been going since at least the 19th century. What is it? In short,  its a way for large institutional buyers to obtain funds, to meet short-term debt obligations. An example: MagnetoCorp issues a Commercial Paper (CP) on April 1st - face value of $1.1m. It promises to pay the bearer (the 'paper' is transferable, so can be re-sold) this amount in 6 months time (eg October 1st - the maturity date). On May 1st, the CP is purchased by an investment bank (Digibank) for a discounted price - $1m. If it holds this til maturity (and managing its investment risk in the meantime), then, as the bearer, it can redeem it at face value ($1.1m) with MagnetoCorp - a profit of $100,000. This is effectively the 'interest earned' on investment of $1m for six months. Most investors tend to hold until maturity, but there are varying marketplaces, options and strategies - far beyond the scope of this little explainer !
+Commercial Paper marketplaces have been going since at least the 19th century. What is it? Well, there is a fantastic description of that in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutional buyers to obtain funds, to meet short-term debt obligations. An example: MagnetoCorp issues a Commercial Paper (CP) on April 1st - face value of $1.1m. It promises to pay the bearer (the 'paper' is transferable, so can be re-sold) this amount in 6 months time (eg October 1st - the maturity date). On May 1st, the CP is purchased by an investment bank (Digibank) for a discounted price - $1m. If it holds this til maturity (and managing its investment risk in the meantime), then, as the bearer, it can redeem it at face value ($1.1m) with MagnetoCorp - a profit of $100,000. This is effectively the 'interest earned' on an investment of $1m for six months. Most investors tend to hold until maturity, but there are varying marketplaces, options and strategies - far beyond the scope of this little explainer !
 
 ## Scenario
 
 Magnetocorp issue a Commercial Paper - this is performed by Isabella, an employee of MagnetoCorp. An investor, Digibank - through its investment trader Balaji - purchases the Commercial Paper. Digibank hold it for a period of time, and then redeem it at face value with MagnetoCorp for a small profit. You can read more on the Commercial paper example at https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html
-
-The IBM Blockchain Platform IDE is available as a Visual Studio Code (VSCode) extension available from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform)
-. provides  We created the IBM Blockchain Platform IDE as an extension to Visual Studio Code (VSCode)intuitive tools
 
 ## Pre-requisites
 
@@ -47,7 +44,7 @@ git clone -b master https://github.com/hyperledger/fabric-samples
 
 ## Step 2. Launch VSCode, install the IDE Extension
 
-![packageFile](/docs/installExtension.gif)
+![packageFile](docs/pics/installExtension.gif)
 
 You can launch VSCode from the task bar, or by typing `code` in a terminal window.
 
@@ -59,7 +56,7 @@ You can launch VSCode from the task bar, or by typing `code` in a terminal windo
 1. In VSCode, choose 'File...Open Folder' - and open the `commercial-paper` folder from in your $HOME/fabric-samples/commercial-paper directory:
 
 2. Click on the `Explorer` icon, top left, and open the `contract` folder under `commercial-paper/organization/magnetocorp/contract`
-[Smart Contract](docs/papercontract.png)
+[Smart Contract](docs/pics/papercontract.png)
 
 3. Explore the file under `lib` subfolder called `papercontract.js` - this effectively orchestrates the logic for the different smart contract transaction functions (issue, buy, redeem etc) and are underpinned by some essential core functions that interact with the ledger. The link provided in the Introduction section explains the concepts, themes and programmatic approach to writing contracts, using the Commercial Paper scenario. Take some time to read that explainer.
 
@@ -89,7 +86,7 @@ git clone https://github.com/mahoney1/commpaper
 5. You should now be able to click on `myfabric` and see the channel `mychannel` and click again, to see the only peer in the network.
 6. Right-click on the `peer0.org1.example.com` node and elect to 'Install Smart Contract'
 7. Next, highlight the channel `mychannel` and right-click and choose the `Instantiate/Upgrade Smart Contract` option - select `papercontract` as the contract to instantiate 
-8. Enter `org.papernet.commercialpaper:instantiate` as the function to call
+8. Enter `org.papernet.commercialpaper:instantiate` when prompted to enter a function name to call
 9. Hit 'ENTER' - ie leave blank - when prompted to enter arguments
 
 A cursory look of `docker ps` on the terminal window, will reveal our smart contract `papercontract` is running in its own docker container.
@@ -123,7 +120,7 @@ A simple message of 'done' is shown that the import task is completed.
 
 You should get messages confirming it was successful:
 
-[Issue message](pics/issue-output.png)
+[Issue message](docs/pics/issue-output.png)
 
 ### Transaction #2: Execute a 'buy' Commercial Paper transaction as Balaji@DigiBank
 
@@ -147,7 +144,7 @@ A simple message of 'done' is shown that the import task is completed.
 
 You should get messages confirming it was successful:
 
-[Issue message](pics/buy-output.png)
+[Issue message](docs/pics/buy-output.png)
 
 ### Transaction #3: Execute a 'redeem' transaction as Balaji@DigiBank - six months later
 
@@ -159,7 +156,7 @@ The time has come, in this Commercial Paper's lifecycle for Digibank to redeem i
 
 You should get messages confirming it was successful:
 
-[Issue message](pics/redeem-output.png)
+[Issue message](docs/pics/redeem-output.png)
 
 Well done! You've completed the full (yet simple) lifecycle for a Commercial Paper. 
 
