@@ -79,7 +79,7 @@ We'll start up a sample Fabric from Fabric Samples to run our smart contract. To
 
 1. You'll need to get this sample repo which has the connection.json file to import (and the Admin and User certs we'll use in our demo):
 
-cd $HOME
+`cd $HOME`
 
 `git clone https://github.com/mahoney1/commpaper`
 
@@ -95,13 +95,13 @@ cd $HOME
 A cursory look of `docker ps` on the terminal window, will reveal our smart contract `papercontract` is running in its own docker container.
 
 
-## Execute the Commercial Paper Smart Contract transactions from client applications - Magnetocorp and Digibank
+## Step Six: Execute the Commercial Paper Smart Contract transactions from client applications - Magnetocorp and Digibank
 
 So far, we've installed and instantiated our smart contract on the blockchain. Now its time to try out the smart contract transactions.
 
 The Commercial paper scenario described earlier, describes running contract transactions, as employees from two different organizations, ie MagnetoCorp and Digibank.  It is already set up (in fabric-samples) the sample certificate/keys required to transact as particular blockchain identities. But the important concept here is that the relevant employee identities (certificate/ley combo) need to be imported into their private wallet. Then, a simple client application (once installed, below) will transact on the Commercial Paper `papernet` marketplace as the identity in question. Let's start with Isabella at MagnetoCorp.
 
-### Transaction #1: Execute an issue Commercial Paper transaction as Isabella@MagnetoCorp
+### Transaction #1: Execute an `issue` transaction as Isabella@MagnetoCorp
 
 1. Change directory to MagnetoCorp's application directory:
 
@@ -125,7 +125,7 @@ You should get messages confirming it was successful:
 
 [Issue message](/pics/issue-output.png)
 
-### Transaction #2: Execute a 'buy' Commercial Paper transaction as Balaji@DigiBank
+### Transaction #2: Execute a `buy` transaction as Balaji@DigiBank
 
 1. Change directory to DigiBank's application directory:
 
@@ -149,7 +149,7 @@ You should get messages confirming it was successful:
 
 [Issue message](/pics/buy-output.png)
 
-### Transaction #3: Execute a 'redeem' transaction as Balaji@DigiBank - six months later
+### Transaction #3: Execute a `redeem` transaction as Balaji@DigiBank - six months later
 
 The time has come, in this Commercial Paper's lifecycle for Digibank to redeem it - at face value and recoup their investment risk. Not surprisingly, there is a client application, called `redeem.js` which will perform this task, using Balaji's certificate, from his wallet, to perform it.
 
@@ -166,10 +166,10 @@ Well done! You've completed the full (yet simple) lifecycle for a Commercial Pap
 ## Conclusion
 
 
-Nice job - you're done. You learned how to deploy a very substantial Commercial Paper smart contract sample using the IBM Blockchain IDE and seen a glimpse of its abilities to create, package, install, instantiate a smart contract developed using Hyperledger Fabric's newest programming model. 
+Nice job - you're done. You learned how to deploy a very substantial Commercial Paper smart contract sample using the IBM Blockchain IDE and seen a glimpse of its abilities to create, package, install, instantiate a smart contract developed using Hyperledger Fabric's newest programming model.  
 
-You've then taken that operational smart contract, and  interacted as employees of two different organizations, to complete the Commercial Paper's lifecycle. The users are using simple client applications and identities (provided by their respective organisations) and combine to write the historical evidence to the blockchain.
+You've then used that operational smart contract, and interacted as employees of two different organizations, to complete the Commercial Paper's lifecycle. The users are using simple client applications and identities (provided by their respective organisations) and they combine to write the transactions to the blockchain.
 
-The next tutorial will concentrate on another application perspective: getting the history of a particular asset, like a Commercial paper, from the blockchain. This will mean adding query functionality to the contract, and consuming this as a transaction from the respective clients.
+The next tutorial will concentrate on another application perspective: getting the history of transactions for a particular asset, like this Commercial paper. This means adding query functionality to the contract, and consuming this as a transaction, from the respective application clients.
 
 Thank you for completing this!
