@@ -44,7 +44,7 @@ git clone -b master https://github.com/hyperledger/fabric-samples
 
 ## Step 2. Launch VSCode, install the IDE Extension
 
-![packageFile](docs/pics/installExtension.gif)
+![packageFile](/pics/installExtension.gif)
 
 You can launch VSCode from the task bar, or by typing `code` in a terminal window.
 
@@ -56,16 +56,19 @@ You can launch VSCode from the task bar, or by typing `code` in a terminal windo
 1. In VSCode, choose 'File...Open Folder' - and open the `commercial-paper` folder from in your $HOME/fabric-samples/commercial-paper directory:
 
 2. Click on the `Explorer` icon, top left, and open the `contract` folder under `commercial-paper/organization/magnetocorp/contract`
-[Smart Contract](docs/pics/papercontract.png)
+[Smart Contract](/pics/papercontract.png)
 
 3. Explore the file under `lib` subfolder called `papercontract.js` - this effectively orchestrates the logic for the different smart contract transaction functions (issue, buy, redeem etc) and are underpinned by some essential core functions that interact with the ledger. The link provided in the Introduction section explains the concepts, themes and programmatic approach to writing contracts, using the Commercial Paper scenario. Take some time to read that explainer.
 
 4. Go back to the `contract` folder
+[Contract folder](/pics/project-commpaper.png)
+
 
 ## Step 4. Package the Smart Contract 
 
 1. Click on the `package.json` file in the Explorer palette and edit the `"name"` field - change the name to `papercontract` and save (CTRL + S) the file.
-
+[Package Name](/pics/package-name.png)
+  
 2. Click on IBM Blockchain Platform sidebar icon  
 
 3. Click on 'Add New Package' under 'Smart Contract packages' to package up the Commercial Paper smart contract package, for installing onto a peer. It will be called something like `papercontract@0.0.1`
@@ -78,7 +81,7 @@ We'll start up a sample Fabric from Fabric Samples to run our smart contract. To
 
 cd $HOME
 
-git clone https://github.com/mahoney1/commpaper
+`git clone https://github.com/mahoney1/commpaper`
 
 2. Click on the 'IBM Blockchain Platform' sidebar icon - bottom left - you'll see an 'IBM Blockchain Connections' panel
 3. Click the 'Add New Connection' button or icon - enter a name of 'myfabric' for the connection name then browse to find and import the `connection.json` file
@@ -120,7 +123,7 @@ A simple message of 'done' is shown that the import task is completed.
 
 You should get messages confirming it was successful:
 
-[Issue message](docs/pics/issue-output.png)
+[Issue message](/pics/issue-output.png)
 
 ### Transaction #2: Execute a 'buy' Commercial Paper transaction as Balaji@DigiBank
 
@@ -144,7 +147,7 @@ A simple message of 'done' is shown that the import task is completed.
 
 You should get messages confirming it was successful:
 
-[Issue message](docs/pics/buy-output.png)
+[Issue message](/pics/buy-output.png)
 
 ### Transaction #3: Execute a 'redeem' transaction as Balaji@DigiBank - six months later
 
