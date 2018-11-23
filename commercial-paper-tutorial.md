@@ -11,7 +11,7 @@ The Commercial Paper marketplace has been going since at least the 19th century.
 
 ## Scenario
 
-Magnetocorp issue a Commercial Paper - this is performed by Isabella, an employee of MagnetoCorp. Digibank, through its investment trader Balaji, an employee, purchases the Commercial Paper. Digibank hold it for a period of time, and then redeem it at face value with MagnetoCorp for a small profit. You can read more on the Commercial paper example at https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html
+Magnetocorp issue a Commercial Paper - this is performed by Isabella, an employee of MagnetoCorp. An investor, Digibank - through its investment trader Balaji - purchases the Commercial Paper. Digibank hold it for a period of time, and then redeem it at face value with MagnetoCorp for a small profit. You can read more on the Commercial paper example at https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html
 
 The IBM Blockchain Platform IDE is available as a Visual Studio Code (VSCode) extension available from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform)
 . provides the developer with a u to discover, code, test, debug, package, deploy, and publish smart contracts and applications using a single tool. We created the IBM Blockchain Platform IDE as an extension to Visual Studio Code (VSCode)intuitive tools
