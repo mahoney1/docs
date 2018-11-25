@@ -1,4 +1,4 @@
-# Running the Commercial Paper Smart Contract with the IBM BLockchain VSCode Extension
+# Running the Commercial Paper Smart Contract with the IBM Blockchain VSCode Extension
 
 ## Introduction
 
