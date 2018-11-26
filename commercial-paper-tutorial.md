@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Using the new IBM Blockchain Platform IDE and the latest Hyperledger Fabric features, developing blockchain applications and smart contracts couldn't be simpler ! The IDE is an intuitive tool that enables the developer to discover, code, test, debug, package, deploy, and publish smart contracts and applications in one, single tool. And what better way, than to show it in action! You can read more about it [here ](https://developer.ibm.com/announcements/ibm-blockchain-platform-vscode-smart-contract/)
+Using the new IBM Blockchain Platform VSCode extension and the latest Hyperledger Fabric features, developing blockchain applications and smart contracts couldn't be simpler ! The extension is an intuitive tool that enables the developer to discover, code, test, debug, package, deploy, and publish smart contracts and applications in one, single tool. And what better way, than to show it in action! You can read more about it [here ](https://developer.ibm.com/announcements/ibm-blockchain-platform-vscode-smart-contract/)
 
-The aim of this tutorial, is to enable you to deploy a sample Commercial Paper smart contract to the Fabric blockchain, using the IBM Blockchain Platform IDE and then run it. Furthermore, you'll interact with the contract, and execute transactions, using a simple command line application. The sample is available from Github https://github.com/hyperledger/fabric-samples - note there is a separate tutorial, that builds on this - adding queries to the contract, to report upon the full transaction history of a Commercial Paper stored in the ledger. Link TBA.
+The aim of this tutorial, is to enable you to deploy a sample Commercial Paper smart contract to the Fabric blockchain, using the IBM Blockchain Platform VSCode extension and then run it. Furthermore, you'll interact with the contract, and execute transactions, using a simple command line application. The sample is available from Github https://github.com/hyperledger/fabric-samples - note there is a separate tutorial, that builds on this - adding queries to the contract, to report upon the full transaction history of a Commercial Paper stored in the ledger. Link TBA.
 
 ## Background
 Commercial Paper marketplaces have been going since at least the 19th century. What is it? Well, there is a fantastic description of that in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutional buyers to obtain funds, to meet short-term debt obligations. An example: MagnetoCorp issues a Commercial Paper (CP) on April 1st - face value of $1.1m. It promises to pay the bearer (the 'paper' is transferable, so can be re-sold) this amount in 6 months time (eg October 1st - the maturity date). On May 1st, the CP is purchased by an investment bank (Digibank) for a discounted price - $1m. If it holds this til maturity (and managing its investment risk in the meantime), then, as the bearer, it can redeem it at face value ($1.1m) with MagnetoCorp - a profit of $100,000. This is effectively the 'interest earned' on an investment of $1m for six months. Most investors tend to hold until maturity, but there are varying marketplaces, options and strategies - far beyond the scope of this little explainer !
@@ -61,7 +61,7 @@ Magnetocorp issue a Commercial Paper - this is performed by Isabella, an employe
 
 git clone -b master https://github.com/hyperledger/fabric-samples
 
-## Step 2. Launch VSCode, install the IDE Extension
+## Step 2. Launch VSCode, install the IBM Blockchain Platform Extension for VSCode
 
 ![packageFile](/pics/installExtension.gif)
 
@@ -188,8 +188,10 @@ Well done! You've completed the tutorial, and successfully interacted with the S
 ## Conclusion
 
 
-Nice job - you're done. You learned how to deploy a simple, yet substantial Commercial Paper smart contract sample using the IBM Blockchain IDE and seen its abilities to create, package, install, instantiate a smart contract developed using Hyperledger Fabric's newest programming model( clearly, the IBM Blockchain IDE tool provides a lot more (such as the develop/debug/test lifecycle of a developer) beyond the scope of this particular tutorial). You've interacted as employees of two different organizations, using simple client applications and wallets containing identities (provided by their respective organisations) to carry out the transactions.
+Nice job - you're done. You learned how to deploy a simple, yet substantial Commercial Paper smart contract sample using the IBM Blockchain Platform VSCode extension and seen its abilities to create, package, install, instantiate a smart contract developed using Hyperledger Fabric's newest programming model( clearly, the IBM Blockchain Platform VSCode extension provides a lot more (such as the develop/debug/test lifecycle of a developer) beyond the scope of this particular tutorial). You've interacted as employees of two different organizations, using simple client applications and wallets containing identities (provided by their respective organisations) to carry out the transactions.
 
 The next tutorial will concentrate on another application perspective: querying the ledger, such as getting the history of transactions for a particular asset, like this Commercial paper lifecycle you've just created. This means adding query functionality to the smart contract, and, once again, running queries and getting results back to the respective application clients.
+
+In the meantime, why not try creating your own small 'starter' smart contract using the IBP VSCode extension, by visting Horea's excellent tutorial https://developer.ibm.com/tutorials/ibm-blockchain-platform-vscode-smart-contract/
 
 Thank you for completing this!
