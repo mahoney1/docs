@@ -115,7 +115,7 @@ We'll start up a sample Fabric from Fabric Samples to run our smart contract. To
 A cursory look of `docker ps` on the terminal window, will reveal our smart contract `papercontract` is running in its own docker container.
 
 
-## Step Six: Execute the Commercial Paper Smart Contract transactions from client applications - Magnetocorp and Digibank
+## Step 6: Execute the Commercial Paper Smart Contract transactions from client applications - Magnetocorp and Digibank
 
 So far, we've installed and instantiated our smart contract on the blockchain. Now its time to try out the smart contract transactions.
 
