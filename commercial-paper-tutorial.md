@@ -93,24 +93,29 @@ You can launch VSCode from the task bar, or by typing `code` in a terminal windo
 
 ## Step 5. Install the Smart Contract on a running Fabric
 
-We'll start up a sample Fabric from Fabric Samples to run our smart contract. To that end, we've provided a sample `connection.json` to import into the IBM Blockchain VSCode environment - the beauty is that you can connect to the local fabric provided, or - to one you've already got up and running. The Fabric sample uses its own 'basic-network' sample.
+1. We'll start up a sample Fabric runtime environment from the downloaded Hyperledger Fabric Samples to run our smart contract. To that end, we've provided a sample `connection.json` to import into the IBM Blockchain VSCode environment - the beauty is that you can connect to the local fabric provided, or - to one you've already got up and running. The Fabric sample uses its own 'basic-network' sample.
 
-1. You'll need to download this sample Github repo, as it has the connection profile to connect to the blockchain network. You'll import it using the IBM Blockchain Platform VSCode extension (as well an Admin certificate in the same repo that we'll use in our demo):
+`cd $HOME/fabric-samples/basic-network`   # or wherever you've cloned the `fabric-samples` directory
+`./teardown.sh  ; ./start.sh`
+
+Wait for the output messages to indicate that the network has been started ('Successfully submitted proposal to join channel')
+
+2. You'll also need to download the following sample Github repo, as it has the connection profile to connect to the blockchain network. You'll import it using the IBM Blockchain Platform VSCode extension (as well an Admin certificate in the same repo that we'll use in our demo):
 
 `cd $HOME`
 
 `git clone https://github.com/mahoney1/commpaper`
 
-2. Click on the 'IBM Blockchain Platform' sidebar icon in VSCode - its bottom left - you'll see an 'IBM Blockchain Connections' side bar panel
-3. Lets create a smart contract package from our Commercial paper project ; click on 'Add New Package' under 'Smart Contract Packages'. Confirm that a `papercontract@0.0.1` package has been created.
-4. Next, collapse the 'Smart Contract Packages' using the 'twisty' and expand the 'Blockchain Connections' panel
-5. Click the 'Add New Connection' button or icon - enter a name of 'myfabric' for the connection name then browse to find and import the `connection.json` file from your repo.
-6. Next, 'browse' and select the `AdminCert` for the certificate file to import and 'browse... select' the `Adminkey` for the key file.
-7. You should now be able to click on `myfabric` and see the channel `mychannel` become active -  click again, to see the only peer in the `basic-network` network.
-8. Right-click on the peer  `peer0.org1.example.com` node and elect to 'Install Smart Contract'
-9. Next, highlight the channel `mychannel` and right-click and choose the `Instantiate/Upgrade Smart Contract` option - select `papercontract` as the contract to instantiate 
-10. Paste in the string `org.papernet.commercialpaper:instantiate` when prompted to 'enter a function name to call' and hit ENTER
-11. Next, hit 'ENTER' - ie leave blank -when prompted to enter arguments (there are none in this case) - this will take a minute or so and you'll see a progress message in the 'output' pane.
+3. Click on the 'IBM Blockchain Platform' sidebar icon in VSCode - its bottom left - you'll see an 'IBM Blockchain Connections' side bar panel
+4. Lets create a smart contract package from our Commercial paper project ; click on 'Add New Package' under 'Smart Contract Packages'. Confirm that a `papercontract@0.0.1` package has been created.
+5. Next, collapse the 'Smart Contract Packages' using the 'twisty' and expand the 'Blockchain Connections' panel
+6. Click the 'Add New Connection' button or icon - enter a name of 'myfabric' for the connection name then browse to find and import the `connection.json` file from your repo.
+7. Next, 'browse' and select the `AdminCert` for the certificate file to import and 'browse... select' the `Adminkey` for the key file.
+8. You should now be able to click on `myfabric` and see the channel `mychannel` become active -  click again, to see the only peer in the `basic-network` network.
+9. Right-click on the peer  `peer0.org1.example.com` node and elect to 'Install Smart Contract'
+10. Next, highlight the channel `mychannel` and right-click and choose the `Instantiate/Upgrade Smart Contract` option - select `papercontract` as the contract to instantiate 
+11. Paste in the string `org.papernet.commercialpaper:instantiate` when prompted to 'enter a function name to call' and hit ENTER
+12. Next, hit 'ENTER' - ie leave blank -when prompted to enter arguments (there are none in this case) - this will take a minute or so and you'll see a progress message in the 'output' pane.
  
 A cursory look of `docker ps` on the terminal window, will reveal our smart contract `papercontract` is running in its own docker container.
 
