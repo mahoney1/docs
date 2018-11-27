@@ -11,7 +11,7 @@ Commercial Paper marketplaces have been going since at least the 19th century. W
 
 ## Pre-requisites
 
-You will need the following installed in order to use the extension:
+You will need the following installed (if not already installed) in order to use the extension:
 
 - [Node v8.x or greater and npm v5.x or greater](https://nodejs.org/en/download/)
 - [Yeoman (yo) v2.x](http://yeoman.io/)
