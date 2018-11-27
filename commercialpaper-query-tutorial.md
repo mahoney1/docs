@@ -17,7 +17,7 @@ The scenario uses employees transacting (queries in this case) as participants f
 
 ## Pre-requisites
 
-You will need have completed the [Commercial Paper tutorial](url) and the transactions from that tutorial should be present, as this tutorial builds on the contract created previously
+You will need to have completed the [Commercial Paper tutorial](url) and the transactions from that tutorial should be present, as this tutorial builds on the contract created previously
 
 ## Estimated time
 
