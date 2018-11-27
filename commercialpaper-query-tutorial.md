@@ -167,7 +167,7 @@ The upgrade will be executed, albeit it will take a minute or so to show as the 
 Next up, we'll test the new application client form a terminal window.
 
 
-## Step 4. Launch the sample Client query application
+## Step 5. Launch the sample Client query application
 
 1. Change directory to the `commercial-paper/organization/magnetocorp/application` folder
 
@@ -177,7 +177,7 @@ Next up, we'll test the new application client form a terminal window.
 
 3. You should see the results from both the `queryHist` function and `queryOwner` functions are displayed. 
 
-## Step 5. Display the formatted results to a browser app
+## Step 6. Display the formatted results to a browser app
 
 For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install a client per se, we just need to provide a simple HTML file that performs an `XMLHttpRequest() GET REST API` call to load the results (from a JSON file) and render it in the table. The HTML file is also in the `commpaper` Github repo that was cloned previously.
 
