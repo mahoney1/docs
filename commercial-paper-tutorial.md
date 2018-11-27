@@ -118,7 +118,7 @@ Wait for the output messages to indicate that the network has been started ('Suc
 11. Paste in the string `org.papernet.commercialpaper:instantiate` when prompted to 'enter a function name to call' and hit ENTER
 12. Next, hit 'ENTER' - ie leave blank -when prompted to enter arguments (there are none in this case) - this will take a minute or so and you'll see a progress message in the 'output' pane.
  
-A cursory look of `docker ps` on the terminal window, will reveal our smart contract `papercontract` is running in its own docker container.
+The instantiation process will take about 1 minute, while it builds the chaincode container with the smart contract code and dependencies. The 'Instantiated Smart Contracts' twisty will appear inside VSCode Extension panel very shortly. Indeed, a cursory look using  `docker ps` on the terminal window, will reveal our smart contract `papercontract` is building in its own docker container.
 
 
 ## Step 6: Execute the Commercial Paper Smart Contract transactions from client applications - Magnetocorp and Digibank
