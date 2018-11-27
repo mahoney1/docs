@@ -41,6 +41,7 @@ After the  `const { Contract, Context }` line (approx line 8)   add the followin
 
 const cryptoHash = require('crypto-hashing');```
 
+```
 After the `// PaperNet specific classes ` line (approx line 16) add another class as follows:
 
 ```const QueryUtils = require('./query.js');```
@@ -53,7 +54,7 @@ don't worry about any errors reported in the status bar for now.
 
 5. Switch back to `papercontract.js` and we'll add some more logic to the main contract script file. 
 
-6. Find the function that begins `async issue` (approx line 70) and scroll down to the line `paper.setOwner(issuer);` and create a new line directly under (it aligns with the correct spacing).
+6. Find the function that begins `async issue` (approx line 70) and scroll down to the line `paper.setOwner(issuer);` and create a new line directly under (it aligns with the correct indentation in VSCode).
 
 7. Now paste in the following code segment: This is to have a convenient way to report the true identity in queries later on.
 
@@ -65,8 +66,14 @@ don't worry about any errors reported in the status bar for now.
         let hashId = cryptoHash('hash256', buffer).toString('hex');
 
         paper.setCreator(hashId); // this is a function defined in `paper.js` which you'll add later FYI
-        ```
-8.  Finally, add 2 query transaction functions, to the main `papercontract.js` (these call query functions / iterators in `query.js`):
+```
+
+Repeat this 8 line copy - in the `buy` and `redeem` functions - paste the 8 lines near the end of EACH of those functions, before the following line shown in each function:
+
+`await ctx.paperList.updatePaper(paper);`
+
+
+8.  Finally, add the following 2 query transaction functions / code segment, directly AFTER the `redeem` function ( after its closing bracket) and BEFORE - the last closing bracket in `papercontract.js` (and its ensuing `module.exports` declaration)  in `papercontract.js` . These 2 main functions call the 'worker' query functions / iterators in the file `query.js`):
 
 ```
     /**
@@ -100,13 +107,14 @@ don't worry about any errors reported in the status bar for now.
         
         return owner_results;
     } 
-    ```
+ 
+ ```
     
- Note that once you've pasted this into VSCode, the ESLinter may report a problem in the Problems pane. You can easily rectify the formatting issues by firstly highlighting the pasted code segment, do a `right-click....` then select `Format Selection` - likewise, remove all trailing spaces if any are reported (ref. line number reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
+ Note that once you've pasted this into VSCode, the ESLinter may report a problem in the Problems pane. You can easily rectify the formatting issues by in the problems pane by `right-click....` then select `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
  
- 9. We have one more small function to add. Open the file `paper.js` under the `lib` directory in your VSCode session.
+9. We have one more small function to add. Open the file `paper.js` under the `lib` directory in your VSCode session.
  
- After the `setOwner(newOwner)` function (approx line 40) under the 'basic setters and getters` - add the following function:
+10. After the `setOwner(newOwner)` line (approx line 40) under the 'basic setters and getters` - add the following function:
 
 ```
     setCreator(creator) {
