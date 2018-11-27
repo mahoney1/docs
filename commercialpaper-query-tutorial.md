@@ -4,15 +4,15 @@
 
 In the [Commercial Paper tutorial](url), we saw how to execute transactions that typify the lifecycle of a commercial paper lifecycle. 
 
-The aim of this tutorial, is to add query transaction functions to the smart contract, redeploy the contract, and show interaction from client applications. One example of this, is to trace the history of transactions executed during the lifecycle of the commercial paper.
+The aim of this tutorial, is to add query transaction functions to the Commercial Paper smart contract, redeploy (upgrade) the modified contract, and show interaction from client applications. One example of this, is to trace the history of transactions executed during the lifecycle of the commercial paper.
 
-We'll be using the IBM Blockchain Platform VSCode Exension - and the new Fabric programming model and SDK features - to complete these tasks.
+We'll be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features - to complete these tasks.
 
 
 ## Background
-There is a fantastic description of the Commercial Paper use case scenario in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutional buyers to obtain funds, to meet short-term debt obligations.
+There is a fantastic description of the Commercial Paper use case scenario in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutions/organisations to obtain funds, to meet short-term debt obligations - and a chance for investors to to get return on investment.
 
-The scenario uses employees transacting (queries in this case) as participants from their respective organisations, MagnetoCorp and DigiBank.
+The scenario uses employees transacting (queries in this case) as participants from their respective organisations, MagnetoCorp and DigiBank. We'll extend the lifecycle of the commercial paper, by involving a third investor, Hedgematic - purely to show more historical data.
 
 
 ## Pre-requisites
@@ -25,7 +25,7 @@ After the prerequisites are installed, this should take approximately *45 minute
 
 ## Scenario
 
-Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history from the ledger. This required Luke (a developer@MagnetoCorp) to add query functionality in the contract, and then be able to run queries from his application (and likewise for DigiBank application users). The upgraded smart contract should be active on the channel so that the applications can get the history and report on it. 
+Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history from the ledger. This required Luke (a developer@MagnetoCorp) to add query functionality in the contract, and then develop client apps for MagnetoCorp specifically, so that Isabella can query the ledger from an application (and likewise for DigiBank application users). The upgraded smart contract should be active on the channel so that the applications can perform queries and report on the ledger history. 
 
 OK, lets get started !
 
@@ -167,27 +167,27 @@ The upgrade will be executed, albeit it will take a minute or so to show as the 
 Next up, we'll test the new application client form a terminal window.
 
 
-## Step 5. Launch the sample Client query application
+## Step 5. Launch the sample MagnetoCorp Client query application
 
-1. Change directory to the `commercial-paper/organization/magnetocorp/application` folder
+1. From a terminal window, change directory to the `commercial-paper/organization/magnetocorp/application` folder
 
 2. Run the queryapp client using node:
 
 `node queryapp.js`
 
-3. You should see the results from both the `queryHist` function and `queryOwner` functions are displayed. 
+3. You should see the results from both the `queryHist` function and `queryOwner` functions in the terminal window. 
 
 ## Step 6. Display the formatted results to a browser app
 
 For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install a client per se, we just need to provide a simple HTML file that performs an `XMLHttpRequest() GET REST API` call to load the results (from a JSON file) and render it in the table. The HTML file is also in the `commpaper` Github repo that was cloned previously.
 
-1. Open the `application` terminal window you have open for MagnetoCorp from earlier. Using `gedit`, create a file called `index.html` on the command line and paste the contents of the provided `index.html` into this and save it (CONTROL and S). If you examine the HTNML file, it will perform an REST API call and load a results file called `results.json` and render this a browser. The `results.json` contains the output, of the query response from the `node queryapp.js` call earlier - this javascript application writes the response to the json file mentioned.
+1. In a terminal windows, open the `application` directory if not already there. Copy the file `index.html` into it, from the `commpaper` Github repo that was cloned previously. If you examine the HTML file in VScode Explorer, it will perform an REST API call and load a results file called `results.json` (created by the queries invoked earlier) and render these in a table in a browser. The `results.json` contains the output, of the query response from the `node queryapp.js` call earlier.
 
-2. Launch a browser (eg. Firefox) with the `index.html` file provided as a parameter eg.
+2. Launch a browser (eg. Firefox) providing the `index.html` file provided as a parameter eg.
 
 `firefox index.html`
 
-3. You should see the results in tabular form in the browser - select to expand or contract columns as you wish, eg the TxId is the Fabric transaction Id. The Invoked identity is a hash of the signer certificate used to perform transactions previously (eg, issue, buy, redeem etc). You'll notice that its only been implemented in the `issue` function for now. Ordinarily, given that this is a client application (written by an organisation eg Magnetocorp ), the hash would easily be mapped to a real identity in a corporate database like LDAP or Active Directory, to report (and make sense of transactors from their organization). Obviously, a transaction may originate form another organisation: this could be shown as 'other organization' or resolved/displayed with other attributes accordingly.
+3. You should see the results in tabular form in the browser - select to expand or contract columns as you wish, eg the `TxId` is the Fabric transaction Id. The `Invoked ID` is a hash of the signer certificate used to perform transactions previously (eg, issue, buy, redeem etc). You'll notice that the `hash` function is only been implemented in the `issue` function for now and hence the IDs reported look the same - its easy to add this to the `buy`, `redeem` transactions too. Ordinarily, given that this is a client application (written by an organisation eg Magnetocorp ), the hash would easily be mapped to a real identity  in a corporate database like LDAP or Active Directory, ie for reporting purposes (and make sense of real transactors from their organization). Obviously, a transaction will originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate..
 
 Well done! You've completed the query tutorial for adding query functionality to the Commercial Paper sample smart contract using the IBM Blockchain Platform VSCode extension.
 
