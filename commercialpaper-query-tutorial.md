@@ -245,25 +245,21 @@ You should get messages confirming it was successful:
 
 ### Transaction #3: Execute another `buy` transaction as Bart@Hedgematic
 
-1. We will need to get the identity credentials for 'bart' that are provided in the cloned 'commpaper` repo directory. Copy the 'bart' folder to a new directory called '/tmp/wallet/'  - in the example below, the Github repo was previously cloned to the $HOME directory:
 
-`mkdir /tmp/wallet`
-`cp -r $HOME/commmpaper/bart /tmp/wallet`
+1. copy the `buy2.js` client application script from the `commpaper` repo directory to the current `commercial-paper/organization/digibank/application` ` directory for now (make sure to insert the dot '.' in the command below):
 
-2. copy the `buy2.js` client application script from the `commpaper` repo directory to the current `commercial-paper/organization/digibank/application` ` directory for now (make sure to insert the '.' in the command below):
+`cp $HOME/commpaper/buy2.js . `
 
-`cp $HOME/commpaper/buy2.js .
+2. Copy the 'bart@hedgematic' wallet zip file from the `commpaper` previously cloned Github repo,  to the `/tmp` directory and extract it - you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` identity wallet.
 
-3. Copy the 'bart@hedgematic' wallet zip file to the `/tmp` directory and extract it - you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` digital identity
-
-3. Run the 2nd buy transaction (using Bart's identity) as follows:
+3. Run the 2nd buy transaction (its using Bart's identity) as follows:
 
 `node buy2.js`
 
 
-### Transaction #4: Execute a `redeem` transaction as Balaji@DigiBank - six months later
+### Transaction #4: Execute a `redeem` transaction as Bart@Hedgematic - six months later
 
-The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoup its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic bought the paper from Digibank, we need to modify it to redeem it properly as Hedgematic !
+The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoup its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic have since bought the paper from Digibank, we need to modify it to redeem it properly as Hedgematic's Bart !
 
 1. From the same directory `commercial-paper/organization/digibank/application` - edit the file `redeem.js`
 
@@ -300,7 +296,7 @@ You should get messages confirming it was successful:
 
 3. You should see the results from both the `queryHist` function and `queryOwner` functions in the terminal window. 
 
-## Step 6. Display the formatted results to a browser app
+## Step 7. Display the formatted results to a browser app
 
 For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install a client per se, we just need to provide a simple HTML file that performs an `XMLHttpRequest() GET REST API` call to load the results (from a JSON file) and render it in the table. The HTML file is also in the `commpaper` Github repo that was cloned previously.
 
