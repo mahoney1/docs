@@ -81,8 +81,11 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
 
 `await ctx.paperList.updatePaper(paper);`
 
+9. In the `async buy` function only - change the line 120 approx with the comment `// Check paper is not already REDEEMED` and add a line:
 
-9.  Finally, add the following code segment, containing 3 functions (incl 2 query transaction functions), directly AFTER the CLOSING curly bracket of the `redeem` function and BEFORE - the last CLOSING bracket in the file `papercontract.js` (ie its ensuing `module.exports` declaration) . These 2 main query functions call the 'worker' query functions / iterators in the file `query.js`):
+`paper.setPrice(price);`
+
+10.  Finally, add the following code segment, containing 3 functions (incl 2 query transaction functions), directly AFTER the CLOSING curly bracket of the `redeem` function and BEFORE - the last CLOSING bracket in the file `papercontract.js` (ie its ensuing `module.exports` declaration) . These 2 main query functions call the 'worker' query functions / iterators in the file `query.js`):
 
 ```
     /**
@@ -137,9 +140,9 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
     
  Note that once you've pasted this into VSCode, the ESLinter may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane by `right-click....` then select `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
  
-10. We have one more small function to add. Open the file `paper.js` under the `lib` directory in your VSCode session.
+11. We have one more small function to add - in `paper.js` . Open the file `paper.js` under the `lib` directory in your VSCode session.
  
-11. After the `setOwner(newOwner)` line (approx line 40) under the 'basic setters and getters` - add the following function:
+12. After the `setOwner(newOwner)` line (approx line 40) under the 'basic setters and getters` - add the following function:
 
 ```
     setCreator(creator) {
