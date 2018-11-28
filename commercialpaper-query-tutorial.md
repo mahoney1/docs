@@ -1,5 +1,7 @@
 # Adding Query functionality to the Commercial Paper Smart Contract with the IBM Blockchain VSCode Extension
 
+[Commercial Paper History Report](pics/history-report.png)
+
 ## Introduction
 
 In the [IBM Blockchain Platform VSCode Extension with Commercial Paper tutorial](url), we saw how an example of interacting with the Commercial Paper smart contract and the scenario that tracks the lifecycle of a Commercial paper. But now we want to see the 'paper' trail of all activity that took place during its lifecycle - ie the immutable history of the asset, who did what, and when did it take place etc etc.
@@ -51,7 +53,7 @@ After the  `const { Contract, Context }` line (approx line 8)   add the followin
 
 ```// Tutorial specific require for reporting identity of transactor
 
-const cryptoHash = require('crypto-hashing');```
+const cryptoHash = require('crypto-hashing');
 
 ```
 After the `// PaperNet specific classes ` line (approx line 16) add another class as follows:
@@ -209,7 +211,7 @@ Lets create some transactions, which will have new invoking transactor info (for
 1. Issue a paper as 'MagnetoCorp'
 2. Buy the paper as 'Digibank' - the new owner
 3. Buy the paper as 'Hedgematic' - changed owner 
-4. Redeem the face value as 'Hedgematic' with MagnetoCorp as the issuer
+4. Redeem the paper at face value - as 'Hedgematic' - with MagnetoCorp as the original issuer
 
 Note that you will have installed any NodeJS dependencies for the client applications, as a set of steps in the previous tutorial. We will also make use of the identity wallets previously populated in that tutorial.
 
@@ -261,7 +263,7 @@ You should get messages confirming it was successful:
 
 ### Transaction #4: Execute a `redeem` transaction as Balaji@DigiBank - six months later
 
-The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its owner (Digibank), at face value, and recoup the investment outlay. There is a client application, called `redeem.js` which will perform this task, and its it needs to use `bart@hedgematic` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic bought the paper from Digibank, we need to redeem it as Hedgematic !
+The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoup its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic bought the paper from Digibank, we need to modify it to redeem it properly as Hedgematic !
 
 1. From the same directory `commercial-paper/organization/digibank/application` - edit the file `redeem.js`
 
@@ -308,7 +310,7 @@ For this part, we'll use a simple Tabulator that will render our results in a ni
 
 `firefox index.html`
 
-3. You should see the results in tabular form in the browser - select to expand or contract columns as you wish, eg the `TxId` is the Fabric transaction Id. The `Invoked ID` is a hash of the signer certificate used to perform transactions previously (eg, issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity  in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, a transaction will originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate..
+3. You should see the results in tabular form in the browser - select to expand or contract columns, such as invoking id etc as you wish, eg the `TxId` is the Fabric transaction Id. The `Invoking ID` is a hash of the signer certificate that was used to perform each transaction (eg, original issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, transactions originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate..
 
 Well done! You've completed the query tutorial for adding query functionality to the Commercial Paper sample smart contract using the IBM Blockchain Platform VSCode extension.
 
