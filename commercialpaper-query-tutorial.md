@@ -35,7 +35,7 @@ A new clean Fabric and ledger is now available - from here, we will create the t
 
 ## Estimated time
 
-After the prerequisites are installed, this should take approximately *45 minutes* to complete.
+After the prerequisites are installed, this should take approximately *60 minutes* to complete.
 
 ## Scenario
 
