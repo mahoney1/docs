@@ -19,9 +19,7 @@ The scenario uses employees transacting (queries in this case) as participants f
 
 1. You will need to have completed the [Commercial Paper tutorial](url) 
 
-2. Have a VSCode edit session open with the source from this project and version 0.0.1 of the package available as an installable Smart Contract package. 
-
-3. From the command line, specifically in the `basic-network` directory under the `$HOME/fabric-samples` (ie wherever you downloaded the cloned Github repo), run the following houskeeping scripts in sequence.
+2. From the command line, specifically in the `basic-network` directory under the `$HOME/fabric-samples` (ie wherever you downloaded the cloned Github repo), run the following houskeeping scripts in sequence.
 
 `./teardown.sh`
 
@@ -29,9 +27,9 @@ The scenario uses employees transacting (queries in this case) as participants f
 
 `./start.sh`      
 
-4. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages. Go ahead and connect to your Fabric, via your `myfabric` connection, and `install` the contract package on `peer0.org1.example.com` and instantiate the contract on the channel, just has you had done in the previous tutorial. This is the basis from which this tutorial will proceed.
+3. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages. Go ahead and connect to your Fabric, via your running `myfabric` connection (check with `docker ps` if required), and `install` the smart contract package onto `peer0.org1.example.com` - then instantiate the contract, just as you had done in the previous tutorial. This is the basis from which this tutorial will proceed.
 
-A new clean Fabric and ledger is now available - we will create the transaction Commercial Paper history, as part of our tutorial.
+A new clean Fabric and ledger is now available - from here, we will create the transaction Commercial Paper history, as part of our tutorial.
 
 ## Estimated time
 
