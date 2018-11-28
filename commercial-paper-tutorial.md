@@ -38,9 +38,9 @@ Before starting we should do a little housekeeping. Run the following command to
 
 `docker rm -f $(docker ps -aq)`
 
-Clear any cached networks:
+Clear any cached networks and volumes:
 
-`docker network prune`
+`docker network prune ; docker volume prune`
 
 And lastly if you’ve already run through this tutorial or tried it previously, you’ll also want to delete the underlying chaincode image for the Commercial Paper smart contract. If you’re a user going through this content for the first time, then you won’t have this chaincode image on your system (so won't need to perform this next step). Get the container id using:
 
@@ -97,7 +97,7 @@ You can launch VSCode from the task bar, or by typing `code` in a terminal windo
 
 `cd $HOME/fabric-samples/basic-network`   # or wherever you've cloned the `fabric-samples` directory
 
-`./teardown.sh  ; ./start.sh`
+`./start.sh`
 
 Wait for the output messages to indicate that the network has been started ('Successfully submitted proposal to join channel')
 
@@ -177,27 +177,11 @@ You should get messages confirming it was successful:
 
 [Issue message](/pics/buy-output.png)
 
-### Transaction #3: Execute a second `buy` transaction as Balaji (acting on behalf of Hedgematic)
+### Transaction #3: Execute a `redeem` transaction as Balaji@DigiBank - six months later
 
-In our tutorial Hedgematic, a sister company of Digibank (in our tutorial), have bought the commercial paper from Digibank and execute a second `buy` transaction to transfer ownership yet again - we'll perform this transaction as Balaji, acting on its behalf:
+The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its owner (Digibank), at face value, and recoup the investment outlay. There is a client application, called `redeem.js` which will perform this task, and its using Balaji's certificate, from his wallet, to perform it.
 
-1. Grab the script `buy2.js` from the github.com/mahoney1/commpaper repo that you cloned earlier and copy that file to the `commercial-paper/organization/digibank/application` 
-2. From the same `commercial-paper/organization/digibank/application` directory - run the second buy transaction as follows:
-
-`node buy2.js`
-
-
-### Transaction #4: Execute a `redeem` transaction as Balaji@DigiBank - six months later
-
-The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its owner (Hedgematic), at face value, and recoup the investment outlay. There is a client application, called `redeem.js` which will perform this task, and its using Balaji's certificate, from his wallet, to perform it.
-
-1. From the same directory `commercial-paper/organization/digibank/application` - modify the `redeem.js` script - we will need to supply 'Hedgematic' on the line (approx liine 67) that begins:
-
-`const redeemResponse = await contract.submitTransaction` 
-
-In VSCode, change the FOURTH (4th) parameter from 'Digibank' to become 'Hedgematic' and save the file (CONTROL AND S). Commit any changes.
-
-2. Next, run the client application to issue a `redeem` transaction
+1. From the same directory `commercial-paper/organization/digibank/application` - run the `redeem.js` script 
 
 `node redeem.js`
 
@@ -210,10 +194,10 @@ Well done! You've completed the tutorial, and successfully interacted with the S
 ## Conclusion
 
 
-Nice job - you're done. You learned how to deploy a simple, yet substantial Commercial Paper smart contract sample using the IBM Blockchain Platform VSCode extension and seen its abilities to create, package, install, instantiate a smart contract developed using Hyperledger Fabric's newest programming model( clearly, the IBM Blockchain Platform VSCode extension provides a lot more (such as the develop/debug/test lifecycle of a developer) beyond the scope of this particular tutorial). You've interacted as employees of two different organizations, using simple client applications and wallets containing identities (provided by their respective organisations) to carry out the transactions.
+Nice job - you're done. You learned how to deploy a simple, yet substantial Commercial Paper smart contract sample using the IBM Blockchain Platform VSCode extension and seen its abilities to create, package, install, instantiate a smart contract developed using Hyperledger Fabric's newest programming model (clearly, the extension provides a lot more (such as the develop/debug/test lifecycle of a developer) beyond the scope of this particular tutorial). You've interacted as employees of two different organizations, using simple client applications and wallets containing identities (provided by their respective organisations) to carry out the transactions.
 
-The next tutorial will concentrate on another application perspective: querying the ledger, such as getting the history of transactions for a particular asset, like this Commercial paper lifecycle you've just created - in 'real life' they would use real identities, but we are using sample certificates from the crypto materials provided with the `basic-network` Fabric sample for now. This means adding query functionality to the smart contract, and, once again, running queries and getting results back to the respective application clients.
+The next tutorial will concentrate on another application perspective: querying the ledger, such as getting the history of transactions for a particular asset. Questions like: what was the 'paper' trail (get it?) ; who performed the transactions (the identities involved) ; exactly when did they take place? This means adding query functionality to the smart contract, as well as some 'getters' to get us the right information from the historical transactions. These results are sent back to the respective application clients.
 
-In the meantime, why not try creating your own small 'starter' smart contract using the IBP VSCode extension, by visting Horea's excellent tutorial https://developer.ibm.com/tutorials/ibm-blockchain-platform-vscode-smart-contract/
+Have you tried the 'starter' IBM Blockchain VSCode Extension tutorial yet? Why not try creating your own small 'starter' smart contract, by visiting Horea's excellent tutorial https://developer.ibm.com/tutorials/ibm-blockchain-platform-vscode-smart-contract/
 
-Thank you for completing this!
+Meanwhile, thank you for completing this - when you're ready, you can try the next tutorial on adding Queries to Commercial Paper smart contract !
