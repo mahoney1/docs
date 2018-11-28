@@ -259,26 +259,30 @@ You should get messages confirming it was successful:
 
 ### Transaction #4: Execute a `redeem` transaction as Bart@Hedgematic - six months later
 
-The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoup its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic have since bought the paper from Digibank, we need to modify it to redeem it properly as Hedgematic's Bart !
+The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoups its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic's` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic have since bought the paper from Digibank, we need to modify it to redeem it properly as Hedgematic's Bart !)
 
 1. From the same directory `commercial-paper/organization/digibank/application` - edit the file `redeem.js`
 
-2. Change line 25 approx beginning with `const wallet =` to read as follows (you may prefer to copy the line, and comment the original using `//` ) - the wallet points to the downloaded wallet directory.
+2. Change line 25 approx beginning with `const wallet =` to read as follows (you may prefer to copy the line, and comment the original using `//` ) - the wallet points to the downloaded wallet directory as shown below:
 
 `const wallet = new FileSystemWallet('/tmp/wallet');`   
+
+(Or if you prefer, you can issue your own identity, using the currently active CA server, using the Fabric-CA utilities or APIs and change this JS script as appropriate).
 
 3. Change line 38 approx beginning with `const userName =` to read as follows (you may prefer to copy the line, and comment he original using `//` ) - the userName points to bart, the employee of Hedgematic
 
 `const userName = 'bart@hedgematic';`
 
+(Or if you prefer, you can issue your own identity, using the currently active CA server, using the Fabric-CA utilities or APIs and change this JS script as appropriate).
+
 4. Finally, change line 67 approx beginning with `const redeemResponse` and change the FOURTH parameter to 'Hedgematic' :
 
-` const redeemResponse = await contract.submitTransaction('redeem', 'MagnetoCorp', '00001', 'Hedgematic', '2020-11-30')
+` const redeemResponse = await contract.submitTransaction('redeem', 'MagnetoCorp', '00001', 'Hedgematic', '2020-11-30')`
 
 All good - save your file (CONTROL + S) and commit any changes.
 
 
-5. Now run the `redeem.js` script 
+5. Now run the `redeem.js` script :
 
 `node redeem.js`
 
@@ -294,19 +298,19 @@ You should get messages confirming it was successful:
 
 `node queryapp.js`
 
-3. You should see the results from both the `queryHist` function and `queryOwner` functions in the terminal window. 
+3. You should see the results from both the `queryHist` function and `queryOwner` functions in the terminal window. It also creates a file `results.json`.
 
 ## Step 7. Display the formatted results to a browser app
 
-For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install a client per se, we just need to provide a simple HTML file that performs an `XMLHttpRequest() GET REST API` call to load the results (from a JSON file) and render it in the table. The HTML file is also in the `commpaper` Github repo that was cloned previously.
+For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, we just need to provide a simple HTML file, uses online CSS formatting and it performs an `XMLHttpRequest() GET REST API` call to load the results (from the JSON file) and render it in the table. That `index.html` file is also in the `commpaper` Github repo that was cloned previously, please take time to peruse it.
 
-1. In a terminal windows, open the `application` directory if not already there. Copy the file `index.html` into it, from the `commpaper` Github repo that was cloned previously. If you examine the HTML file in VScode Explorer, it will perform an REST API call and load a results file called `results.json` (created by the queries invoked earlier) and render these in a table in a browser. The `results.json` contains the output, of the query response from the `node queryapp.js` call earlier.
+1. In a terminal windows, open the `application` directory if not already there. Copy the file `index.html` into it, from the `commpaper` Github repo that was cloned previously. If you examine the HTML file in VScode Explorer, it will perform an REST API call and load a results file called `results.json` (created by the queries invoked earlier) and render these in a table in a browser. The `results.json` file contains the query results. 
 
 2. Launch a browser (eg. Firefox) providing the `index.html` file provided as a parameter eg.
 
 `firefox index.html`
 
-3. You should see the results in tabular form in the browser - select to expand or contract columns, such as invoking id etc as you wish, eg the `TxId` is the Fabric transaction Id. The `Invoking ID` is a hash of the signer certificate that was used to perform each transaction (eg, original issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, transactions originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate..
+3. You should see the results in tabular form in the browser - expand or contract column headings, width etc, such as `Invoking id` etc - note that `TxId` is the Fabric transaction Id. The `Invoking ID` is a hash of the signer certificate that was used to perform each transaction (eg, original issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, transactions originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate.
 
 Well done! You've completed the query tutorial for adding query functionality to the Commercial Paper sample smart contract using the IBM Blockchain Platform VSCode extension.
 
