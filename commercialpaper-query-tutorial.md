@@ -2,9 +2,9 @@
 
 ## Introduction
 
-In the [Commercial Paper tutorial](url), we saw how to execute transactions that typify the lifecycle of a commercial paper lifecycle. 
+In the [IBM Blockchain Platform VSCode Extension with Commercial Paper tutorial](url), we saw how an example of interacting with the Commercial Paper smart contract and the scenario that tracks the lifecycle of a Commercial paper. But now we want to see the 'paper' trail of all activity that took place during its lifecycle - ie the immutable history of the asset, who did what, and when did it take place etc etc.
 
-The aim of this tutorial, is to add query transaction functions to the Commercial Paper smart contract, redeploy (upgrade) the modified contract, and show interaction from client applications. One example of this, is to trace the history of transactions executed during the lifecycle of the commercial paper.
+The aim of this tutorial, is to add query transaction functions to the Fabric Samples Commercial Paper smart contract, upgrading the contract to add query functionality, as well as some more history. We'll provide the code changes in the tutorial, and show interaction with the upgraded smart contract, from client applications. The end goal is to trace the history of transactions executed during the lifecycle of a commercial paper instance.
 
 We'll be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features - to complete these tasks.
 
@@ -17,7 +17,7 @@ The scenario uses employees transacting (queries in this case) as participants f
 
 ## Pre-requisites
 
-You will need to have completed the [Commercial Paper tutorial](url) and the transactions from that tutorial should be present, as this tutorial builds on the contract created previously
+You will need to have completed the [Commercial Paper tutorial](url) and a VSCode edit session open with the source from this project.
 
 ## Estimated time
 
@@ -25,7 +25,7 @@ After the prerequisites are installed, this should take approximately *45 minute
 
 ## Scenario
 
-Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history from the ledger. This required Luke (a developer@MagnetoCorp) to add query functionality in the contract, and then develop client apps for MagnetoCorp specifically, so that Isabella can query the ledger from an application (and likewise for DigiBank application users). The upgraded smart contract should be active on the channel so that the applications can perform queries and report on the ledger history. 
+Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history (from the ledger) of a Commercial paper, now that it has been redeemed (some 6 months after it was initially issued). Luke (a developer@MagnetoCorp)needs to add query functionality to the smart contract, and provide the client apps for MagnetoCorp, so that Isabella (MagnetoCorp) can query the ledger from the application (and likewise - for DigiBank application users of course!). The upgraded smart contract should be active on the channel so that the client applications can perform queries and report on the ledger history. 
 
 OK, lets get started !
 
@@ -58,24 +58,37 @@ don't worry about any errors reported in the status bar for now.
 
 7. Now paste in the following code segment: This is to have a convenient way to report the true identity in queries later on.
 
-```// Add the creator hash (created from the identity's cert), to the Paper record
-        let creator = await ctx.stub.getCreator();
-        //console.log('Transaction creator is: ' + creator.toString());
-        let pem = creator.getIdBytes().toString('utf8');
-        let buffer = new Buffer(pem);
-        let hashId = cryptoHash('hash256', buffer).toString('hex');
-
-        paper.setCreator(hashId); // this is a function defined in `paper.js` which you'll add later FYI
 ```
+// Add the creator hash, to the Paper state
+        let hashId = await this.idGen(ctx);
+        paper.setCreator(hashId);
+```
+This code is also before the line `await ctx.paperList.addPaper(paper);` in the `issue` function.
 
-Repeat this 8 line copy - in the `buy` and `redeem` functions - paste the 8 lines near the end of EACH of those functions, before the following line shown in each function:
+8. Repeat the paste (of the 3 line code segment above)  - in the `async buy` and `async redeem` functions - paste the 3 lines near the end of EACH of those functions, and before the following line shown in each function:
 
 `await ctx.paperList.updatePaper(paper);`
 
 
-8.  Finally, add the following 2 query transaction functions / code segment, directly AFTER the `redeem` function ( after its closing bracket) and BEFORE - the last closing bracket in `papercontract.js` (and its ensuing `module.exports` declaration)  in `papercontract.js` . These 2 main functions call the 'worker' query functions / iterators in the file `query.js`):
+9.  Finally, add the following code segment, containing 3 functions (incl 2 query transaction functions), directly AFTER the CLOSING curly bracket of the `redeem` function and BEFORE - the last CLOSING bracket in the file `papercontract.js` (ie its ensuing `module.exports` declaration) . These 2 main query functions call the 'worker' query functions / iterators in the file `query.js`):
 
 ```
+    /**
+    * generate an Id hash of the transactor cert
+    * @param {Context} ctx the transaction context
+    */
+
+    async idGen(ctx)     {
+
+        // Add the creator hash, to the Paper record
+        let creator = await ctx.stub.getCreator();
+        //console.log('creator object is: ' + creator.toString());
+        let pem = creator.getIdBytes().toString('utf8');
+        let buffer = new Buffer(pem);
+        let hashId = cryptoHash('hash256', buffer).toString('hex');
+        return hashId;
+    }
+    
     /**
     * queryHist commercial paper
     * @param {Context} ctx the transaction context
@@ -110,11 +123,11 @@ Repeat this 8 line copy - in the `buy` and `redeem` functions - paste the 8 line
  
  ```
     
- Note that once you've pasted this into VSCode, the ESLinter may report a problem in the Problems pane. You can easily rectify the formatting issues by in the problems pane by `right-click....` then select `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
+ Note that once you've pasted this into VSCode, the ESLinter may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane by `right-click....` then select `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
  
-9. We have one more small function to add. Open the file `paper.js` under the `lib` directory in your VSCode session.
+10. We have one more small function to add. Open the file `paper.js` under the `lib` directory in your VSCode session.
  
-10. After the `setOwner(newOwner)` line (approx line 40) under the 'basic setters and getters` - add the following function:
+11. After the `setOwner(newOwner)` line (approx line 40) under the 'basic setters and getters` - add the following function:
 
 ```
     setCreator(creator) {
@@ -133,17 +146,17 @@ Next hit CONTROL + S to save the file.
 
 Cool - lets move on to getting this new contract functionality, out on the blockchain to replace the older version !
 
-## Step 3. Upgrade our Smart Contract version using IBM Blockchain Platform VScode Extension,  and Instantiate new edition
+## Step 3. Upgrade our Smart Contract version using IBP VScode Extension, Instantiate new edition
 
 1. We now need to add some changes to the `package.json` file - ie add a dependency name, and change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
 
   - change the `version` to "0.0.2" 
-  - add the following line immediately under the "dependencies" section:     `"crypto-hashing": "^1.0.0",`  
+  - add the following line immediately under the "dependencies" section:     `"crypto-hashing": "^1.0.0",`    (including the 'comma')
   - hit CONTROL and S to save it.
 
 2. Click on the Source Control sidebar icon and click the `tick` icon to commit, with a message of 'adding queries' and hit ENTER.
 
-We're now ready to upgrade our smart contract, from within VSCode itself. 
+We're now ready to upgrade our smart contract, using the IBP VSCode extension. 
 
 3. Click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' and you'll see that version '0.0.2' becomes the latest edition of `papercontract'.
 
@@ -156,7 +169,6 @@ We're now ready to upgrade our smart contract, from within VSCode itself.
 The upgrade will be executed, albeit it will take a minute or so to show as the active contract, when listed under active containers `docker ps`. The container will have the contract version as a suffix.
 
 [Upgrade Smart Contract](pics/upgrade.png)
-
 
 
 ## Step 4. Create a new MagnetoCorp query client app, to invoke query transactions
@@ -175,7 +187,93 @@ The upgrade will be executed, albeit it will take a minute or so to show as the 
 Next up, we'll test the new application client form a terminal window.
 
 
-## Step 5. Launch the sample MagnetoCorp Client query application
+## Step 5. Perform transactions 'issue', 'buy' and 'redeem' to update the ledger
+
+Lets create some transactions, which will have new invoking transactor info (for each transaction) we added in our code earlier. Note we've stood up a new `basic-network` so we will have a new ledger.  The sequence is:
+
+1. Issue a paper as 'MagnetoCorp'
+2. Buy the paper as 'Digibank' - the new owner
+3. Buy the paper as 'Hedgematic' - changed owner 
+4. Redeem the face value as 'Hedgematic' with MagnetoCorp as the issuer
+
+Note that you will have installed any NodeJS dependencies for the client applications, as a set of steps in the previous tutorial. We will also make use of the identity wallets previously populated in that tutorial.
+
+### Transaction #1: Execute an `issue` transaction as Isabella@MagnetoCorp
+
+1. Change directory to MagnetoCorp's application directory:
+
+`cd commercial-paper/organization/magnetocorp/application`
+
+2. Now execute the first Commercial paper transaction from the `application` directory - the 'issue' transaction:
+
+`node issue.js`
+
+You should get messages confirming it was successful:
+
+[Issue message](/pics/issue-output.png)
+
+### Transaction #2: Execute a `buy` transaction as Balaji@DigiBank
+
+1. Change directory to DigiBank's application directory:
+
+`cd commercial-paper/organization/digibank/application`
+
+2. Now execute the first Commercial Paper  'buy' transaction from the `application` directory:
+
+`node buy.js`
+
+You should get messages confirming it was successful:
+
+[Issue message](/pics/buy-output.png)
+
+### Transaction #3: Execute another `buy` transaction as Bart@Hedgematic
+
+1. We will need to get the identity credentials for 'bart' that are provided in the cloned 'commpaper` repo directory. Copy the 'bart' folder to a new directory called '/tmp/wallet/'  - in the example below, the Github repo was previously cloned to the $HOME directory:
+
+`mkdir /tmp/wallet`
+`cp -r $HOME/commmpaper/bart /tmp/wallet`
+
+2. copy the `buy2.js` client application script from the `commpaper` repo directory to the current `commercial-paper/organization/digibank/application` ` directory for now (make sure to insert the '.' in the command below):
+
+`cp $HOME/commpaper/buy2.js .
+
+3. Copy the 'bart@hedgematic' wallet zip file to the `/tmp` directory and extract it - you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` digital identity
+
+3. Run the 2nd buy transaction (using Bart's identity) as follows:
+
+`node buy2.js`
+
+
+### Transaction #4: Execute a `redeem` transaction as Balaji@DigiBank - six months later
+
+The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its owner (Digibank), at face value, and recoup the investment outlay. There is a client application, called `redeem.js` which will perform this task, and its it needs to use `bart@hedgematic` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic bought the paper from Digibank, we need to redeem it as Hedgematic !
+
+1. From the same directory `commercial-paper/organization/digibank/application` - edit the file `redeem.js`
+
+2. Change line 25 approx beginning with `const wallet =` to read as follows (you may prefer to copy the line, and comment the original using `//` ) - the wallet points to the downloaded wallet directory.
+
+`const wallet = new FileSystemWallet('/tmp/wallet');`   
+
+3. Change line 38 approx beginning with `const userName =` to read as follows (you may prefer to copy the line, and comment he original using `//` ) - the userName points to bart, the employee of Hedgematic
+
+`const userName = 'bart@hedgematic';`
+
+4. Finally, change line 67 approx beginning with `const redeemResponse` and change the FOURTH parameter to 'Hedgematic' :
+
+` const redeemResponse = await contract.submitTransaction('redeem', 'MagnetoCorp', '00001', 'Hedgematic', '2020-11-30')
+
+All good - save your file (CONTROL + S) and commit any changes.
+
+
+5. Now run the `redeem.js` script 
+
+`node redeem.js`
+
+You should get messages confirming it was successful:
+
+[Issue message](docs/pics/redeem-output.png)
+
+## Step 6. Launch the sample MagnetoCorp Client query application
 
 1. From a terminal window, change directory to the `commercial-paper/organization/magnetocorp/application` folder
 
@@ -195,7 +293,7 @@ For this part, we'll use a simple Tabulator that will render our results in a ni
 
 `firefox index.html`
 
-3. You should see the results in tabular form in the browser - select to expand or contract columns as you wish, eg the `TxId` is the Fabric transaction Id. The `Invoked ID` is a hash of the signer certificate used to perform transactions previously (eg, issue, buy, redeem etc). You'll notice that the `hash` function is only been implemented in the `issue` function for now and hence the IDs reported look the same - its easy to add this to the `buy`, `redeem` transactions too. Ordinarily, given that this is a client application (written by an organisation eg Magnetocorp ), the hash would easily be mapped to a real identity  in a corporate database like LDAP or Active Directory, ie for reporting purposes (and make sense of real transactors from their organization). Obviously, a transaction will originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate..
+3. You should see the results in tabular form in the browser - select to expand or contract columns as you wish, eg the `TxId` is the Fabric transaction Id. The `Invoked ID` is a hash of the signer certificate used to perform transactions previously (eg, issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity  in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, a transaction will originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate..
 
 Well done! You've completed the query tutorial for adding query functionality to the Commercial Paper sample smart contract using the IBM Blockchain Platform VSCode extension.
 
