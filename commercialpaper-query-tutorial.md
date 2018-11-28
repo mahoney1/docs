@@ -17,7 +17,21 @@ The scenario uses employees transacting (queries in this case) as participants f
 
 ## Pre-requisites
 
-You will need to have completed the [Commercial Paper tutorial](url) and a VSCode edit session open with the source from this project.
+1. You will need to have completed the [Commercial Paper tutorial](url) 
+
+2. Have a VSCode edit session open with the source from this project and version 0.0.1 of the package available as an installable Smart Contract package. 
+
+3. From the command line, specifically in the `basic-network` directory under the `$HOME/fabric-samples` (ie wherever you downloaded the cloned Github repo), run the following houskeeping scripts in sequence.
+
+`./teardown.sh`
+
+`docker volume prune`
+
+`./start.sh`      
+
+4. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages. Go ahead and connect to your Fabric, via your `myfabric` connection, and `install` the contract package on `peer0.org1.example.com` and instantiate the contract on the channel, just has you had done in the previous tutorial. This is the basis from which this tutorial will proceed.
+
+A new clean Fabric and ledger is now available - we will create the transaction Commercial Paper history, as part of our tutorial.
 
 ## Estimated time
 
@@ -31,7 +45,7 @@ OK, lets get started !
 
 ## Step 1. Add the main query transaction functions in papercontract.js
 
-1.  In VSCode, open the folder with the smart contract completed in the previous tutorial:
+1.  In VSCode, have open, the folder with the smart contract completed in the previous tutorial
 
 2.  Open the main contract script file `papercontract.js` - add the following lines as instructed below:
 
@@ -136,7 +150,7 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
 ```
 Next hit CONTROL + S to save the file.
 
-## Step 2. Implement 'worker' query utility functions into your project - file: query.js 
+## Step 2. Implement 'worker' Query class  utility functions into your project - new file: query.js 
 
 1. Create a new file under the `contract/lib` folder using VSCode - call it `query.js`
 
