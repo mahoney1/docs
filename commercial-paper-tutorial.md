@@ -2,12 +2,12 @@
 
 ## Introduction
 
-Using the new IBM Blockchain Platform VSCode extension and the latest Hyperledger Fabric features, developing blockchain applications and smart contracts couldn't be simpler ! The extension is an intuitive tool that enables the developer to discover, code, test, debug, package, deploy, and publish smart contracts and applications in one, single tool. And what better way, than to show it in action! You can read more about it [here ](https://developer.ibm.com/announcements/ibm-blockchain-platform-vscode-smart-contract/).  Its also worth mentioning that, while we're working with a local Fabric environment below, you'll also be able to (coming soon) deploy the example you build here, to your own IBM Blockchain Platform Cloud instance.
+Using the new IBM Blockchain Platform VSCode extension and the latest Hyperledger Fabric features, developing blockchain applications and smart contracts couldn't be simpler ! The extension is an intuitive tool that enables the developer to discover, code, test, debug, package, and deploy smart contracts to a blockchain network in one, single tool. And what better way, than to show it in action! You can read more about it [here ](https://developer.ibm.com/announcements/ibm-blockchain-platform-vscode-smart-contract/).  Its also worth mentioning that, while we're working with a local Fabric environment below, you'll also be able to (coming soon) deploy the example you build here, to your own IBM Blockchain Platform Cloud instance.
 
 The aim of this tutorial, is to enable you to deploy a sample Commercial Paper smart contract to the Fabric blockchain, using the IBM Blockchain Platform VSCode extension and then run it. Furthermore, you'll interact with the contract, and execute transactions, using a simple command line application. The sample is available from Github https://github.com/hyperledger/fabric-samples - note there is a separate tutorial, that builds on this - adding queries to the contract, to report upon the full transaction history of a Commercial Paper stored in the ledger. Link TBA.
 
 ## Background
-Commercial Paper marketplaces have been going since at least the 19th century. What is it? Well, there is a fantastic description of that in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutional buyers to obtain funds, to meet short-term debt obligations. An example: MagnetoCorp issues a Commercial Paper (CP) on April 1st - face value of $1.1m. It promises to pay the bearer (the 'paper' is transferable, so can be re-sold) this amount in 6 months time (eg October 1st - the maturity date). On May 1st, the CP is purchased by an investment bank (DigiBank) for a discounted price - $1m. If it holds this til maturity (and managing its investment risk in the meantime), then, as the bearer, it can redeem it at face value ($1.1m) with MagnetoCorp - a profit of $100,000. This is effectively the 'interest earned' on an investment of $1m for six months. Most investors tend to hold until maturity, but there are varying marketplaces, options and strategies - far beyond the scope of this little explainer !
+Commercial Paper marketplaces have been going since at least the 19th century. What is it? Well, there is a fantastic description of that in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutions to obtain funds, to meet short-term debt obligations. An example: MagnetoCorp issues a Commercial Paper (CP) on April 1st - face value of $1m. It promises to pay the bearer (the 'paper' is transferable, so can be re-sold) this amount in 6 months time (eg October 1st - the maturity date). On May 1st, the CP is purchased by an investment bank (DigiBank) for a discounted price - $0.96m (ie valued at $1m in 6 months time) . If it holds this til maturity (and managing its investment risk in the meantime), then, as the bearer, it can redeem it at face value ($1m) with MagnetoCorp - a profit of $100,000. This is effectively the 'interest earned' on an investment of $0.96m for six months. Most investors in commercial paper marketplace tend to hold until maturity, but there are varying marketplaces, options and strategies - far beyond the scope of this little explainer !
 
 ## Pre-requisites
 
@@ -26,7 +26,6 @@ You can check your versions using the following commands:
 - docker --version
 - docker-compose --version
 
-- Docker for Windows is configured to use Linux containers (this is the default)
 
 ## Estimated time
 
@@ -44,16 +43,13 @@ Clear any cached networks and volumes:
 
 And lastly if you’ve already run through this tutorial or tried it previously, you’ll also want to delete the underlying chaincode image for the Commercial Paper smart contract. If you’re a user going through this content for the first time, then you won’t have this chaincode image on your system (so won't need to perform this next step). Get the container id using:
 
-`docker ps -a |grep papercontract`
+`docker rmi $(docker images -q dev*)`
 
-then substitute the ID and run: 
-docker rmi <container_id_from above>  
-
-It will remove any container images related to dev-peer0.org1.example.com-papercontract-0.0.1-xxxxxx
+It will remove any container images related to any previous dev-peer0.org1.example.com-papercontract-0.0.1-xxxxxx
 
 ## Scenario
 
-Magnetocorp issue a Commercial Paper - this is performed by Isabella, an employee of MagnetoCorp. An investor, Digibank - through its investment trader Balaji - purchases the Commercial Paper. Digibank hold it for a period of time, and then redeem it at face value with MagnetoCorp for a small profit. You can read more on the Commercial paper example at https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html
+Magnetocorp issue a Commercial Paper - this is performed by Isabella, an employee of MagnetoCorp. An investor, DigiBank - through its investment trader Balaji - purchases the Commercial Paper. Digibank hold it for a period of time, and then redeem it at face value with MagnetoCorp for a small profit. You can read more on the Commercial paper example at https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html
 
 ## Step 1. Get the commercial Paper Sample
 
@@ -67,13 +63,13 @@ git clone -b master https://github.com/hyperledger/fabric-samples
 
 You can launch VSCode from the task bar, or by typing `code` in a terminal window.
 
-1. First thing we need to do is to install the IBM Blockchain Platform VSCode extension. You will need to install the latest version of VSCode to do this. To see if you have the latest VSCode extension, go to `Code` -> `Check for Updates`. If VSCode 'exits' at this point, it likely means you don't have the latest version. If so, update your VSCode (link provided earlier), and once you're done, click on `extensions` on the side bar on the left part of your screen. At the top, search the extension marketplace for  `IBM Blockchain Platform`. Click on `Install`. You should see a status of 'Installing' and eventually 'Installed' - then click on `reload`. 
+1. First thing we need to do is to install the IBM Blockchain Platform VSCode extension. You will need to install the latest version of VSCode to do this. To see if you have the latest VSCode version, go to `Code` -> `Check for Updates`. If VSCode 'exits' at this point, it likely means you don't have the latest version. If so, update your VSCode (link provided earlier), and once you're done, click on `extensions` on the side bar on the left part of your screen. At the top, search the extension marketplace for  `IBM Blockchain Platform`. Click on `Install`. You should see a status of 'Installing' and eventually 'Installed' - then click on `reload`. 
 
 ## Step 3. Open the Commercial Paper Contract
 
 1. In VSCode, choose 'File...Open Folder' - and open the `commercial-paper` folder from in your $HOME/fabric-samples/commercial-paper directory:
 
-2. Click on the `Explorer` icon, top left, and open the `contract` folder under `commercial-paper/organization/magnetocorp/contract`
+2. Click on the `Explorer` icon, top left, and open the `contract` folder under `$HOME/fabric-samples/commercial-paper/organization/magnetocorp/contract`
 [Smart Contract](/pics/papercontract.png)
 
 3. Explore the file under `lib` subfolder called `papercontract.js` - this effectively orchestrates the logic for the different smart contract transaction functions (issue, buy, redeem etc) and are underpinned by some essential core functions (in the sample contract) that interact with the ledger. The link provided earlier in the Introduction section explains the concepts, themes and programmatic approach to writing contracts, using the Commercial Paper scenario. Take some time to read that explainer then resume here.
@@ -87,38 +83,38 @@ You can launch VSCode from the task bar, or by typing `code` in a terminal windo
 1. Click on the `package.json` file in the Explorer palette and edit the `"name"` field - change the name to `papercontract` and save (CTRL + S) the file.
 [Package Name](/pics/package-name.png)
   
-2. Click on IBM Blockchain Platform sidebar icon  
+2. Click on IBM Blockchain Platform sidebar icon  - you may get a message that the extension is "activating" in the output pane, when used for the first time.
 
-3. Click on 'Add New Package' under 'Smart Contract packages' to package up the Commercial Paper smart contract package, for installing onto a peer. It will be called something like `papercontract@0.0.1`
+3. Click on the '+' symbol ('Add a new package') under the 'Smart Contract packages' panel, to package up the Commercial Paper smart contract package, for installing onto a peer. It will be called something like `papercontract@0.0.1`
 
 ## Step 5. Install the Smart Contract on a running Fabric
 
-1. We'll start up a sample Fabric runtime environment from the downloaded Hyperledger Fabric Samples to run our smart contract. To that end, we've provided a sample `connection.json` to import into the IBM Blockchain VSCode environment - the beauty is that you can connect to the local fabric provided, or - to one you've already got up and running. The Fabric sample uses its own 'basic-network' sample.
+1. We'll start up a sample Fabric runtime environment from the downloaded Hyperledger Fabric Samples to run our smart contract. To that end, we've provided a sample `connection.json` to import into the IBM Blockchain VSCode environment - the beauty is that you can connect to the local fabric provided, or - to one you've already got up and running. The Fabric sample uses its own 'basic-network' sample. In a terminal window copy the following command sequence:
 
 `cd $HOME/fabric-samples/basic-network`   # or wherever you've cloned the `fabric-samples` directory
 
 `./start.sh`
 
-Wait for the output messages to indicate that the network has been started ('Successfully submitted proposal to join channel')
+Wait for the output messages to indicate that the Fabric network has been started (message: 'Successfully submitted proposal to join channel')
 
-2. You'll also need to download the following sample Github repo, as it has the connection profile to connect to the blockchain network. You'll import it using the IBM Blockchain Platform VSCode extension (as well an Admin certificate in the same repo that we'll use in our demo):
+2. You'll also need to download the following `commpaper` sample Github repository ('repo'), as it has tutorial artifacts, including the connection profile for the VSCode extension to use to connect to the blockchain network. You'll import it using the IBM Blockchain Platform VSCode extension (as well an Admin certificate in the same repo that we'll use in our demo):
 
 `cd $HOME`
 
 `git clone https://github.com/mahoney1/commpaper`
 
-3. Click on the 'IBM Blockchain Platform' sidebar icon in VSCode - its bottom left - you'll see an 'IBM Blockchain Connections' side bar panel
-4. Lets create a smart contract package from our Commercial paper project ; click on 'Add New Package' under 'Smart Contract Packages'. Confirm that a `papercontract@0.0.1` package has been created.
+3. Back in VSCode, click on the 'IBM Blockchain Platform' sidebar icon in VSCode - its bottom left - you'll see an 'IBM Blockchain Connections' side bar panel
+4. Let's create a smart contract package from our Commercial paper project ; click on 'Add New Package' under 'Smart Contract Packages'. Confirm that a `papercontract@0.0.1` package has been created.
 5. Next, collapse the 'Smart Contract Packages' using the 'twisty' and expand the 'Blockchain Connections' panel
-6. Click the 'Add New Connection' button or icon - enter a name of 'myfabric' for the connection name then browse to find and import the `connection.json` file from your repo.
+6. Click the 'Add New Connection' button or icon - enter a name of 'myfabric' for the connection name then browse to find and import the `connection.json` file from your `commpaper` repo cloned earlier.
 7. Next, 'browse' and select the `AdminCert` for the certificate file to import and 'browse... select' the `Adminkey` for the key file.
-8. You should now be able to click on `myfabric` and see the channel `mychannel` become active -  click again, to see the only peer in the `basic-network` network.
+8. You should now be able to click on `myfabric` and see the channel `mychannel` become active -  click `mychannel`, to drill down and see the only peer in the `basic-network` network.
 9. Right-click on the peer  `peer0.org1.example.com` node and elect to 'Install Smart Contract'
 10. Next, highlight the channel `mychannel` and right-click and choose the `Instantiate/Upgrade Smart Contract` option - select `papercontract` as the contract to instantiate 
 11. Paste in the string `org.papernet.commercialpaper:instantiate` when prompted to 'enter a function name to call' and hit ENTER
-12. Next, hit 'ENTER' - ie leave blank -when prompted to enter arguments (there are none in this case) - this will take a minute or so and you'll see a progress message in the 'output' pane.
+12. Next, hit 'ENTER' - ie leave blank when prompted to enter arguments (there are none in this case) - this will take a minute or so and you'll see a progress message in the 'output' pane.
  
-The instantiation process will take about 1 minute, while it builds the chaincode container with the smart contract code and dependencies. The 'Instantiated Smart Contracts' twisty will appear inside VSCode Extension panel very shortly. Indeed, a cursory look using  `docker ps` on the terminal window, will reveal our smart contract `papercontract` is building in its own docker container.
+The instantiation process will take about 1 minute, while it builds the chaincode container with the smart contract code and dependencies. The 'Instantiated Smart Contracts' twisty will appear inside VSCode Extension panel in about 30s-1minute. The smart contract container is being built.
 
 
 ## Step 6: Execute the Commercial Paper Smart Contract transactions from client applications - Magnetocorp and Digibank
