@@ -4,24 +4,24 @@
 
 ## Introduction
 
-In the [IBM Blockchain Platform VSCode Extension with Commercial Paper tutorial](url), we saw how an example of interacting with the Commercial Paper smart contract and the scenario that tracks the lifecycle of a Commercial paper. But now we want to see the 'paper' trail of all activity that took place during its lifecycle - ie the immutable history of the asset, who did what, and when did it take place etc etc.
+In the [IBM Blockchain Platform VSCode Extension with Commercial Paper tutorial](url), we saw how an example of deploying and interacting with the Commercial Paper smart contract, in a scenario that tracks the lifecycle of a Commercial paper. But now we want to see the 'paper' trail of all activity that took place during its lifecycle - ie an immutable history of the asset: who did what, and when did it take place etc etc.
 
-The aim of this tutorial, is to add query transaction functions to the Fabric Samples Commercial Paper smart contract, upgrading the contract to add query functionality, as well as some more history. We'll provide the code changes in the tutorial, and show interaction with the upgraded smart contract, from client applications. The end goal is to trace the history of transactions executed during the lifecycle of a commercial paper instance.
+The aim of this tutorial, is to show the use of the IBM Blockchain Platform VSCode extension, to add query transaction functions to the Fabric Samples Commercial Paper smart contract, using the extension to upgrade the contract after adding query functionality. We'll provide the code changes in the tutorial by adding a new Query class and the means to extract key information from the ledger - then show interact with the smart contract from client applications. The end goal is query the history of transactions executed during the lifecycle of a commercial paper instance, and render its history in a nicely formatted HTML table in a client browser.
 
 We'll be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features - to complete these tasks.
 
 
 ## Background
-There is a fantastic description of the Commercial Paper use case scenario in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutions/organisations to obtain funds, to meet short-term debt obligations - and a chance for investors to to get return on investment.
+There is a fantastic description of the Commercial Paper use case scenario in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutions/organisations to obtain funds, to meet short-term debt obligations - and a chance for investors to to get return on investment upon maturity.
 
-The scenario uses employees transacting (queries in this case) as participants from their respective organisations, MagnetoCorp and DigiBank. We'll extend the lifecycle of the commercial paper, by involving a third investor, Hedgematic - purely to show more historical data.
+The scenario uses employees transacting as participants from their respective organisations, MagnetoCorp and DigiBank to create an initial history. We'll extend the lifecycle of the commercial paper, by involving a third investor, Hedgematic - purely to show more historical data to report upon.
 
 
 ## Pre-requisites
 
-1. You will need to have completed the [Commercial Paper tutorial](url) 
+1. You will need to have completed the [Commercial Paper tutorial](url), specifically, have version 0.0.1 of the Commercial paper smart contract package loaded in VSCode.
 
-2. From the command line, specifically in the `basic-network` directory under the `$HOME/fabric-samples` (ie wherever you downloaded the cloned Github repo), run the following houskeeping scripts in sequence.
+2. From the command line, go to the `basic-network` directory under the `$HOME/fabric-samples` (ie wherever you downloaded the cloned Github Fabric Samples repo), and run the following houskeeping scripts in sequence:
 
 `./teardown.sh`
 
@@ -29,7 +29,7 @@ The scenario uses employees transacting (queries in this case) as participants f
 
 `./start.sh`      
 
-3. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages. Go ahead and connect to your Fabric, via your running `myfabric` connection (check with `docker ps` if required), and `install` the smart contract package onto `peer0.org1.example.com` - then instantiate the contract, just as you had done in the previous tutorial. This is the basis from which this tutorial will proceed.
+3. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages. Go ahead and connect to your Fabric, via your running `myfabric` connection which should still be present in the 'Blockchain Connections' panel, and `install` the smart contract package onto `peer0.org1.example.com` - then instantiate the contract, just as you had done in the previous tutorial. This is the basis from which this tutorial will proceed.
 
 A new clean Fabric and ledger is now available - from here, we will create the transaction Commercial Paper history, as part of our tutorial.
 
@@ -39,7 +39,7 @@ After the prerequisites are installed, this should take approximately *60 minute
 
 ## Scenario
 
-Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history (from the ledger) of a Commercial paper, now that it has been redeemed (some 6 months after it was initially issued). Luke (a developer@MagnetoCorp)needs to add query functionality to the smart contract, and provide the client apps for MagnetoCorp, so that Isabella (MagnetoCorp) can query the ledger from the application (and likewise - for DigiBank application users of course!). The upgraded smart contract should be active on the channel so that the client applications can perform queries and report on the ledger history. 
+Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history (from the ledger) of a Commercial paper, now that it has been redeemed (some 6 months after it was initially issued). Luke (a developer@MagnetoCorp)needs to add query functionality to the smart contract, and provide the client apps for MagnetoCorp, so that Isabella can query the ledger from the application. The upgraded smart contract should be active on the channel so that the client applications can perform queries and report on the ledger history. 
 
 OK, lets get started !
 
@@ -47,7 +47,7 @@ OK, lets get started !
 
 1.  In VSCode, have open, the folder with the smart contract completed in the previous tutorial
 
-2.  Open the main contract script file `papercontract.js` - add the following lines as instructed below:
+2.  Open the main contract script file `papercontract.js` under the `lib` folder - add the following lines as instructed below:
 
 After the  `const { Contract, Context }` line (approx line 8)   add the following lines:
 
@@ -140,9 +140,9 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
  
  ```
     
- Note that once you've pasted this into VSCode, the ESLinter may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane by `right-click....` then select `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
+ Note that once you've pasted this into VSCode, the ESLinter may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
  
-11. We have one more small function to add - in `paper.js` . Open the file `paper.js` under the `lib` directory in your VSCode session.
+11. We have one more small function to add - in `paper.js`. Open the file `paper.js` under the `lib` directory in your VSCode session.
  
 12. After the `setOwner(newOwner)` line (approx line 40) under the 'basic setters and getters` - add the following function:
 
@@ -192,7 +192,7 @@ The upgrade will be executed, albeit it will take a minute or so to show as the 
 
 1. In VSCode, click on the menu option 'File....open Folder' and open the folder under `organization/magnetocorp/application` and hit ENTER
 
-2. Right-click on the folder in the left pane and create a new file `queryapp.js` then paste the contents of the file `queryapp.js` in the `commercial-paper` repo copied from Step 5 in the previous tutorial.
+2. Right-click on the folder in the left pane and create a new file `queryapp.js` then paste the contents of the file `queryapp.js` located in the `commercial-paper` repo that you copied from Step 5 in the previous Commercial Paper tutorial.
 
 3. Once pasted, you can open choose 'View....Problems' to see the formatting/indentation errors - in the Problem pane, do a right-click `Fix all auto-fixable errors` and it should automatically fix all the indentation issues. 
 
@@ -217,9 +217,9 @@ Note that you will have installed any NodeJS dependencies for the client applica
 
 ### Transaction #1: Execute an `issue` transaction as Isabella@MagnetoCorp
 
-1. Change directory to MagnetoCorp's application directory:
+1. Open a terminal window, and change directory to MagnetoCorp's application directory:
 
-`cd commercial-paper/organization/magnetocorp/application`
+`cd $HOME/fabric-samples/commercial-paper/organization/magnetocorp/application`
 
 2. Now execute the first Commercial paper transaction from the `application` directory - the 'issue' transaction:
 
@@ -233,7 +233,7 @@ You should get messages confirming it was successful:
 
 1. Change directory to DigiBank's application directory:
 
-`cd commercial-paper/organization/digibank/application`
+`cd ../../digibank/application`
 
 2. Now execute the first Commercial Paper  'buy' transaction from the `application` directory:
 
@@ -246,11 +246,13 @@ You should get messages confirming it was successful:
 ### Transaction #3: Execute another `buy` transaction as Bart@Hedgematic
 
 
-1. copy the `buy2.js` client application script from the `commpaper` repo directory to the current `commercial-paper/organization/digibank/application` ` directory for now (make sure to insert the dot '.' in the command below):
+1. copy the  `buy2.js` client application script from the `commpaper` repo directory to the current `commercial-paper/organization/digibank/application` ` directory for now (make sure to insert the dot '.' in the command below):
 
 `cp $HOME/commpaper/buy2.js . `
 
-2. Copy the 'bart@hedgematic' wallet zip file from the `commpaper` previously cloned Github repo,  to the `/tmp` directory and extract it - you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` identity wallet.
+2. Copy the 'bart@hedgematic' wallet zip file from the `commpaper` previously cloned Github repo,  to the `/tmp` directory and extract it - after extraction, you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` identity wallet.
+`cp $HOME/commpaper/wallet.zip /tmp`
+`unzip wallet.zip`
 
 3. Run the 2nd buy transaction (its using Bart's identity) as follows:
 
@@ -261,9 +263,9 @@ You should get messages confirming it was successful:
 
 The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoups its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic's` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic have since bought the paper from Digibank, we need to modify it to redeem it properly as Hedgematic's Bart !)
 
-1. From the same directory `commercial-paper/organization/digibank/application` - edit the file `redeem.js`
+1. Once again from a terminal window, and the same directory `$HOME/fabric-samples/commercial-paper/organization/digibank/application` - edit the file `redeem.js`
 
-2. Change line 25 approx beginning with `const wallet =` to read as follows (you may prefer to copy the line, and comment the original using `//` ) - the wallet points to the downloaded wallet directory as shown below:
+2. Change line 25 approx., beginning with `const wallet =` to read as follows (you may prefer to copy the line, and comment the original using `//` ) - the wallet points to the downloaded wallet directory as shown below:
 
 `const wallet = new FileSystemWallet('/tmp/wallet');`   
 
@@ -275,7 +277,7 @@ The time has come, in this Commercial Paper's lifecycle, for the Commercial pape
 
 (Or if you prefer, you can issue your own identity, using the currently active CA server, using the Fabric-CA utilities or APIs and change this JS script as appropriate).
 
-4. Finally, change line 67 approx beginning with `const redeemResponse` and change the FOURTH parameter to 'Hedgematic' :
+4. Finally, change line 67 approx beginning with `const redeemResponse` and change the FOURTH parameter to become 'Hedgematic' :
 
 ` const redeemResponse = await contract.submitTransaction('redeem', 'MagnetoCorp', '00001', 'Hedgematic', '2020-11-30')`
 
@@ -292,31 +294,31 @@ You should get messages confirming it was successful:
 
 ## Step 6. Launch the sample MagnetoCorp Client query application
 
-1. From a terminal window, change directory to the `commercial-paper/organization/magnetocorp/application` folder
+1. From a terminal window, change directory to the `$HOME/fabric-samples/commercial-paper/organization/magnetocorp/application` folder
 
 2. Run the queryapp client using node:
 
 `node queryapp.js`
 
-3. You should see the results from both the `queryHist` function and `queryOwner` functions in the terminal window. It also creates a file `results.json`.
+3. You should see the results from both the `queryHist` function and `queryOwner` functions in the terminal window. It also creates a file `results.json` for the `queryHist` part.
 
 ## Step 7. Display the formatted results to a browser app
 
-For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, we just need to provide a simple HTML file, uses online CSS formatting and it performs an `XMLHttpRequest() GET REST API` call to load the results (from the JSON file) and render it in the table. That `index.html` file is also in the `commpaper` Github repo that was cloned previously, please take time to peruse it.
+For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, we just need to use a simple HTML file - it uses online CSS formatting and it performs a local `XMLHttpRequest() GET REST API` call to load the results (from the JSON file, avoiding CORS issues) and render it in the table. That `index.html` file is also in the `commpaper` Github repo that was cloned previously, please take time to peruse it.
 
-1. In a terminal windows, open the `application` directory if not already there. Copy the file `index.html` into it, from the `commpaper` Github repo that was cloned previously. If you examine the HTML file in VScode Explorer, it will perform an REST API call and load a results file called `results.json` (created by the queries invoked earlier) and render these in a table in a browser. The `results.json` file contains the query results. 
+1. In a terminal windows, open the `application` directory if not already in that directory. Copy the file `index.html` from the `commpaper` repo into it. If you examine the HTML file in VScode Explorer, it performs an REST /GET API call and load a results file called `results.json` (created by the queries invoked earlier) and render these in a table in a browser. The `results.json` file contains the query results from the query you ran earlier.
 
-2. Launch a browser (eg. Firefox) providing the `index.html` file provided as a parameter eg.
+2. Launch a browser (eg. Firefox) providing the `index.html` file provided as a parameter - tested with Firefox eg.
 
 `firefox index.html`
 
-3. You should see the results in tabular form in the browser - expand or contract column headings, width etc, such as `Invoking id` etc - note that `TxId` is the Fabric transaction Id. The `Invoking ID` is a hash of the signer certificate that was used to perform each transaction (eg, original issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, transactions originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate.
+3. You should see the results in tabular form in the browser - expand or contract column widths as it suits, such as longer columns like `Invoking ID` etc - note that `TxId` here, is the Fabric transaction Id. The `Invoking ID` is a hash of the signer certificate that was used to perform each transaction (eg, original issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, transactions originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate.
 
 Well done! You've completed the query tutorial for adding query functionality to the Commercial Paper sample smart contract using the IBM Blockchain Platform VSCode extension.
 
 ## Conclusion
 
 
-You learned how to deploy a very substantial Commercial Paper smart contract sample in the earlier tutorial, and learned how to add queries using the IBM Blockchain IDE and using Hyperledger Fabric's newest programming model.  Take time to peruse and look at the transaction (query) functions in both `papercontract.js` and indeed the query utility functions the Query class file `query.js` under the `lib` directory. Finally, you've shown how to render the results - such as the history of a Commercial Paper - in a simple browser-based HTML application.
+You learned how to deploy a substantial Commercial Paper smart contract sample in the earlier tutorial, and here you have learned how to add queries/upgrade your contract using the IBM Blockchain Platform VSCode extension and used it to implement features from  Hyperledger Fabric's new programming model.  Take time to peruse and look at the transaction (query) functions in both `papercontract.js` and indeed the query utility functions, the Query class file `query.js` under the `lib` directory. Finally, you've shown how to render the results - such as the history of a Commercial Paper - in a simple browser-based HTML tabulated application.
 
 Thank you for completing this!
