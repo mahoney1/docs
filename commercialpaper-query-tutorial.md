@@ -14,7 +14,7 @@ We'll be using the IBM Blockchain Platform VSCode Extension - and the new Fabric
 ## Background
 There is a fantastic description of the Commercial Paper use case scenario in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutions/organisations to obtain funds, to meet short-term debt obligations - and a chance for investors to to get return on investment upon maturity.
 
-The scenario uses employees transacting as participants from their respective organisations, MagnetoCorp and DigiBank to create an initial history. We'll extend the lifecycle of the commercial paper, by involving a third investor, Hedgematic - purely to show more historical data to report upon.
+The Commercial paper scenario uses employees transacting as participants from their respective organisations, MagnetoCorp and DigiBank to create an initial history. We'll extend the lifecycle of the commercial paper, by involving a third investor, Hedgematic - purely to show more historical data to report upon.
 
 
 ## Pre-requisites
@@ -29,7 +29,7 @@ The scenario uses employees transacting as participants from their respective or
 
 `./start.sh`      
 
-3. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages. Go ahead and connect to your Fabric, via your running `myfabric` connection which should still be present in the 'Blockchain Connections' panel, and `install` the smart contract package onto `peer0.org1.example.com` - then instantiate the contract, just as you had done in the previous tutorial. This is the basis from which this tutorial will proceed.
+3. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages. Go ahead and connect to your Fabric, via your running `myfabric` connection which should still be present in the 'Blockchain Connections' panel, and `install` the smart contract package onto `peer0.org1.example.com` - then `instantiate` the contract, just as you had done in the previous tutorial. This is the basis from which this tutorial will proceed.
 
 A new clean Fabric and ledger is now available - from here, we will create the transaction Commercial Paper history, as part of our tutorial.
 
@@ -83,7 +83,7 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
 
 `await ctx.paperList.updatePaper(paper);`
 
-9. In the `async buy` function only - change the line 120 approx with the comment `// Check paper is not already REDEEMED` and add a line:
+9. In the `async buy` function only - at line 120 (approx) in the code, beginning with the comment `// Check paper is not already REDEEMED` and add a line below the line `paper.setOwner(newOwner);` and inside the `isTrading()` branch       :
 
 `paper.setPrice(price);`
 
