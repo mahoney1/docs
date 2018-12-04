@@ -1,6 +1,7 @@
 # Adding Query functionality to the Commercial Paper Smart Contract with the IBM Blockchain VSCode Extension
 
-[Commercial Paper History Report](pics/history-report.png)
+[Commercial Paper History Report](pics/paperhistory.mp4)
+
 
 ## Introduction
 
@@ -313,6 +314,8 @@ For this part, we'll use a simple Tabulator that will render our results in a ni
 `firefox index.html`
 
 3. You should see the results in tabular form in the browser - expand or contract column widths as it suits, such as longer columns like `Invoking ID` etc - note that `TxId` here, is the Fabric transaction Id. The `Invoking ID` is a hash of the signer certificate that was used to perform each transaction (eg, original issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, transactions originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate.
+
+[Commercial Paper History Report](pics/history-report.png)
 
 Well done! You've completed the query tutorial for adding query functionality to the Commercial Paper sample smart contract using the IBM Blockchain Platform VSCode extension.
 
