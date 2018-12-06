@@ -179,15 +179,18 @@ Cool - lets move on to getting this new contract functionality, out on the block
 
 We're now ready to upgrade our smart contract, using the IBP VSCode extension. 
 
-3. Click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' and you'll see that version '0.0.2' becomes the latest edition of `papercontract'.
+3. Firstly, package the contract - click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' and you'll see that version '0.0.2' becomes the latest edition of `papercontract'.
 
-4. Expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` and right-click...Install new contract, installing version "0.0.2" from the list presented up top. You should get a message it was successfully installed.
+4. Next, install the contract itself: expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` and right-click...Install new contract, installing version "0.0.2" from the list presented up top. You should get a message it was successfully installed.
 
-5. Right-click on the channel `mychannel` - and choose the option to Instantiate/Upgrade Smart Contract, choose the "0.0.2" smart contract package to upgrade on the channel. 
+5. Now we can carry out the upgrade. Expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` and expand the `papercontract` twisty then highlight the current `papercontract@0.0.1` instance ....then ... right-click...'Upgrade smart contract', and choose "papercontract@0.0.2" from the list presented up top. 
+
   - Enter `org.papernet.commercialpaper:instantiate` when prompted to enter a function name to call ; 
   - Hit 'ENTER' - ie leave blank - when prompted to enter arguments
+  
+You should get a message in the console that the upgrade is taking place.
 
-The upgrade will be executed, albeit it will take a minute or so to show as the active contract, when listed under active containers `docker ps`. The container will have the contract version as a suffix.
+The upgrade will be executed, albeit it will take a minute (please note, as it has to build the new smart contract container) or so to show as the active contract, when listed under active containers docker ps. The container will have the contract version as a suffix.
 
 [Upgrade Smart Contract](pics/upgrade.png)
 
