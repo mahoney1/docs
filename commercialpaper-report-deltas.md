@@ -81,7 +81,7 @@ Once you've completed the formatting task, you can hit CONTROL + S to save your 
 
 ## Step 2. Add the `getDeltas` query worker function to the Query class in `query.js`
 
-1. Click on the source file `lib/query.js` - and add the 'worker' function to get the deltas and also to return them in a JSON format suitable for our `tabulator` HTML client.
+1. Click on the source file `lib/query.js` - and add the 'worker' functions shown below, to get the deltas and also to return the data (to the calling query client app), in a JSONified form suitable for our `tabulator` HTML client app.
 
 AFTER the existing `getHistory` function - and BEFORE the 'closing' brace (immediately before `module.exports` line) - paste the following two functions:
 
@@ -257,12 +257,13 @@ you saw earlier.
 
 2. Launch a browser (eg. Firefox) providing the `index.html` file provided with the Paper number as a parameter - tested with Firefox eg.
 
-`firefox deltas.html?Magneto:0001`
+`firefox deltas.html?myParam="MagnetoCorp:0001"`
 
 3. You should see the deltas (what changed, in that transaction, by the invoking ID listed) in tabular form in the browser - expand or contract column widths as it suits, such as longer columns like `Invoking ID` etc. The `Invoking ID` is a hash of the signer certificate that was used to perform each transaction (eg, original issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, transactions originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate.
 
 Note also that we report the 'State' each time (two 'buy' transactions in a row = not necessarily a change in 'State' per se,  but reported nonetheless)
-[Commercial Paper History Report](pics/history-report.png)
+
+[Commercial Paper History Report](pics/deltas-report.png)
 
 Well done! You've completed the query tutorial for adding query functionality to the Commercial Paper sample smart contract using the IBM Blockchain Platform VSCode extension.
 
