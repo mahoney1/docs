@@ -1,4 +1,4 @@
-# Enhanced Query functionality: Add Deltas capability using the IBM Blockchain VSCode extension
+# Enhance Query functionality: Add Commercial Paper Deltas History using the IBM Blockchain VSCode extension
 
 [Commercial Paper Deltas Report](pics/paperhistory.mp4)
 
