@@ -205,7 +205,7 @@ The upgrade will be executed, albeit it will take a minute or so to show as the 
     - a `queryHist` function that gets the history of a Commercial paper instance and 
     - a `queryOwner` function that gets the list of Commercial Papers owned by an organization (provided as a parameter to the query function).
 
-Next up, we'll test the new application client form a terminal window.
+Next up, we'll test the new application client from a terminal window.
 
 
 ## Step 5. Perform transactions 'issue', 'buy' and 'redeem' to update the ledger
