@@ -63,14 +63,14 @@ You can launch VSCode from the task bar, or by typing `code` in a terminal windo
 
 1. Assuming you've got the latest VSCode version installed, first thing we need to do is to install the IBM Blockchain Platform VSCode extension. Click on `extensions` on the side bar on the left part of your screen. At the top, search the extension marketplace for  `IBM Blockchain Platform`. Click on `Install`. You should see a status of 'Installing' and eventually 'Installed' - then click on `reload`. 
 
-![packageFile](/pics/installVScode.mp4)
+![Install IBM Blockchain Platform VSCode extension](/pics/installVScode.mp4)
 
 ## Step 3. Open the Commercial Paper Contract
 
 1. In VSCode, choose 'File...Open Folder' - and open the `commercial-paper` folder from in your $HOME/fabric-samples/commercial-paper directory:
 
 2. Click on the `Explorer` icon, top left, and open the `contract` folder under `$HOME/fabric-samples/commercial-paper/organization/magnetocorp/contract`
-[Smart Contract](/pics/papercontract.png)
+[Smart Contract](pics/papercontract.png)
 
 3. Explore the file under `lib` subfolder called `papercontract.js` - this effectively orchestrates the logic for the different smart contract transaction functions (issue, buy, redeem etc) and are underpinned by some essential core functions (in the sample contract) that interact with the ledger. The link provided earlier in the Introduction section explains the concepts, themes and programmatic approach to writing contracts, using the Commercial Paper scenario. Take some time to read that explainer then resume here.
 
