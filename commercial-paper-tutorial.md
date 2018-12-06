@@ -59,11 +59,11 @@ git clone -b master https://github.com/hyperledger/fabric-samples
 
 ## Step 2. Launch VSCode, install the IBM Blockchain Platform Extension for VSCode
 
-![packageFile](/pics/installExtension.gif)
-
 You can launch VSCode from the task bar, or by typing `code` in a terminal window.
 
-1. First thing we need to do is to install the IBM Blockchain Platform VSCode extension. You will need to install the latest version of VSCode to do this. To see if you have the latest VSCode version, go to `Code` -> `Check for Updates`. If VSCode 'exits' at this point, it likely means you don't have the latest version. If so, update your VSCode (link provided earlier), and once you're done, click on `extensions` on the side bar on the left part of your screen. At the top, search the extension marketplace for  `IBM Blockchain Platform`. Click on `Install`. You should see a status of 'Installing' and eventually 'Installed' - then click on `reload`. 
+1. Assuming you've got the latest VSCode version installed, first thing we need to do is to install the IBM Blockchain Platform VSCode extension. Click on `extensions` on the side bar on the left part of your screen. At the top, search the extension marketplace for  `IBM Blockchain Platform`. Click on `Install`. You should see a status of 'Installing' and eventually 'Installed' - then click on `reload`. 
+
+![packageFile](/pics/installVScode.mp4)
 
 ## Step 3. Open the Commercial Paper Contract
 
