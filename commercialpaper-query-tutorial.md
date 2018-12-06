@@ -106,7 +106,8 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
         let hashId = cryptoHash('hash256', buffer).toString('hex');
         return hashId;
     }
-    
+
+
     /**
     * queryHist commercial paper
     * @param {Context} ctx the transaction context
@@ -115,11 +116,13 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
     */
     async queryHist(ctx, issuer, paperNumber) {
 
-        // Get a key to be used for the paper, and get this from world state
+        // Get a key to be used for History query
         let cpKey = CommercialPaper.makeKey([issuer, paperNumber]);
         let myObj = new QueryUtils(ctx, 'org.papernet.commercialpaperlist');
         let results = await myObj.getHistory(cpKey);
+        //console.log('main: queryHist was called and returned ' + JSON.stringify(results) );
         return results;
+
     }
 
 
@@ -141,11 +144,11 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
  
  ```
     
- Note that once you've pasted this into VSCode, the ESLinter may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
+ Note that once you've pasted this into VSCode, the `ESLinter` may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
  
 11. We have one more small function to add - in `paper.js`. Open the file `paper.js` under the `lib` directory in your VSCode session.
  
-12. After the `setOwner(newOwner)` line (approx line 40) under the 'basic setters and getters` - add the following function:
+12. After the `setOwner(newOwner)` line (approx line 40) under the `basic setters and getters` section - add the following function:
 
 ```
     setCreator(creator) {
