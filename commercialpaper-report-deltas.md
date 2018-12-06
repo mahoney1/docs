@@ -21,6 +21,7 @@ We'll be using the IBM Blockchain Platform VSCode Extension - and the new Fabric
 
 
 ## Background
+
 There is a fantastic description of the Commercial Paper use case scenario in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutions/organisations to obtain funds, to meet short-term debt obligations - and a chance for investors to to get return on investment upon maturity.
 
 The Commercial paper scenario uses employees transacting as participants from their respective organisations, MagnetoCorp and DigiBank to create an initial history. We'll extend the lifecycle of the commercial paper, by involving a third investor, Hedgematic - purely to show more historical data to report upon.
@@ -183,18 +184,18 @@ Cool - lets move on to getting this new contract functionality, out on the block
 
 ## Step 3. Upgrade our Smart Contract version using IBP VScode Extension, Instantiate new edition
 
-1. We now need to add some changes to the `package.json` file - ie add a dependency name, and change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
+1. First, we need to update the dependencies and version for our contract. Update the `package.json` file - ie add a dependency name, and change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
 
   - change the `version` to "0.0.3" 
   - hit CONTROL and S to save it.
 
-2. Click on the Source Control sidebar icon and click the `tick` icon to commit, with a message of 'adding queries' and hit ENTER.
+2. Next, click on the Source Control sidebar icon and click the `tick` icon to commit, with a message of 'adding queries' and hit ENTER.
 
 We're now ready to upgrade our smart contract, using the IBP VSCode extension. 
 
 3. Click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' and you'll see that version '0.0.3' becomes the latest edition of `papercontract'.
 
-4. Expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` and expand the `papercontract` twisty then highlight the current `papercontract@0.0.1` instance ....then ... right-click...'Upgrade smart contract', and choose "papercontract@0.0.3" from the list presented up top. 
+4. Expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` and expand the `papercontract` twisty then highlight the current `papercontract@0.0.2` instance (that was deployed in the previous query tutorial) ....then ... right-click...'Upgrade smart contract', and choose "papercontract@0.0.3" from the list presented up top. 
 
   - Enter `org.papernet.commercialpaper:instantiate` when prompted to enter a function name to call ; 
   - Hit 'ENTER' - ie leave blank - when prompted to enter arguments
