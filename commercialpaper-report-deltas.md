@@ -13,7 +13,7 @@ The aim of this tutorial is to add the capability to pull just the 'deltas' from
 - Once instantiated, we will use a `queryapp` client application to pull the results
 - Lastly, render the deltas in a HTML table in a client browser, reporting deltas for the Commercial Paper instance in question. 
 
-We'll provide the code changes as part of this, adding to the existing Query class and the client app to extract deltas - then interact with the smart contract from client applications (command line, browser to render in HTML). 
+We'll provide the code changes as part of this, adding to the existing Query class and the client app to extract deltas - then interact with the smart contract from client applications (command line and browser - to render in HTML). 
 
 The end goal is to show the history of changes/deltas for all transactions executed during the lifecycle of a commercial paper instance.
 
@@ -254,16 +254,15 @@ We already have a history of transactions at this point - from the previous tuto
 
 ## Step 6. Display the formatted Deltas history results to a browser app
 
-For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, we just need to use a simple HTML file - it uses online CSS formatting and it performs a local `XMLHttpRequest() GET REST API` call to load the results (from the JSON file, avoiding CORS issues) and render it in the table. That `index.html` file is also in the `commpaper` Github repo that was cloned previously, please take time to peruse it.
-you saw earlier.
+For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, we just need to use a simple HTML file - it uses online CSS formatting and it performs a local `XMLHttpRequest() GET REST API` call to load the results (from the JSON file, avoiding CORS issues) and render it in the table. That `index.html` file is also in the `commpaper` Github repo that was cloned previously, please take time to peruse it. INFO: Note that this HTML file is provided 'as-is' and purely for the purposes of rendering in a FIREFOX browser (at the time of writing, some of the javascript (doesn't use jquery by the way) formatting does not work in Chrome, but works fine in Firefox).
 
-2. Launch a browser (eg. Firefox) providing the `index.html` file provided with the Paper number as a parameter - tested with Firefox eg.
+1. Launch a Firefox browser session (eg. install Firefox if you don't have it) providing the `index.html` file provided, along with the Issuer/Paper number as a parameter - eg.
 
 `firefox deltas.html?myParam="MagnetoCorp:0001"`
 
-3. You should see the deltas (what changed, in that transaction, by the invoking ID listed) in tabular form in the browser - expand or contract column widths as it suits, such as longer columns like `Invoking ID` etc. The `Invoking ID` is a hash of the signer certificate that was used to perform each transaction (eg, original issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, transactions originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate.
+2. You should see the deltas (what changed, in that transaction, by the invoking ID listed) in tabular form in the browser - expand or contract column widths as it suits, such as longer columns like `Invoking ID` etc. The `Invoking ID` is a hash of the signer certificate that was used to perform each transaction (eg, original issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, transactions originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate.
 
-Note also that we report the 'State' each time (two 'buy' transactions in a row = not necessarily a change in 'State' per se,  but reported nonetheless)
+Note also that we report the 'State' on each line (eg. two 'buy' transaction states in a row = not necessarily a change in 'State' per se,  but reported nonetheless for clarity)
 
 [Commercial Paper History Report](pics/deltas-report.png)
 
