@@ -311,11 +311,11 @@ You should get messages confirming it was successful:
 
 ## Step 7. Display the formatted results to a browser app
 
-For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, we just need to use a simple HTML file - it uses online CSS formatting and it performs a local `XMLHttpRequest() GET REST API` call to load the results (from the JSON file, avoiding CORS issues) and render it in the table. That `index.html` file is also in the `commpaper` Github repo that was cloned previously, please take time to peruse it.
+For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, we just need to use a simple HTML file - it uses online CSS formatting and it performs a local `XMLHttpRequest() GET REST API` call to load the results (from the JSON file, avoiding CORS issues) and render it in the table. That `index.html` file is also in the `commpaper` Github repo that was cloned previously, please take time to peruse it. INFO: Note that this HTML file is provided 'as-is' and purely for the purposes of rendering in a FIREFOX browser (at the time of writing, some of the javascript (it doesn't use jquery by the way) formatting does not work in Chrome, but works fine in Firefox).
 
-1. In a terminal windows, open the `application` directory if not already in that directory. Copy the file `index.html` from the `commpaper` repo into it. If you examine the HTML file in VScode Explorer, it performs an REST /GET API call and load a results file called `results.json` (created by the queries invoked earlier) and render these in a table in a browser. The `results.json` file contains the query results from the query you ran earlier.
+1. In a terminal windows, open the `application` directory if not already in that directory. Copy the contents of the file `index.html` from the `commpaper` repo into it. If you examine the HTML file in VScode Explorer, it performs an REST /GET API call and load a results file called `results.json` (created by the queries invoked earlier) and render these in a table in a browser. The `results.json` file contains the query results from the query you ran earlier.
 
-2. Launch a browser (eg. Firefox) providing the `index.html` file provided as a parameter - tested with Firefox eg.
+2. Launch a Firefox browser session (see note earlier), providing the `index.html` file provided as a parameter - tested with Firefox eg.
 
 `firefox index.html`
 
