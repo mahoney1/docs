@@ -7,22 +7,22 @@
 
 In the [IBM Blockchain Platform VSCode Extension with Commercial Paper tutorial](https://github.ibm.com/IBMCode/Code-Tutorials/blob/master/run-commercial-paper-smart-contract-with-ibm-blockchain-vscode-extension/index.md), we saw how an example of deploying and interacting with the Commercial Paper smart contract, in a scenario that tracks the lifecycle of a Commercial paper. But now we want to see the 'paper' trail of all activity that took place during its lifecycle - ie an immutable history of the asset: who did what, and when did it take place etc etc.
 
-The aim of this tutorial, is to show the use of the IBM Blockchain Platform VSCode extension, to add query transaction functions to the Fabric Samples Commercial Paper smart contract, using the extension to upgrade the contract after adding query functionality. We'll provide the code changes in the tutorial by adding a new Query class and the means to extract key information from the ledger - then show interact with the smart contract from client applications. The end goal is query the history of transactions executed during the lifecycle of a commercial paper instance, and render its history in a nicely formatted HTML table in a client browser.
+The aim of this tutorial, is to show the use of the IBM Blockchain Platform VSCode extension, to add query transaction functions to the Fabric Samples Commercial Paper smart contract, using the extension to upgrade the contract after adding query functionality. We'll provide the code changes in the tutorial by adding a new Query class (containing query functions) and with it, the means to query key/extract information from the ledger. We'll then show interaction with the smart contract from a client application in DigiBank. The goal is to get the history of transactions, for the lifecycle of a commercial paper instance, and display its history in a nicely formatted UI / HTML table, in a client browser. The tutorial is aimed at Developers, and exact instructions (in particular, editing source files to add provided code segments) are provided. Take time to see what's going on - you don't necessarily have to understand javascript in great detail for this !
 
-We'll be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features - to complete these tasks.
+We'll be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features under the covers - to complete these tasks.
 
 
 ## Background
 There is a fantastic description of the Commercial Paper use case scenario in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutions/organisations to obtain funds, to meet short-term debt obligations - and a chance for investors to to get return on investment upon maturity.
 
-The Commercial paper scenario uses employees transacting as participants from their respective organisations, MagnetoCorp and DigiBank to create an initial history. We'll extend the lifecycle of the commercial paper, by involving a third investor, Hedgematic - purely to show more historical data to report upon.
+The Commercial paper scenario (in the last tutorial) began with employees from MagnetoCorp and DigiBank transacting as participants from their respective organisations, to create an initial history. In this tutorial, we'll complete the lifecycle but adding a third investor, Hedgematic into the mix - purely to show more historical data (its quick and easy to create this history).
 
 
 ## Pre-requisites
 
-1. You will need to have completed the [Commercial Paper tutorial](url), specifically, have version 0.0.1 of the Commercial paper smart contract package loaded in VSCode.
+1. You will need to have completed the [Commercial Paper tutorial](url), specifically, have version 0.0.1 of the Commercial paper smart contract package loaded in VSCode under your 'Smart Contract Packages' in the 'IBM Blockchain Platform' sidebar.
 
-2. From the command line, go to the `basic-network` directory under the `$HOME/fabric-samples` (ie wherever you downloaded the cloned Github Fabric Samples repo), and run the following houskeeping scripts in sequence:
+2. From a terminal window, go to the `basic-network` directory under the `$HOME/fabric-samples` (ie wherever you downloaded the cloned Github Fabric Samples repo), and run the following houskeeping scripts in sequence:
 
 `./teardown.sh`
 
@@ -30,17 +30,17 @@ The Commercial paper scenario uses employees transacting as participants from th
 
 `./start.sh`      
 
-3. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages. Go ahead and connect to your Fabric, via your running `myfabric` connection which should still be present in the 'Blockchain Connections' panel, and `install` the smart contract package onto `peer0.org1.example.com` - then `instantiate` the contract, just as you had done in the previous tutorial. This is the basis from which this tutorial will proceed.
+3. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages listed up top. Go ahead and connect to your Fabric, via your running `myfabric` connection which should still be present in the 'Blockchain Connections' panel (from the previous tutorial), and `install` the smart contract package onto `peer0.org1.example.com` - then `instantiate` the contract by traversing your `myfabric` network, just as you had done in the previous tutorial ('myfabric....mychannel....right-click... Instantiate Smart contract'). This is the basis from which this tutorial will proceed.
 
 A new clean Fabric and ledger is now available - from here, we will create the transaction Commercial Paper history, as part of our tutorial.
 
 ## Estimated time
 
-After the prerequisites are installed, this should take approximately *60 minutes* to complete.
+After the prerequisites are completed, this should take approximately *60 minutes* to complete.
 
 ## Scenario
 
-Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history (from the ledger) of a Commercial paper, now that it has been redeemed (some 6 months after it was initially issued). Luke (a developer@Digibank)needs to add query functionality to the smart contract, and provide the client apps for Digibank, so that Balaji can query the ledger from the application. The upgraded smart contract should be active on the channel so that the client applications can perform queries and report on the ledger history. 
+Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history (from the ledger) of a Commercial paper, now that it has been redeemed (some 6 months after it was initially issued). Luke (a developer@Digibank), needs to add query functionality to the smart contract, and provide the client apps for Digibank, so that Balaji (or indeed Isabella) can query the ledger from the application. The upgraded smart contract should be active on the channel so that the client applications can perform queries and report on the ledger history. 
 
 OK, lets get started !
 
@@ -57,6 +57,8 @@ After the  `const { Contract, Context }` line (approx line 8)   add the followin
 const cryptoHash = require('crypto-hashing');
 
 ```
+The reason to add this 'cryptoHash' line, is because we are creating a hash of the X509 certificate for the individual users that are actually submitting each transaction in our lifecycle. It is done for reporting purposes, when we render the invoking Identity information later on in the tutorial.
+
 After the `// PaperNet specific classes ` line (approx line 16) add another class as follows:
 
 ```const QueryUtils = require('./query.js');```
@@ -162,7 +164,7 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
 
 Next hit CONTROL + S to save the file.
 
-## Step 2. Implement 'worker' Query class  utility functions into your project - new file: query.js 
+## Step 2. Implement 'worker' Query class  utility functions into your VSCode project - new file: query.js 
 
 1. Create a new file under the `contract/lib` folder using VSCode - call it `query.js`
 
@@ -170,9 +172,9 @@ Next hit CONTROL + S to save the file.
 
 3. Paste the contents into your VSCode session - you should have all the copied contents in your new query javascript worker file.
 
-Cool - lets move on to getting this new contract functionality, out on the blockchain to replace the older version !
+OK - lets move on to getting this new contract functionality, out on the blockchain to replace the older smart contract edition!
 
-## Step 3. Upgrade our Smart Contract version using IBP VScode Extension, Instantiate new edition
+## Step 3. Upgrade our Smart Contract version using IBP VSCode Extension, Instantiate new version
 
 1. We now need to add some changes to the `package.json` file - ie add a dependency name, and change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
 
@@ -184,7 +186,7 @@ Cool - lets move on to getting this new contract functionality, out on the block
 
 We're now ready to upgrade our smart contract, using the IBP VSCode extension. 
 
-3. Firstly, package the contract - click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' and you'll see that version '0.0.2' becomes the latest edition of `papercontract'.
+3. Firstly, package the contract - click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' icon ('+')  and you'll see that version '0.0.2' becomes the latest edition of `papercontract'.
 
 4. Next, install the contract itself: expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` and right-click...Install new contract, installing version "0.0.2" from the list presented up top. You should get a message it was successfully installed.
 
@@ -262,9 +264,10 @@ You should get messages confirming it was successful:
 
 `cp $HOME/commpaper/buy2.js . `
 
-2. Copy the 'bart@hedgematic' wallet zip file from the `commpaper` previously cloned Github repo,  to the `/tmp` directory and extract it - after extraction, you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` identity wallet.
+2. Copy the 'bart@hedgematic' wallet zip file from the `commpaper` previously cloned `commpaper` Github repo,  and save it into the `/tmp` directory (not your application directory) and extract it in '/tmp' - after extraction, you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` identity wallet.
 
 `cp $HOME/commpaper/wallet.zip /tmp`
+`cd /tmp`
 `unzip wallet.zip`
 
 3. Now run the 2nd buy transaction (its using Bart's identity) as follows:
