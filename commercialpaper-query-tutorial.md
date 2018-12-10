@@ -88,7 +88,7 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
 
 `paper.setPrice(price);`
 
-10.  Finally, add the following code segment, containing 3 functions (incl 2 query transaction functions), directly AFTER the CLOSING curly bracket of the `redeem` function and BEFORE - the last CLOSING bracket in the file `papercontract.js` (ie its ensuing `module.exports` declaration) . These 2 main query functions call the 'worker' query functions / iterators in the file `query.js`):
+10.  Next, add the following code segment, containing 3 functions (incl 2 query transaction functions), directly AFTER the CLOSING curly bracket of the `redeem` function and BEFORE - the last CLOSING bracket in the file `papercontract.js` (ie its ensuing `module.exports` declaration) . These 2 main query functions call the 'worker' query functions / iterators in the file `query.js`):
 
 ```
     /**
