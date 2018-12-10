@@ -40,7 +40,7 @@ After the prerequisites are installed, this should take approximately *60 minute
 
 ## Scenario
 
-Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history (from the ledger) of a Commercial paper, now that it has been redeemed (some 6 months after it was initially issued). Luke (a developer@MagnetoCorp)needs to add query functionality to the smart contract, and provide the client apps for MagnetoCorp, so that Isabella can query the ledger from the application. The upgraded smart contract should be active on the channel so that the client applications can perform queries and report on the ledger history. 
+Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history (from the ledger) of a Commercial paper, now that it has been redeemed (some 6 months after it was initially issued). Luke (a developer@Digibank)needs to add query functionality to the smart contract, and provide the client apps for Digibank, so that Balaji can query the ledger from the application. The upgraded smart contract should be active on the channel so that the client applications can perform queries and report on the ledger history. 
 
 OK, lets get started !
 
@@ -80,7 +80,7 @@ don't worry about any errors reported in the status bar for now.
 ```
 This code is also before the line `await ctx.paperList.addPaper(paper);` in the `issue` function.
 
-8. Repeat the paste (of the 3 line code segment above)  - in the `async buy` and `async redeem` functions - paste the 3 lines near the end of EACH of those functions, and before the following line shown in each function:
+8. Repeat the paste (of the 3 line code segment above)  - in the `async buy` and `async redeem` functions - paste the 3 lines near the end of EACH of those functions - and BEFORE the following line shown below - that is, in each function:
 
 `await ctx.paperList.updatePaper(paper);`
 
@@ -200,9 +200,9 @@ The upgrade will be executed, albeit it will take a minute (please note, as it h
 [Upgrade Smart Contract](pics/upgrade.png)
 
 
-## Step 4. Create a new MagnetoCorp query client app, to invoke query transactions
+## Step 4. Create a new Digibank query client app, to invoke query transactions
 
-1. In VSCode, click on the menu option 'File....open Folder' and open the folder under `organization/magnetocorp/application` and hit ENTER
+1. In VSCode, click on the menu option 'File....open Folder' and open the folder under `organization/digibank/application` and hit ENTER
 
 2. Right-click on the folder in the left pane and create a new file `queryapp.js` then paste the contents of the file `queryapp.js` located in the `commercial-paper` repo that you copied from Step 5 in the previous Commercial Paper tutorial.
 
@@ -213,7 +213,7 @@ The upgrade will be executed, albeit it will take a minute (please note, as it h
     - a `queryHist` function that gets the history of a Commercial paper instance and 
     - a `queryOwner` function that gets the list of Commercial Papers owned by an organization (provided as a parameter to the query function).
 
-Next up, we'll test the new application client from a terminal window.
+Next up, we'll test the new application client from a terminal window in Digibank's application folder (it does not matter whether we test from Magnetocorp or DigiBank in this example - we should say the same data on the ledger from either application client :-).
 
 
 ## Step 5. Perform transactions 'issue', 'buy' and 'redeem' to update the ledger
@@ -243,7 +243,7 @@ You should get messages confirming it was successful:
 
 ### Transaction #2: Execute a `buy` transaction as Balaji@DigiBank
 
-1. Change directory to DigiBank's application directory:
+1. In the same terminal window, change directory to DigiBank's application directory:
 
 `cd ../../digibank/application`
 
@@ -258,15 +258,16 @@ You should get messages confirming it was successful:
 ### Transaction #3: Execute another `buy` transaction as Bart@Hedgematic
 
 
-1. copy the  `buy2.js` client application script from the `commpaper` repo directory to the current `commercial-paper/organization/digibank/application` ` directory for now (make sure to insert the dot '.' in the command below):
+1. copy the  `buy2.js` client application script from the `commpaper` repo directory into the current `commercial-paper/organization/digibank/application` directory for now (make sure to insert the dot '.' in the command below):
 
 `cp $HOME/commpaper/buy2.js . `
 
 2. Copy the 'bart@hedgematic' wallet zip file from the `commpaper` previously cloned Github repo,  to the `/tmp` directory and extract it - after extraction, you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` identity wallet.
+
 `cp $HOME/commpaper/wallet.zip /tmp`
 `unzip wallet.zip`
 
-3. Run the 2nd buy transaction (its using Bart's identity) as follows:
+3. Now run the 2nd buy transaction (its using Bart's identity) as follows:
 
 `node buy2.js`
 
@@ -283,7 +284,7 @@ The time has come, in this Commercial Paper's lifecycle, for the Commercial pape
 
 (Or if you prefer, you can issue your own identity, using the currently active CA server, using the Fabric-CA utilities or APIs and change this JS script as appropriate).
 
-3. Change line 38 approx beginning with `const userName =` to read as follows (you may prefer to copy the line, and comment he original using `//` ) - the userName points to bart, the employee of Hedgematic
+3. Change line 38 approx beginning with `const userName =` to read as follows (you may prefer to copy the existing line, and comment the original line, using `//` ) - so the userName points to bart, the employee of Hedgematic:
 
 `const userName = 'bart@hedgematic';`
 
@@ -304,9 +305,9 @@ You should get messages confirming it was successful:
 
 [Issue message](docs/pics/redeem-output.png)
 
-## Step 6. Launch the sample MagnetoCorp Client query application
+## Step 6. Launch the sample Digibank Client query application
 
-1. From a terminal window, change directory to the `$HOME/fabric-samples/commercial-paper/organization/magnetocorp/application` folder
+1. From a terminal window, change directory to the `$HOME/fabric-samples/commercial-paper/organization/digibank/application` folder
 
 2. Run the queryapp client using node:
 
