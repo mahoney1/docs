@@ -143,7 +143,7 @@ This code is also before the line `await ctx.paperList.addPaper(paper);` in the 
  
  ```
     
-Note: once you've pasted this into VSCode, the `ESLinter` may report a problem in the `Problems` pane at the bottom. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
+Note: once you've pasted this into VSCode, the `ESLinter` may report a problem in the `Problems` pane at the bottom if ESLint is enabled. If so, you can easily rectify the formatting issues by in the problems pane by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported by ESLint (ie. the line number is reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
  
 9. We have two more small functions to add - inside `paper.js`. Open the file `paper.js` under the `lib` directory in your VSCode session.
  
