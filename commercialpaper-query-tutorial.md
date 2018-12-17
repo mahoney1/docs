@@ -77,11 +77,11 @@ don't worry about any errors reported in the status bar for now.
         let hashId = await this.idGen(ctx);
         paper.setCreator(hashId);
 ```
-This code is also before the line `await ctx.paperList.addPaper(paper);` in the `issue` function.
+This code should be located BEFORE the line `await ctx.paperList.addPaper(paper);` in the `issue` function.
 
-6. Repeat the paste (of the 3 line code segment above)  - in the `async buy` and `async redeem` functions - paste the 3 lines near the end of EACH of those functions - and BEFORE the following line shown below - that is, in each function:
+6. Repeat the paste as shown above (3 line code segment)  - into the functions beginnning `async buy` and `async redeem` functions. 
 
-`await ctx.paperList.updatePaper(paper);`
+You should paste near the end of EACH of those functions - ie BEFORE the following line shown (its the same in both `buy` and `redeem` functions: `await ctx.paperList.updatePaper(paper);`
 
 7. In the `async buy` function only - at line 120 (approx) in the code, beginning with the comment `// Check paper is not already REDEEMED` and add a line below the line `paper.setOwner(newOwner);` and inside the `isTrading()` branch       :
 
