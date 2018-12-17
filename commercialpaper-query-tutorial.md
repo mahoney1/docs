@@ -262,11 +262,14 @@ DigiBank are re-structuring their investment portfolio, and have decided to sell
 
 `cp $HOME/commpaper/buy2.js . `
 
-2. Copy the 'bart@hedgematic' wallet zip file from the `commpaper` previously cloned `commpaper` Github repo,  and save it into the `/tmp` directory (not your application directory) and extract it in '/tmp' - after extraction, you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` identity wallet.
+2. Copy the file 'wallet.zip' from the `commpaper` repo directory, into the `/tmp` directory. Then unzip it, example shown below:
+
 
 `cp $HOME/commpaper/wallet.zip /tmp`
 `cd /tmp`
 `unzip wallet.zip`
+
+It will unzip the user bart's wallet into a subdirectory under `/tmp/wallet`. After extraction, you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` identity wallet.
 
 3. Now run the 2nd buy transaction (its using Bart's identity) as follows:
 
