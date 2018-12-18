@@ -81,7 +81,7 @@ You'll notice that it calls the existing `getHistory` function (in the Query cla
 
 Note that once you've pasted this into VSCode, the `ESLinter` (ie if enabled) may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). 
  
-Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
+Once you've completed the formatting task, save your file (hit CONTROL and S as a shortcut to save your file).
 
 ## Step 2. Add the `getDeltas` query worker function to the Query class in `query.js`
 
