@@ -64,7 +64,7 @@ OK, lets get started !
 After the  `const { Contract, Context }` line (approx line 8)   add the following lines:
 
 ```
-// Tutorial specific require for reporting identity of transactor using the Client Identity Chaincode Library (CID)
+// Tutorial specific 'require' for reporting identity of transactor using the Client Identity Chaincode Library (CID)
 
 const ClientIdentity = require('fabric-shim').ClientIdentity;
 ```
@@ -77,9 +77,7 @@ After the `// PaperNet specific classes ` line (approx line 16) add another clas
 don't worry about any errors reported in the status bar for now. 
 
 
-3. Switch back to `papercontract.js` and we'll add some more logic to the main contract script file. 
-
-4. Find the function that begins `async issue` (approx line 70) and scroll down to the line `paper.setOwner(issuer);` and create a new line directly under (it aligns with the correct indentation in VSCode).
+3. Still in `papercontract.js`, find the function that begins `async issue` (approx line 70) and scroll down to the line `paper.setOwner(issuer);` and create a new line directly under (it aligns with the correct indentation in VSCode).
 
 5. Now paste in the following code block: This following enables us to report the true identity of the transaction. The function `idGen` below is a class based function in `papercontract.js` ,  that uses the Client Identity Chaincode Library (CID) to obtain the attribute containing the invoking id (from its X509 Certificate).
 
@@ -153,7 +151,7 @@ Note: this code should be located BEFORE the line `await ctx.paperList.addPaper(
  
  ```
     
-Note: once you've pasted this into VSCode, the `ESLinter` extension - ie if it is enabled in your VSCode session, may report problems in the `Problems` pane at the bottom. If so, you can easily rectify the formatting issues by in the problems pane by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported by ESLint (ie. the line number is reported). Once you've completed the formatting task, you can hit CONTROL + S to save your file. The ESLint extension (also available from the VSCode extensiokn marketplace) is a very useful too and I'd recommend using it to fix any indentation, incorrect pasting or general errors that can be detected before you package up the smart contract.
+Note: once you've pasted this into VSCode, the `ESLinter` extension - ie if it is enabled in your VSCode session, may report problems in the `Problems` pane at the bottom. If so, you can easily rectify the formatting issues by in the problems pane by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported by ESLint (ie. the line number is reported). Once you've completed the formatting task, save your file, via the menu, or you can hit CONTROL and S as a shortcut to save your file. The ESLint extension (also available from the VSCode extension marketplace) is a very useful too and I'd recommend using it to fix any indentation, incorrect pasting or general errors that can be detected before you package up the smart contract.
  
 9. We have two more small functions to add - inside `paper.js`. Open the file `paper.js` under the `lib` directory in your VSCode session.
  
@@ -309,7 +307,7 @@ The time has come, in this Commercial Paper's lifecycle, for the Commercial pape
 
 ` const redeemResponse = await contract.submitTransaction('redeem', 'MagnetoCorp', '00001', 'Hedgematic', '2020-11-30')`
 
-All good - save your file (CONTROL + S) and commit any changes.
+All good - save your file (CONTROL and S) and commit any changes.
 
 
 5. Now run the `redeem.js` script :
