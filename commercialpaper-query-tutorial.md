@@ -39,9 +39,9 @@ The Commercial paper scenario (in the last tutorial) began with employees from M
  - Under 'Blockchain connections' select ` 'myfabric....mychannel....right-click... Instantiate Smart contract' `). 
  - Supply `org.papernet.commercialpaper:instantiate` when prompted for 'what function to call'.
 
-4. In VSCode Explorer, choose File > Open Folder, and select the `contracts` folder, by navigating to the $HOME/fabric-samples/commercial-paper/organization/magnetocorp directory. This must be your top-level project folder for this tutorial.
+4. In VSCode Explorer, choose File > Open Folder, and select the `contracts` folder, by navigating to the `$HOME/fabric-samples/commercial-paper/organization/magnetocorp` directory. The `contracts` folder must be your top-level project folder in VSCode.
 
-This is the basis from which this tutorial will proceed.
+Completion of the pre-reqs, is the basis from which this tutorial will proceed.
 
 A new clean Fabric and ledger is now available - from here, we will create a more detailed transaction Commercial Paper history, as part of our tutorial.
 
@@ -181,7 +181,7 @@ OK - lets move on to getting this new contract functionality, out on the blockch
 
 ## Step 3. Upgrade our Smart Contract version using IBP VSCode Extension, Instantiate new version
 
-1. We now need to add some changes to the `package.json` file - ie add a dependency name, and change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
+1. We now need to add some changes to the `package.json` file  ie change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
 
   - change the `version` to "0.0.2" 
   - hit CONTROL and S to save it.
@@ -190,13 +190,11 @@ OK - lets move on to getting this new contract functionality, out on the blockch
 
 We're now ready to upgrade our smart contract, using the IBP VSCode extension. 
 
-3. Firstly, package the contract - click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' icon ('+')  and you'll see that version '0.0.2' becomes the latest edition of `papercontract'.
+3. Firstly, package the contract - click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' icon ('+')  and you'll see that version '0.0.2' becomes the latest edition of available `papercontract' packages.
 
-4. Next, install the contract itself (remember we're using a fresh Fabric environment): expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` and right-click...'Install Smart Contract', installing version "0.0.2" from the list presented up top. You should get a message it was successfully installed. 
+4. Next, upgrade the contract itself: expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` . Expand the `peer0.org1.example.com` twisty and select the `papercontract@0.0.1` entry specifically.  (You will notice also, that all of our transaction functions are listed, including the new query functions we added).
 
-5. Now we can carry out the upgrade. Under the same 'Blockchain Connections' pane, and channel `mychannel` , expand the `peer0.org1.example.com` twisty and select the `papercontract@0.0.1` entry specifically.  You will notice also, that all of our transaction functions are listed, including the new query functions we added.
-
-6. Now choose right-click on `papercontract@0.0.1`...'Upgrade Smart Contract', and choose "papercontract@0.0.2" from the list presented (up top). 
+5. Now choose right-click on `papercontract@0.0.1`...'Upgrade Smart Contract', and choose "papercontract@0.0.2" from the list presented (up top). 
 
   - Enter or paste the text `org.papernet.commercialpaper:instantiate` when prompted to enter `a function name to call` and hit ENTER ; 
   - Hit 'ENTER' - ie leave blank - when prompted to enter arguments
