@@ -36,6 +36,9 @@ The previous Commercial paper scenario had users transacting as participants fro
 
 3. Connect to your Fabric in the VSCode extension, via the running `myfabric` connection, it should still be present in the 'Blockchain Connections' panel - the contract has already been instantiated.
 
+4. In VSCode Explorer, choose File > Open Folder, and select the `contracts` folder, by navigating to the $HOME/fabric-samples/commercial-paper/organization/magnetocorp directory. This must be your top-level project folder for this tutorial.
+
+
 
 ## Estimated time
 
