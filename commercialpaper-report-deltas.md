@@ -174,8 +174,6 @@ AFTER the existing `getHistory` function - and BEFORE the 'closing' brace (immed
         return val;
     }
 
-}
-
 ```
 
 
