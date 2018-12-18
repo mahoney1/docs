@@ -30,9 +30,14 @@ The Commercial paper scenario (in the last tutorial) began with employees from M
 
 `./start.sh`      
 
-3. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages listed up top. Go ahead and connect to your Fabric, via your running `myfabric` connection which should still be present in the 'Blockchain Connections' panel (from the previous tutorial), and `install` the smart contract package onto `peer0.org1.example.com` - then `instantiate` the contract by traversing your `myfabric` network, just as you had done in the previous tutorial ('myfabric....mychannel....right-click... Instantiate Smart contract'). This is the basis from which this tutorial will proceed.
+3. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages listed up top. Go ahead and connect to your Fabric, via your running `myfabric` connection which should still be present in the 'Blockchain Connections' panel (from the previous tutorial), and `install` the smart contract package onto `peer0.org1.example.com` - then `instantiate` the contract by traversing your `myfabric` network, just as you had done in the previous tutorial:
 
-A new clean Fabric and ledger is now available - from here, we will create the transaction Commercial Paper history, as part of our tutorial.
+ - Under 'Blockchain connections' select ` 'myfabric....mychannel....right-click... Instantiate Smart contract' `). 
+ - Supply `org.papernet.commercialpaper:instantiate` when prompted for 'what function to call'.
+
+This is the basis from which this tutorial will proceed.
+
+A new clean Fabric and ledger is now available - from here, we will create a more detailed transaction Commercial Paper history, as part of our tutorial.
 
 ## Estimated time
 
@@ -46,18 +51,18 @@ OK, lets get started !
 
 ## Step 1. Add the main query transaction functions in papercontract.js
 
-1.  In VSCode, have open, the folder with the smart contract completed in the previous tutorial
+1.  In VSCode, open the folder (if not already open) `contract` , containing the smart contract completed in the previous tutorial.
 
 2.  Open the main contract script file `papercontract.js` under the `lib` folder - add the following lines as instructed below:
 
 After the  `const { Contract, Context }` line (approx line 8)   add the following lines:
 
-```// Tutorial specific require for reporting identity of transactor
-
-const cryptoHash = require('crypto-hashing');
-
 ```
-The reason to add this 'cryptoHash' line, is because we are creating a hash of the X509 certificate for the individual users that are actually submitting each transaction in our lifecycle. It is done for reporting purposes, when we render the invoking Identity information later on in the tutorial.
+// Tutorial specific require for reporting identity of transactor using the Client Identity Chaincode Library (CID)
+
+const ClientIdentity = require('fabric-shim').ClientIdentity;
+```
+This library is to enable us to obtain the invoker or identity submitting each transaction in our commercial paper lifecycle. It is done for reporting purposes, when we render the invoking identity information in a browser app, later on in the tutorial.
 
 After the `// PaperNet specific classes ` line (approx line 16) add another class as follows:
 
@@ -70,7 +75,7 @@ don't worry about any errors reported in the status bar for now.
 
 4. Find the function that begins `async issue` (approx line 70) and scroll down to the line `paper.setOwner(issuer);` and create a new line directly under (it aligns with the correct indentation in VSCode).
 
-5. Now paste in the following code segment: This is to have a convenient way to report the true identity in query reporting later on. The function `idGen` below is a class based function in `papercontract.js` that uses the Client Identity Chaincode Library (CID) to obtain the attribute containing the invoking identity (from its X509 Certificate).
+5. Now paste in the following code segment: This following enables us to report the true identity of the transaction. The function `idGen` below is a class based function in `papercontract.js` ,  that uses the Client Identity Chaincode Library (CID) to obtain the attribute containing the invoking id (from its X509 Certificate).
 
 ```
     // Add the invoking CN, to the Paper state
@@ -175,7 +180,6 @@ OK - lets move on to getting this new contract functionality, out on the blockch
 1. We now need to add some changes to the `package.json` file - ie add a dependency name, and change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
 
   - change the `version` to "0.0.2" 
-  - add the following line immediately under the "dependencies" section:     `"crypto-hashing": "^1.0.0",`    (including the 'comma')
   - hit CONTROL and S to save it.
 
 2. Click on the Source Control sidebar icon and click the `tick` icon to commit, with a message of 'adding queries' and hit ENTER.
