@@ -76,7 +76,7 @@ BEFORE the LAST function `queryOwner`  and AFTER the function `queryHist` add th
 ```
 You'll notice that it calls the existing `getHistory` function (in the Query class, in `query.js`) - this uses an iterator to get the full history of the paper. Next, it calls a function `getDeltas` (also from `query.js` - a function that doesn't exist - yet!). This latter function is responsible for resolving the 'deltas', after the paper was initially issued. We'll add this function in the next step.
 
-Note that once you've pasted this into VSCode, the `ESLinter` may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). 
+Note that once you've pasted this into VSCode, the `ESLinter` (ie if enabled) may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). 
  
 Once you've completed the formatting task, you can hit CONTROL + S to save your file. 
 
