@@ -51,7 +51,7 @@ After the prerequisites are completed, this should take approximately *45-60 min
 
 ## Scenario
 
-Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history (from the ledger) of a Commercial paper, now that it has been redeemed (some 6 months after it was initially issued). Luke (a developer@Digibank), needs to add query functionality to the smart contract, and provide the client apps for Digibank, so that Balaji (or indeed Isabella) can query the ledger from the application. The upgraded smart contract should be active on the channel so that the client applications can perform queries and report on the ledger history. 
+Isabella, an employee of MagnetoCorp and investment trader Balaji from DigiBank - should be able to see the history (from the ledger) of a Commercial paper, now that it has been redeemed (some 6 months after it was initially issued). Luke (a developer@Digibank), needs to add query functionality to the smart contract, and provide the client apps for DigiBank, so that Balaji (or indeed Isabella) can query the ledger from the application. The upgraded smart contract should be active on the channel so that the client applications can perform queries and report on the ledger history. 
 
 OK, lets get started !
 
@@ -179,7 +179,7 @@ Next hit CONTROL + S to save the file.
 
 OK - lets move on to getting this new contract functionality, out on the blockchain to replace the older smart contract edition!
 
-## Step 3. Upgrade our Smart Contract version using IBP VSCode Extension, Instantiate new version
+## Step 3. Upgrade our Smart Contract version using IBP VSCode Extension
 
 1. We now need to add some changes to the `package.json` file  ie change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
 
@@ -201,12 +201,12 @@ We're now ready to upgrade our smart contract, using the IBP VSCode extension.
   
 You should get a message in the console that the upgrade is taking place.
 
-The upgrade will be executed, albeit it will take a minute (please note, as it has to build the new smart contract container) or so to show as the active contract, when listed under active containers docker ps. The container will have the contract version as a suffix.
+The upgrade will be executed, albeit it will take a minute (please note, as it has to build the new smart contract container) or so to show as the active contract, when listed under active containers using `docker ps`. The container will have the contract version as a suffix.
 
 [Upgrade Smart Contract](pics/upgrade-contract.png)
 
 
-## Step 4. Create a new Digibank query client app, to invoke query transactions
+## Step 4. Create a new DigiBank query client app, to invoke query transactions
 
 1. In VSCode, click on the menu option 'File....open Folder' and open the folder under `organization/digibank/application` and hit ENTER
 
@@ -219,7 +219,7 @@ The upgrade will be executed, albeit it will take a minute (please note, as it h
     - a `queryHist` function that gets the history of a Commercial paper instance and 
     - a `queryOwner` function that gets the list of Commercial Papers owned by an organization (provided as a parameter to the query function).
 
-Next up, we'll test the new application client from a terminal window in Digibank's application folder (it does not matter whether we test from Magnetocorp or DigiBank in this example - we should say the same data on the ledger from either application client :-).
+Next up, we'll test the new application client from a terminal window in DigiBank's application folder (it does not matter whether we test from Magnetocorp or DigiBank in this example - we should say the same data on the ledger from either application client :-).
 
 
 ## Step 5. Perform transactions 'issue', 'buy' and 'redeem' to update the ledger
@@ -227,7 +227,7 @@ Next up, we'll test the new application client from a terminal window in Digiban
 Lets create some transactions, which will have new invoking transactor info (for each transaction) we added in our code earlier. Note we've stood up a new `basic-network` so we will have a new ledger.  The sequence is:
 
 1. Issue a paper as 'MagnetoCorp'
-2. Buy the paper as 'Digibank' - the new owner
+2. Buy the paper as 'DigiBank' - the new owner
 3. Buy the paper as 'Hedgematic' - changed owner 
 4. Redeem the paper at face value - as existing owner 'Hedgematic' - with MagnetoCorp as the original issuer
 
@@ -287,7 +287,7 @@ It will unzip the user bart's wallet into a subdirectory under `/tmp/wallet`. Af
 
 ### Transaction #4: Execute a `redeem` transaction as Bart@Hedgematic - six months later
 
-The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoups its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic's` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic have since bought the paper from Digibank, we need to modify it to redeem it properly as Hedgematic's Bart !). For the purposes of this tutorial, we will simply run the client application script for `redeem` from the `digibank` application subdirectory.
+The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoups its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic's` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic have since bought the paper from DigiBank, we need to modify it to redeem it properly as Hedgematic's Bart !). For the purposes of this tutorial, we will simply run the client application script for `redeem` from the `digibank` application subdirectory.
 
 1. Once again from a terminal window, and the same directory `$HOME/fabric-samples/commercial-paper/organization/digibank/application` - edit the file `redeem.js`
 
@@ -318,7 +318,7 @@ You should get messages confirming it was successful:
 
 [Issue message](docs/pics/redeem-output.png)
 
-## Step 6. Launch the sample Digibank Client query application
+## Step 6. Launch the sample DigiBank Client query application
 
 1. From a terminal window, change directory to the `$HOME/fabric-samples/commercial-paper/organization/digibank/application` folder
 
