@@ -219,15 +219,16 @@ The upgrade will be executed, albeit it will take a minute or so (please note, a
 Paste this code:
 ```
 // query the DELTAS of the history for a commercial paper
-        console.log('Calling queryDeltas to get the deltas of Commercial Paper instance 00001');
-        console.log('========================================================================');
-        // QUERY the deltas of a commercial paper providing it the Issuer/paper number combo below
-        const deltaResponse = await contract.submitTransaction('queryDeltas', 'MagnetoCorp', '00001');
-        // let queryresult = CommercialPaper.fromBuffer(queryResponse);
+console.log('Calling queryDeltas to get the deltas of Commercial Paper instance 00001');
+console.log('========================================================================');
 
-        let file2 = await fs.writeFileSync('deltas.json', deltaResponse, 'utf8');
-        console.log('the deltas HISTORY response is ' + deltaResponse);
-        console.log(' ');
+// QUERY the deltas of a commercial paper providing it the Issuer/paper number combo below
+const deltaResponse = await contract.submitTransaction('queryDeltas', 'MagnetoCorp', '00001');
+
+console.log('the deltas HISTORY response is ' + JSON.parse(deltaResponse));
+// parse the response sent back from contract -> client app
+let file2 = await fs.writeFileSync('deltas.json', JSON.parse(deltaResponse), 'utf8');
+console.log(' ');
 ```
 
 3. Once pasted, you can open choose 'View....Problems' to see the formatting/indentation errors - in the Problem pane, do a right-click `Fix all auto-fixable errors` and it should automatically fix all the indentation issues. 
