@@ -259,7 +259,7 @@ You should get messages confirming it was successful:
 
 You should get messages confirming it was successful:
 
-[Issue message](/pics/buy-output.png)
+[Buy message](/pics/buy-output.png)
 
 ### Transaction #3: Execute another `buy` transaction as Bart@Hedgematic
 
@@ -284,6 +284,9 @@ It will unzip the user bart's wallet into a subdirectory under `/tmp/wallet`. Af
 
 `node buy2.js`
 
+You should get messages confirming it was successful:
+
+[Buy #2 message](/pics/buy2-output.png)
 
 ### Transaction #4: Execute a `redeem` transaction as Bart@Hedgematic - six months later
 
@@ -316,7 +319,7 @@ All good - save your file (CONTROL and S) and commit any changes.
 
 You should get messages confirming it was successful:
 
-[Issue message](docs/pics/redeem-output.png)
+[Redeem message](docs/pics/redeem-output.png)
 
 ## Step 6. Launch the sample DigiBank Client query application
 
