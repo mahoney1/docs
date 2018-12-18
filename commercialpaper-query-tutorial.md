@@ -70,14 +70,15 @@ don't worry about any errors reported in the status bar for now.
 
 4. Find the function that begins `async issue` (approx line 70) and scroll down to the line `paper.setOwner(issuer);` and create a new line directly under (it aligns with the correct indentation in VSCode).
 
-5. Now paste in the following code segment: This is to have a convenient way to report the true identity in queries later on.
+5. Now paste in the following code segment: This is to have a convenient way to report the true identity in query reporting later on. The function `idGen` below is a class based function in `papercontract.js` that uses the Client Identity Chaincode Library (CID) to obtain the attribute containing the invoking identity (from its X509 Certificate).
 
 ```
-// Add the creator hash, to the Paper state
-        let hashId = await this.idGen(ctx);
-        paper.setCreator(hashId);
+    // Add the invoking CN, to the Paper state
+    let invokingId = await this.idGen(ctx);
+    paper.setCreator(invokingId);
+    
 ```
-This code should be located BEFORE the line `await ctx.paperList.addPaper(paper);` in the `issue` function.
+Note: this code should be located BEFORE the line `await ctx.paperList.addPaper(paper);` in the `issue` function.
 
 6. Repeat the paste as shown above (3 line code segment)  - into the functions beginnning `async buy` and `async redeem` functions. 
 
@@ -90,20 +91,18 @@ You should paste near the end of EACH of those functions - ie BEFORE the followi
 8.  Next, add the following code segment, containing 3 functions (incl 2 query transaction functions), directly AFTER the CLOSING curly bracket of the `redeem` function and BEFORE - the last CLOSING bracket in the file `papercontract.js` (ie its ensuing `module.exports` declaration) . These 2 main query functions call the 'worker' query functions / iterators in the file `query.js`):
 
 ```
-    /**
-    * generate an Id hash of the transactor cert
+   /**
+    * grab the invoking CN from the of the X509 transactor cert
     * @param {Context} ctx the transaction context
     */
 
     async idGen(ctx)     {
-
-        // Add the creator hash, to the Paper record
-        let creator = await ctx.stub.getCreator();
-        //console.log('creator object is: ' + creator.toString());
-        let pem = creator.getIdBytes().toString('utf8');
-        let buffer = new Buffer(pem);
-        let hashId = cryptoHash('hash256', buffer).toString('hex');
-        return hashId;
+ 
+        // Use the Client Identity Chaincode Library (CID) to get the invoker info.
+        let cid = new ClientIdentity(ctx.stub);
+        let id = cid.getID(); // X509 Certificate invoker is in CN form
+        let CN = id.substring(id.indexOf("CN=") + 3, id.lastIndexOf("::"));
+        return CN;
     }
 
 
