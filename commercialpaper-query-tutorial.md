@@ -275,7 +275,9 @@ DigiBank are re-structuring their investment portfolio, and have decided to sell
 
 
 `cp $HOME/commpaper/wallet.zip /tmp`
+
 `cd /tmp`
+
 `unzip wallet.zip`
 
 It will unzip the user bart's wallet into a subdirectory under `/tmp/wallet`. After extraction, you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` identity wallet.
