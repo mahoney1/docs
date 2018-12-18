@@ -1,11 +1,11 @@
 # Enhance Query functionality: Add Commercial Paper Deltas History using the IBM Blockchain VSCode extension
 
-[Commercial Paper Deltas Report](pics/paperhistory.mp4)
+[Commercial Paper Deltas Report](pics/final-results.gif)
 
 
 ## Introduction
 
-In the [Adding Query functionality to the Commercial Paper using IBM Blockchain VSCode extension tutorial](url), we saw how to add rich query functionality and upgrade our smart contract using the IBM Blockchain VSCode Extension, to enable us to query the history and lifecycle of a Commercial Paper instance. Showing that immutable history is of course important, but what if we just want to know: 'what were the changes committed for each transaction in that history'? Such a use case is relevant, when dealing with large volumes of transactions, or looking for patterns.
+In the [Adding Query functionality to the Commercial Paper using IBM Blockchain VSCode extension tutorial](url), we saw how to add rich query functionality and enhance our smart contract using the IBM Blockchain VSCode Extension. The tutorial enabled us to query the history and lifecycle of a Commercial Paper instance and report on it. Showing that immutable history is of course important, but what if we just want to know: 'what were the changes committed for each transaction in that history'? Such a use case is relevant, when dealing with large volumes of transactions, or looking for patterns etc. The example below demonstrates a smaller scale example, nevertheless, the principles - and indeed the code samples provided -apply to any ledger and use case.
 
 The aim of this tutorial is to add the capability to pull just the 'deltas' from the blockchain and report on them. That is:
 
@@ -30,7 +30,7 @@ The previous Commercial paper scenario had users transacting as participants fro
 
 ## Pre-requisites
 
-1. You will need to have completed the [Part 2: Adding Query functionalitytutorial](url), specifically, have version 0.0.2 of the Commercial paper smart contract package loaded in IBM Blockchain Platform VSCode Extension (under 'Smart Contracts' pane) - as part of that, you'll already have created the transaction history or 'paper trail'.
+1. You will need to have completed the [Part 2: Adding Query functionalitytutorial](https://github.com/mahoney1/docs/blob/master/commercialpaper-query-tutorial.md), specifically, have version 0.0.2 of the Commercial paper smart contract package loaded in IBM Blockchain Platform VSCode Extension (under 'Smart Contracts' pane) - as part of that, you'll already have created the transaction history or 'paper trail'.
 
 2. In VSCode, click on the IBM Blockchain Platform icon. You should have version `0.0.2` of your smart contract packages. 
 
@@ -81,7 +81,7 @@ You'll notice that it calls the existing `getHistory` function (in the Query cla
 
 Note that once you've pasted this into VSCode, the `ESLinter` (ie if enabled) may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). 
  
-Once you've completed the formatting task, save your file (hit CONTROL and S as a shortcut to save your file).
+Once you've completed the formatting task, save your file (choose Save from the menu or hit CONTROL and S as a shortcut to save your file).
 
 ## Step 2. Add the `getDeltas` query worker function to the Query class in `query.js`
 
@@ -179,20 +179,20 @@ AFTER the existing `getHistory` function - and BEFORE the 'closing' brace (immed
 
 Note that once you've pasted this into VSCode, the `ESLinter` will again report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). 
  
-2. Once you've completed the formatting task, and ensuring there are no more 'problems' at the bottom, you can hit CONTROL + S to save your file. 
+2. Once you've completed the formatting task, and ensuring there are no more 'problems' at the bottom, you can hit CONTROL and S to save your file. 
  
 OK - lets move on to getting this new contract functionality, out on the blockchain to replace the older version !
 
 ## Step 3. Upgrade our Smart Contract version using IBP VScode Extension, Instantiate new edition
 
-1. First, we need to update the version for our contract. Update the `package.json` file - ie add a dependency name (see below), and change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
+1. First, we need to update the version number for our contract. To do this, update the `package.json` file, and change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
 
   - change the `version` to "0.0.3" 
   - hit CONTROL and S to save it.
 
 2. Next, click on the Source Control sidebar icon and click the `tick` icon to commit, with a message of 'adding queries' and hit ENTER.
 
-We're now ready to upgrade our smart contract, using the IBP VSCode extension. 
+We're now ready to upgrade our existing smart contract package, using the IBP VSCode extension. 
 
 3. Click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' and you'll see that version '0.0.3' becomes the latest edition of `papercontract'.
 
@@ -203,9 +203,9 @@ We're now ready to upgrade our smart contract, using the IBP VSCode extension.
   
 You should get a message in the console that the upgrade is taking place.
 
-The upgrade will be executed, albeit it will take a minute or so (please note, as it has to build the new smart contract container), to show as the active contract, when listed under active containers using `docker ps`. The container will have the contract version (0.0.3) as a suffix.
+The upgrade will be executed, it will take a minute or so (as it has to build the new smart contract container). You should momentarily get a 'successful instantiation' message popup at the bottom right. The container (when seen from `docker ps` will have the contract version (0.0.3) as a suffix FYI).
 
-[Upgrade Smart Contract](pics/upgrade.png)
+[Upgrade Smart Contract](pics/upgrade-contract.png)
 
 
 ## Step 4. Upgrade the DigiBank query client app, to invoke a `queryDeltas` transaction
