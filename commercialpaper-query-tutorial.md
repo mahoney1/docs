@@ -70,14 +70,14 @@ const ClientIdentity = require('fabric-shim').ClientIdentity;
 ```
 This library is to enable us to obtain the invoker or identity submitting each transaction in our commercial paper lifecycle. It is done for reporting purposes, when we render the invoking identity information in a browser app, later on in the tutorial.
 
-After the `// PaperNet specific classes ` line (approx line 16) add another class as follows:
+3. After the `// PaperNet specific classes ` line (approx line 16) add another class as follows:
 
 ```const QueryUtils = require('./query.js');```
 
 don't worry about any errors reported in the status bar for now. 
 
 
-3. Still in `papercontract.js`, find the function that begins `async issue` (approx line 70) and scroll down to the line `paper.setOwner(issuer);` and create a new line directly under (it aligns with the correct indentation in VSCode).
+4. Still in `papercontract.js`, find the function that begins `async issue` (approx line 70) and scroll down to the line `paper.setOwner(issuer);` and create a new line directly under (it aligns with the correct indentation in VSCode).
 
 5. Now paste in the following code block: This following enables us to report the true identity of the transaction. The function `idGen` below is a class based function in `papercontract.js` ,  that uses the Client Identity Chaincode Library (CID) to obtain the attribute containing the invoking id (from its X509 Certificate).
 
@@ -192,11 +192,11 @@ We're now ready to upgrade our smart contract, using the IBP VSCode extension.
 
 3. Firstly, package the contract - click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' icon ('+')  and you'll see that version '0.0.2' becomes the latest edition of `papercontract'.
 
-4. Next, install the contract itself: expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` and right-click...Install new contract, installing version "0.0.2" from the list presented up top. You should get a message it was successfully installed. 
+4. Next, install the contract itself (remember we're using a fresh Fabric environment): expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` and right-click...'Install Smart Contract', installing version "0.0.2" from the list presented up top. You should get a message it was successfully installed. 
 
-5. Now we can carry out the upgrade. Under the same 'Blockchain Connections' pane, and channel `mychannel` , expand the `peer0.org1.example.com` twisty and select the `papercontract@0.0.1` entry specifically.  You will notice also, that all of our transaction functions are listed, including the new identity and query functions added.
+5. Now we can carry out the upgrade. Under the same 'Blockchain Connections' pane, and channel `mychannel` , expand the `peer0.org1.example.com` twisty and select the `papercontract@0.0.1` entry specifically.  You will notice also, that all of our transaction functions are listed, including the new query functions we added.
 
-6. Now choose right-click...'Upgrade Smart Contract', and choose "papercontract@0.0.2" from the list presented (up top). 
+6. Now choose right-click on `papercontract@0.0.1`...'Upgrade Smart Contract', and choose "papercontract@0.0.2" from the list presented (up top). 
 
   - Enter or paste the text `org.papernet.commercialpaper:instantiate` when prompted to enter `a function name to call` and hit ENTER ; 
   - Hit 'ENTER' - ie leave blank - when prompted to enter arguments
@@ -212,7 +212,7 @@ The upgrade will be executed, albeit it will take a minute (please note, as it h
 
 1. In VSCode, click on the menu option 'File....open Folder' and open the folder under `organization/digibank/application` and hit ENTER
 
-2. Right-click on the folder in the left pane and create a new file `queryapp.js` then paste the contents of the file `queryapp.js` located in the `commercial-paper` repo that you copied from Step 5 in the previous Commercial Paper tutorial.
+2. Right-click on the folder in the left pane and create a new file `queryapp.js` , then paste the contents of the file `queryapp.js` located in the `commercial-paper` repo directory, that you copied from 'Step 5' in the previous Commercial Paper tutorial.
 
 3. Once pasted, you can open choose 'View....Problems' to see the formatting/indentation errors - in the Problem pane, do a right-click `Fix all auto-fixable errors` and it should automatically fix all the indentation issues. 
 
@@ -349,6 +349,8 @@ Well done! You've completed the query tutorial for adding query functionality to
 ## Conclusion
 
 
-You learned how to deploy a substantial Commercial Paper smart contract sample in the earlier tutorial, and here you have learned how to add queries/upgrade your contract using the IBM Blockchain Platform VSCode extension and used it to implement features from  Hyperledger Fabric's new programming model.  Take time to peruse and look at the transaction (query) functions in both `papercontract.js` and indeed the query utility functions, the Query class file `query.js` under the `lib` directory. Finally, you've shown how to render the results - such as the history of a Commercial Paper - in a simple browser-based HTML tabulated application.
+You learned how to deploy a substantial Commercial Paper smart contract sample in the earlier tutorial, and here you have learned how to add queries/enhance your contract using the IBM Blockchain Platform VSCode extension, using features from  Hyperledger Fabric's new programming model.  Take time to peruse and look at the transaction (query) functions in both `papercontract.js` and indeed the query utility functions, in the Query class file `query.js` under the `lib` directory. 
+
+Finally, you've shown how to render the history results - ie history of a Commercial Paper asset - in a simple browser-based HTML tabulated application.
 
 Thank you for completing this!
