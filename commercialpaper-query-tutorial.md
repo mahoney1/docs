@@ -39,6 +39,8 @@ The Commercial paper scenario (in the last tutorial) began with employees from M
  - Under 'Blockchain connections' select ` 'myfabric....mychannel....right-click... Instantiate Smart contract' `). 
  - Supply `org.papernet.commercialpaper:instantiate` when prompted for 'what function to call'.
 
+4. In VSCode Explorer, choose File > Open Folder, and select the `contracts` folder, by navigating to the $HOME/fabric-samples/commercial-paper/organization/magnetocorp directory. This must be your top-level project folder for this tutorial.
+
 This is the basis from which this tutorial will proceed.
 
 A new clean Fabric and ledger is now available - from here, we will create a more detailed transaction Commercial Paper history, as part of our tutorial.
