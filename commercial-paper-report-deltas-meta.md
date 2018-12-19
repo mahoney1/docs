@@ -44,8 +44,7 @@ related_links:
     url: "https://developer.ibm.com/tutorials/run-commercial-paper-smart-contract-with-ibm-blockchain-vscode-extension/"
   - title: "Part 2: Add Query functionality to the Commercial Paper Smart Contract with the IBM Blockchain VSCode Extension" 
     url: "url of final rendered https://github.com/mahoney1/docs/blob/master/commercial-paper-query-tutorial-meta.md"
-
-- title: "Video: Start developing with the IBM Blockchain Platform VSCode Extension"
+  - title: "Video: Start developing with the IBM Blockchain Platform VSCode Extension"
     url: "https://youtu.be/0NkGGIUPhqk"
   - title: "Sample commercial paper smart contract"
     url: "https://github.com/hyperledger/fabric-samples"
