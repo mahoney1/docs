@@ -30,7 +30,7 @@ The previous Commercial paper scenario had users transacting as participants fro
 
 ## Pre-requisites
 
-1. You will need to have completed the [Part 2: Adding Query functionalitytutorial](https://github.com/mahoney1/docs/blob/master/commercialpaper-query-tutorial.md), specifically, have version 0.0.2 of the Commercial paper smart contract package loaded in IBM Blockchain Platform VSCode Extension (under 'Smart Contracts' pane) - as part of that, you'll already have created the transaction history or 'paper trail'.
+1. You will need to have completed the [Part 2: Adding Query functionality tutorial(https://github.com/mahoney1/docs/blob/master/commercialpaper-query-tutorial.md), specifically, have version 0.0.2 of the Commercial paper smart contract package loaded in IBM Blockchain Platform VSCode Extension (under 'Smart Contracts' pane) - as part of that, you'll already have created the transaction history or 'paper trail'.
 
 2. In VSCode, click on the IBM Blockchain Platform icon. You should have version `0.0.2` of your smart contract packages. 
 
