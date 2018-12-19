@@ -77,23 +77,21 @@ type: tutorial
 
 # Enhance Query functionality: Add Commercial Paper Deltas History using the IBM Blockchain VSCode extension
 
-[Commercial Paper Deltas Report](pics/final-results.gif)
-
 
 ## Introduction
 
-In the [Adding Query functionality to the Commercial Paper using IBM Blockchain VSCode extension tutorial](urltba), we saw how to add rich query functionality and enhance our smart contract using the IBM Blockchain VSCode Extension. The tutorial enabled us to query the history and lifecycle of a Commercial Paper instance and report on it. Showing that immutable history is of course important, but what if we just want to know: 'what were the changes committed for each transaction in that history'? Such a use case is relevant, when dealing with large volumes of transactions, or looking for patterns etc. The example below demonstrates a smaller scale example, nevertheless, the principles - and indeed the code samples provided -apply to any ledger and use case.
+In the [Adding Query functionality to the Commercial Paper using IBM Blockchain VSCode extension tutorial](url-tba), we saw how to add rich query functionality and enhance our smart contract using the IBM Blockchain VSCode Extension. The tutorial enabled us to query the history and lifecycle of a Commercial Paper instance and report on it. Showing that immutable history is of course important, but what if we just want to know: 'what were the changes committed for each transaction in that history'? Such a use case is relevant, when dealing with large volumes of transactions, or looking for patterns etc. The example below demonstrates a smaller scale example, nevertheless, the principles - and indeed the code samples provided -apply to any ledger and use case.
 
 The aim of this tutorial is to add the capability to pull just the 'deltas' from the blockchain and report on them. That is:
 
-- add the required functionality to the existing smart contract logic
+- add the required functionality for getting deltas only - to the existing smart contract logic
 - upgrade the existing, query-rich Smart Contract (from previous tutorial) using the IBM Blockchain Platform VSCode extension. 
-- Once instantiated, we will use a client application to pull the results - we'll do this as an employee of 'DigiBank'
-- Lastly, render the deltas in a HTML table in a client browser, reporting deltas for the Commercial Paper lifecycle in question - what changed, after it was initially created?. 
+- Try it out with an updated DigiBank client application to pull the results - as an employee of 'DigiBank'
+- Render the deltas in a HTML table in a client browser, reporting deltas for the Commercial Paper lifecycle in question - what changed, after it was initially created?. 
 
-We'll provide the code changes as part of this, adding to the existing Query class and provide the client app to invoke a 'getDeltas' transaction. Finally, we'll display the results in a simple, HTML-based table). 
+We'll provide the code blocks as part of this tutorial, adding to the existing Query class and also provide the client app changes to invoke a 'getDeltas' transaction. Finally, we'll display the results in a simple, HTML-based table. 
 
-The goal is to show the history of changes/deltas for all transactions executed during the lifecycle of a commercial paper instance.
+The goal is to show the history of changes/deltas ONLY (so - not ALL fields will show up in the HTML table, things that don't change,  will be 'blank' - save, some 'constants' like 'state' (eg two consecutive 'BUY' transactions by different organisations, are the same state)).
 
 We'll be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features - to complete these tasks.
 
@@ -107,13 +105,11 @@ The previous Commercial paper scenario had users transacting as participants fro
 
 ## Pre-requisites
 
-1. You will need to have completed the [Part 2: Adding Query functionality tutorial(https://github.com/mahoney1/docs/blob/master/commercialpaper-query-tutorial.md), specifically, have version 0.0.2 of the Commercial paper smart contract package loaded in IBM Blockchain Platform VSCode Extension (under 'Smart Contracts' pane) - as part of that, you'll already have created the transaction history or 'paper trail'.
-
-2. In VSCode, click on the IBM Blockchain Platform icon. You should have version `0.0.2` of your smart contract packages. 
-
-3. Connect to your Fabric in the VSCode extension, via the running `myfabric` connection, it should still be present in the 'Blockchain Connections' panel - the contract has already been instantiated.
-
-4. In VSCode Explorer, choose File > Open Folder, and select the `contracts` folder, by navigating to the $HOME/fabric-samples/commercial-paper/organization/magnetocorp directory. This must be your top-level project folder for this tutorial.
+1. You will need to have completed the tutorial called [Part 2: Adding Query functionality tutorial](https://github.com/mahoney1/docs/blob/master/commercial-paper-query-tutorial-meta.md)
+2. Specifically, have `version 0.0.2` of the Commercial paper smart contract package loaded in IBM Blockchain Platform VSCode Extension (under 'Smart Contracts' pane) 
+3. Have created the 'history' of transactions, ie created the transaction history or 'paper trail' from the tutorial mentioned.
+4. Connect to your Fabric in the VSCode extension, via the running `myfabric` connection, it should still be present in the 'Blockchain Connections' panel - the contract has already been instantiated from 'previous'.
+5. In VSCode Explorer, choose File > Open Folder, and select the `contracts` folder, by navigating to the `$HOME/fabric-samples/commercial-paper/organization/magnetocorp` directory. This must be your top-level project folder for this tutorial.
 
 
 
@@ -123,17 +119,19 @@ After the prerequisites are validated, this should take approximately *45 minute
 
 ## Scenario
 
-Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history of deltas specifically (taken from the ledger) of a Commercial paper instance, and report on them in a client browser. Luke (a developer@MagnetoCorp) has been tasked with adding this enhanced query functionality to the smart contract, then upgrade it on the blockchain - all using the IBP VSCode extension. Furthermore, Luke must provide the client app, so that Balaji can run a `queryDeltas` query transaction and report on those in a simple browser app. 
+Isabella, an employee of MagnetoCorp and investment trader Balaji from Digibank - should be able to see the history of deltas specifically (as reflected by the ledger) of a Commercial paper instance, and report on them in a client browser. Luke (a developer@DigiBank) has been tasked with adding this enhanced query functionality to the smart contract, then upgrade it on the blockchain - all using the IBP VSCode extension. Furthermore, Luke must provide the client application too, so that Balaji can run a `queryDeltas` query transaction and report on those in a simple browser app. 
 
 OK, lets get started !
 
-## Step 1. Add the `getDeltas` main query transaction in the main contract source file
+## Steps
 
-1.  In VSCode, have open, the folder with the smart contract completed in the previous tutorial - and specifically the 'contracts' folder.
+### Step 1. Add the `getDeltas` main query transaction in the main contract source file
 
-2.  Open the main contract script file `lib/papercontract.js` under the `lib` folder - add the following lines as instructed below:
+1.  In VSCode, you have 'contracts' as your top level folder.
 
-BEFORE the LAST function `queryOwner`  and AFTER the function `queryHist` add the following lines - this is in the 'main' contract, and this transaction `queryDeltas` will later be called from our client application:
+2.  Open the main contract script file `lib/papercontract.js` under the `lib` folder - add the following code block as instructed below:
+
+BEFORE the LAST function `queryOwner` - and AFTER the function `queryHist` add the following lines - this is in the 'main' contract file, and the transaction `queryDeltas` below, will later be called from our client application:
 
 ```
 /**
@@ -154,15 +152,15 @@ BEFORE the LAST function `queryOwner`  and AFTER the function `queryHist` add th
     }
 
 ```
-You'll notice that it calls the existing `getHistory` function (in the Query class, in `query.js`) - this uses an iterator to get the full history of the paper. Next, it calls a function `getDeltas` (also from `query.js` - a function that doesn't exist - yet!). This latter function is responsible for resolving the 'deltas', after the paper was initially issued. We'll add this function in the next step.
+You'll notice that it calls the existing `getHistory` function (in the Query class, in `query.js`) - this uses an iterator to get the full history of the paper. Next, it calls a function `getDeltas` (also from `query.js` - a function that doesn't exist - yet!). This latter function is responsible for resolving the 'deltas', after the paper was initially issued. We'll add this 'utility' function in the next step.
 
-Note that once you've pasted this into VSCode, the `ESLinter` (ie if enabled) may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). 
+3. Note that once you've pasted this into VSCode, the `ESLinter` (ie if it is enabled) may report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). 
  
-Once you've completed the formatting task, save your file (choose Save from the menu or hit CONTROL and S as a shortcut to save your file).
+4. Once you've completed the formatting task, save your file (choose Save from the menu or hit CONTROL and S as a shortcut, to save your file).
 
-## Step 2. Add the `getDeltas` query worker function to the Query class in `query.js`
+### Step 2. Add the `getDeltas` query worker function to the Query class in `query.js`
 
-1. Click on the source file `lib/query.js` and open it - add the following 'worker' functions as shown below - it will get the deltas and also to return the data (to the main `queryDeltas` function), in a JSONified form suitable for passing on to our `tabulator` HTML client app.
+1. Click on the source file `lib/query.js` and open it - add the following 'worker' functions as instructed below - it will get the deltas and also to return the data (to the main `queryDeltas` function), in a JSONified form suitable for passing on to our `tabulator` HTML client app.
 
 AFTER the existing `getHistory` function - and BEFORE the 'closing' brace (immediately before `module.exports` line) - paste the following two functions:
 
@@ -254,13 +252,13 @@ AFTER the existing `getHistory` function - and BEFORE the 'closing' brace (immed
 ```
 
 
-Note that once you've pasted this into VSCode, the `ESLinter` will again report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (ref. line number reported). 
+2. Note that once you've pasted this into VSCode, the `ESLinter` may (if enabled) report a problem in the `Problems` pane. You can easily rectify the formatting issues by in the problems pane at the bottom by choosing `right-click....` then  `Fix all auto-fixable issues` - likewise, it will remove all trailing spaces if any are reported (reference the line number reported). 
  
-2. Once you've completed the formatting task, and ensuring there are no more 'problems' at the bottom, you can hit CONTROL and S to save your file. 
+3. Once you've completed the formatting task, and ensuring there are no more 'problems' at the bottom, you can hit CONTROL and S to save your file. 
  
 OK - lets move on to getting this new contract functionality, out on the blockchain to replace the older version !
 
-## Step 3. Upgrade our Smart Contract version using IBP VScode Extension, Instantiate new edition
+### Step 3. Upgrade our Smart Contract version using IBP VScode Extension, Instantiate new edition
 
 1. First, we need to update the version number for our contract. To do this, update the `package.json` file, and change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
 
@@ -278,22 +276,23 @@ We're now ready to upgrade our existing smart contract package, using the IBP VS
   - Enter `org.papernet.commercialpaper:instantiate` when prompted to enter a function name to call ; 
   - Hit 'ENTER' - ie leave blank - when prompted to enter arguments
   
+**Figure 2. "Upgrading the 'papercontract' Smart Contract in IBM Blockchain VSCode Extension **
+![Upgrading Smart Contract in VSCode](image/upgrade-contract.png)
+
 You should get a message in the console that the upgrade is taking place.
 
 The upgrade will be executed, it will take a minute or so (as it has to build the new smart contract container). You should momentarily get a 'successful instantiation' message popup at the bottom right. The container (when seen from `docker ps` will have the contract version (0.0.3) as a suffix FYI).
 
-[Upgrade Smart Contract](pics/upgrade-contract.png)
 
 
-## Step 4. Upgrade the DigiBank query client app, to invoke a `queryDeltas` transaction
+### Step 4. Upgrade the DigiBank query client app, to invoke a `queryDeltas` transaction
 
 1. In VSCode, click on the menu option 'File....open Folder' and open the folder under `organization/digibank/application` and hit ENTER
 
-2. Open the file `queryapp.js`,  then paste the contents shown below, BEFORE the line that begins with the comment:
-
-` // query the OWNER of a commercial paper`
+2. Open the existing file `queryapp.js` (from the last tutorial),  then paste the contents shown below, BEFORE the line that begins with the comment - ` // query the OWNER of a commercial paper` :
 
 Paste this code:
+
 ```
 // query the DELTAS of the history for a commercial paper
 console.log('Calling queryDeltas to get the deltas of Commercial Paper instance 00001');
@@ -319,9 +318,9 @@ console.log(' ');
 Next up, we'll test the new application client from a terminal window.
 
 
-## Step 5. Run the updated MagnetoCorp client query application
+### Step 5. Run the updated MagnetoCorp client query application
 
-We already have a history of transactions at this point, from the previous tutorial. We'll now run the deltas query, as Balaji from Digibank, using his wallet to run the query:
+We already have a history of transactions at this point - from the previous tutorial. We'll now run the deltas query app, as Balaji from Digibank, using his existing wallet to run the query:
 
 1. From a terminal window, change directory to the `$HOME/fabric-samples/commercial-paper/organization/digibank/application` folder
 
@@ -329,27 +328,30 @@ We already have a history of transactions at this point, from the previous tutor
 
 `node queryapp.js`
 
-3. You should see the results from the `queryHist` function then the `queryDeltas` function and finally the `queryOwner` transaction in the terminal window. In that file, `queryHist` (from previous) creates a file `results.json` ; the `queryDeltas` transaction creates a file called `deltas.json`.
+3. You should see the results from the `queryHist` function, followed by the `queryDeltas` function and finally the `queryOwner` transaction in the terminal window. In that file, `queryHist` (from previous) creates a file `results.json` ; and the `queryDeltas` transaction creates a file called `deltas.json` in the local directory.
 
-## Step 6. Display the formatted Deltas history results to a browser app
+### Step 6. Display the formatted Deltas history results to a browser app
 
-For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, we just need to use a simple HTML file - it uses online CSS formatting and it performs a local `XMLHttpRequest() GET REST API` call to load the results (from the JSON file, avoiding CORS issues) and render it in the table. That `index.html` file is also in the `commpaper` Github repo that was cloned previously, please take time to peruse it. INFO: Note that this HTML file is provided 'as-is' and purely for the purposes of rendering in a FIREFOX browser (at the time of writing, some of the javascript (doesn't use jquery by the way) formatting does not work in Chrome, but works fine in Firefox).
+For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, we just need to use a simple HTML file - it uses online CSS formatting and it performs a local `XMLHttpRequest() GET REST API` call to load the results (from the JSON file, avoiding CORS issues) and render it in the table. That `index.html` file is also in the `commpaper` Github repo that was cloned previously, please take time to peruse it. INFO: Note that this HTML file is provided 'as-is' and purely for the purposes of rendering in a FIREFOX browser (at the time of writing, some of the javascript formatting (forEach loop) does not work in Chrome, but it works fine in Firefox).
 
 1. Launch a Firefox browser session (eg. install Firefox if you don't have it) providing the `index.html` file provided, along with the Issuer/Paper number as a parameter - eg.
 
 `firefox deltas.html?myParam="MagnetoCorp:0001"`
 
-2. You should see the deltas (what changed, in that transaction, by the invoking ID listed) in tabular form in the browser - expand or contract column widths as it suits, such as longer columns like `Invoking ID` etc. The `Invoking ID` is a hash of the signer certificate that was used to perform each transaction (eg, original issue, buy, a further purchase by a different investment bank, then a final redeem etc). The identity hash would easily be mapped to a real identity in a corporate database (eg Magnetocorp) like an LDAP or Active Directory, ie for reporting purposes (who are the real transacting employees). Obviously, transactions originate from other organisation(s) too: information about the invoker from another 'other organization' could be resolved/displayed with other attributes as appropriate.
+2. You should see the deltas (what changed, in that transaction, by the invoking ID listed) in tabular form in the browser - expand or contract column widths as it suits. Note that the TxId here, is the Fabric transaction Id. The Invoking ID is the invoker Common Name, which is extracted using the Client Identity library from the previous Query tutorial. 
 
-Note also that we report the 'State' on each line (eg. two 'buy' transaction states in a row = not necessarily a change in 'State' per se,  but reported nonetheless for clarity)
+The deltas represent, what changed, after the asset was initially created (ie the 'issue' transaction) -  those are mainly, the owner of the asset, and the price paid (if more fields changed, obviously, the report would reflect that too).
 
-[Commercial Paper History Report](pics/deltas-report.png)
+Note also that we report the 'State' on each line (eg. two 'buy' transaction states in a row = not necessarily a change in 'State',  but reported nonetheless for clarity)
+
+**Figure 3. "History of changes during the sample Commercial Paper lifecycle **
+![History of changes during the sample Commercial Paper lifecycle](image/deltas-report.png)
 
 Well done! You've completed the query tutorial for adding query functionality to the Commercial Paper sample smart contract using the IBM Blockchain Platform VSCode extension.
 
 ## Conclusion
 
 
-You learned how to deploy a substantial Commercial Paper smart contract sample in the earlier tutorial, and here you have learned how to add queries/upgrade your contract using the IBM Blockchain Platform VSCode extension and used it to implement features from  Hyperledger Fabric's new programming model.  Take time to peruse and look at the transaction (query) functions in both `papercontract.js` and indeed the query utility functions, the Query class file `query.js` under the `lib` directory. Finally, you've shown how to render the results - such as the history of a Commercial Paper - in a simple browser-based HTML tabulated application.
+You learned how to enhance your existing smart contract, using the IBM Blockchain Platform to orchestrate and deploy the changes in your development environment. You've added code to capture just the deltas from a full asset history and rendered these in a HTML-based client application.
 
 Thank you for completing this!
