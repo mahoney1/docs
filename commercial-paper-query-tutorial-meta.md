@@ -69,9 +69,8 @@ type: tutorial
 
 ---
 
-# Adding Query functionality to the Commercial Paper Smart Contract with the IBM Blockchain VSCode Extension
-
-[Commercial Paper History Report](pics/paperhistory.mp4)
+**Figure 1. "Papernet" -- querying the blockchain for the history of a Commercial paper asset **
+![Papernet: Asset history and lifecycle from a Blockchain query](images/paperhistory.mp4)
 
 
 ## Introduction
@@ -84,6 +83,7 @@ We'll be using the IBM Blockchain Platform VSCode Extension - and the new Fabric
 
 
 ## Background
+
 There is a fantastic description of the Commercial Paper use case scenario in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutions/organisations to obtain funds, to meet short-term debt obligations - and a chance for investors to to get return on investment upon maturity.
 
 The Commercial paper scenario (in the last tutorial) began with employees from MagnetoCorp and DigiBank transacting as participants from their respective organisations, to create an initial history. In this tutorial, we'll complete the lifecycle but adding a third investor, Hedgematic into the mix - purely to show more historical data (its quick and easy to create this history).
@@ -93,7 +93,7 @@ The Commercial paper scenario (in the last tutorial) began with employees from M
 
 1. You will need to have completed the [Commercial Paper tutorial](https://developer.ibm.com/tutorials/run-commercial-paper-smart-contract-with-ibm-blockchain-vscode-extension/), specifically, have version 0.0.1 of the Commercial paper smart contract package loaded in VSCode under your 'Smart Contract Packages' in the 'IBM Blockchain Platform' sidebar.
 
-2. From a terminal window, go to the `basic-network` directory under the `$HOME/fabric-samples` (ie wherever you downloaded the cloned Github Fabric Samples repo), and run the following houskeeping scripts in sequence:
+2. From a terminal window, go to the `basic-network` directory under the `$HOME/fabric-samples` (ie wherever you downloaded the cloned Github Fabric Samples repository), and run the following houskeeping commands/scripts in sequence:
 
 `cd $HOME/fabric-samples/basic-network`
 
@@ -105,16 +105,14 @@ The Commercial paper scenario (in the last tutorial) began with employees from M
 
 `./start.sh`      
 
-3. In VSCode, click on the IBM Blockchain Platform icon. You'll see version `0.0.1` of your smart contract packages listed up top. Go ahead and connect to your Fabric, via your running `myfabric` connection which should still be present in the 'Blockchain Connections' panel (from the previous tutorial), and `install` the smart contract package onto `peer0.org1.example.com` - then `instantiate` the contract by traversing your `myfabric` network, just as you had done in the previous tutorial:
+3. Go back into VSCode, then click on the IBM Blockchain Platform icon. You should see version `0.0.1` of your smart contract packages listed up top (this is from the previous tutorial). Go ahead and connect to your 'fresh' Fabric, via your running `myfabric` connection which should still be present in the 'Blockchain Connections' panel (from the previous tutorial), and `install` the smart contract package onto `peer0.org1.example.com` - then `instantiate` the contract by traversing your `myfabric` network, just as you had done in the previous tutorial:
 
  - Under 'Blockchain connections' select ` 'myfabric....mychannel....right-click... Instantiate Smart contract' `). 
  - Supply `org.papernet.commercialpaper:instantiate` when prompted for 'what function to call'.
 
 4. In VSCode Explorer, choose File > Open Folder, and select the `contracts` folder, by navigating to the `$HOME/fabric-samples/commercial-paper/organization/magnetocorp` directory. The `contracts` folder must be your top-level project folder in VSCode.
 
-Completion of the pre-reqs, is the basis from which this tutorial will proceed.
-
-A new clean Fabric and ledger is now available - from here, we will create a more detailed transaction Commercial Paper history, as part of our tutorial.
+Completion of the pre-reqs, is the basis from which this tutorial will proceed. From here, we will complet the detailed transaction Commercial Paper history, as part of this tutorial.
 
 ## Estimated time
 
@@ -126,7 +124,9 @@ Isabella, an employee of MagnetoCorp and investment trader Balaji from DigiBank 
 
 OK, lets get started !
 
-## Step 1. Add the main query transaction functions in papercontract.js
+## Steps
+
+### Step 1. Add the main query transaction functions in papercontract.js
 
 1.  In VSCode, open the folder (if not already open) `contract` , containing the smart contract completed in the previous tutorial.
 
@@ -143,12 +143,14 @@ This library is to enable us to obtain the invoker or identity submitting each t
 
 3. After the `// PaperNet specific classes ` line (approx line 16) add another class as follows:
 
-```const QueryUtils = require('./query.js');```
+```
+const QueryUtils = require('./query.js');
+```
 
 don't worry about any errors reported in the status bar for now. 
 
 
-4. Still in `papercontract.js`, find the function that begins `async issue` (approx line 70) and scroll down to the line `paper.setOwner(issuer);` and create a new line directly under (it aligns with the correct indentation in VSCode).
+4. Still in `papercontract.js`, find the function that begins `async issue` (approx line 70) and scroll down to the line `paper.setOwner(issuer);` and create a blank/new line directly under (it aligns with the correct indentation in VSCode).
 
 5. Now paste in the following code block: This following enables us to report the true identity of the transaction. The function `idGen` below is a class based function in `papercontract.js` ,  that uses the Client Identity Chaincode Library (CID) to obtain the attribute containing the invoking id (from its X509 Certificate).
 
@@ -164,9 +166,11 @@ Note: this code should be located BEFORE the line `await ctx.paperList.addPaper(
 
 `await ctx.paperList.updatePaper(paper);`
 
-7. In the `async buy` function only - at line 120 (approx) in the code, beginning with the comment `// Check paper is not already REDEEMED` -  add line of code, below the line `paper.setOwner(newOwner);` but inside the `isTrading()` branch:
+7. In the `async buy` function only - at line 120 (approx) in the code, beginning with the comment `// Check paper is not already REDEEMED` -  ADD this single line of code, below the line `paper.setOwner(newOwner);` but INSIDE the `isTrading()`  code 'branch':
 
-`paper.setPrice(price);`
+```
+paper.setPrice(price);
+```
 
 8.  Next, add the following code block, containing the 3 functions below (two of which are our query transaction functions), directly AFTER the CLOSING curly bracket of the `redeem` transaction function,  and BEFORE - the last CLOSING bracket in the file `papercontract.js` (ie the one before the `module.exports` declaration) . These 2 main query functions call the 'worker' query functions / iterators in the file `query.js` and the `idGen` function below gets identity information, used for reporting):
 
@@ -226,7 +230,7 @@ Note: once you've pasted this into VSCode, the `ESLinter` extension - ie if it i
  
 9. We have two more small functions to add - inside `paper.js`. Open the file `paper.js` under the `lib` directory in your VSCode session.
  
-10. After the existing `setOwner(newOwner)` function  (at approx. line 40) under the description called `//basic setters and getters` section - add the following functions:
+10. AFTER the existing `setOwner(newOwner)` function  (at approx. line 40) - and under the description called `//basic setters and getters`  - add the following functions as one code block:
 
 ```
     setCreator(creator) {
@@ -240,19 +244,19 @@ Note: once you've pasted this into VSCode, the `ESLinter` extension - ie if it i
 
 Next hit CONTROL + S to save the file. 
 
-## Step 2. Implement 'worker' Query class  utility functions into your VSCode project - new file: query.js 
+### Step 2. Implement 'worker' Query class  utility functions into your VSCode project - new file: query.js 
 
 1. Create a new file under the `contract/lib` folder using VSCode - call it `query.js`
 
-2. Copy the contents of the file `query.js` from the Github repo `github.com/mahoney1/commpaper` that you cloned earlier
+2. Copy the contents of the file `query.js` from the Github repo `github.com/mahoney1/commpaper` that you cloned earlier.
 
-3. Paste the contents into your VSCode session - you should have all the copied contents in your new query javascript worker file.
+3. Paste the contents into your `query.js` VSCode edit session - you should have all the copied contents in your new query javascript 'worker' file. Go ahead and save this file !
 
 OK - lets move on to getting this new contract functionality, out on the blockchain to replace the older smart contract edition!
 
-## Step 3. Upgrade our Smart Contract version using IBP VSCode Extension
+### Step 3. Upgrade our Smart Contract version using IBP VSCode Extension
 
-1. We now need to add some changes to the `package.json` file  ie change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
+1. We now need to add some changes to the `package.json` file in our project -  ie change the version in preparation for the contract upgrade. Click on the `package.json` file in Explorer, and:
 
   - change the `version` to "0.0.2" 
   - hit CONTROL and S to save it.
@@ -263,7 +267,7 @@ We're now ready to upgrade our smart contract, using the IBP VSCode extension.
 
 3. Firstly, package the contract - click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' icon ('+')  and you'll see that version '0.0.2' becomes the latest edition of available `papercontract' packages.
 
-4. Next, upgrade the contract itself: expand the 'Blockchain Connections' pane, under the channel `mychannel` choose `peer0.org1.example.com` . Expand the `peer0.org1.example.com` twisty and select the `papercontract@0.0.1` entry specifically.  (You will notice also, that all of our transaction functions are listed, including the new query functions we added).
+4. Next, upgrade the contract itself: expand the 'Blockchain Connections' pane below, under the channel `mychannel` choose `peer0.org1.example.com` . Expand the `peer0.org1.example.com` twisty and select the `papercontract@0.0.1` entry specifically.  (You will notice also, that all of our transaction functions are listed, including the new query functions we added).
 
 5. Now choose right-click on `papercontract@0.0.1`...'Upgrade Smart Contract', and choose "papercontract@0.0.2" from the list presented (up top). 
 
@@ -277,7 +281,7 @@ The upgrade will be executed, albeit it will take a minute (please note, as it h
 [Upgrade Smart Contract](pics/upgrade-contract.png)
 
 
-## Step 4. Create a new DigiBank query client app, to invoke query transactions
+### Step 4. Create a new DigiBank query client app, to invoke query transactions
 
 1. In VSCode, click on the menu option 'File....open Folder' and open the folder under `organization/digibank/application` and hit ENTER
 
@@ -293,7 +297,7 @@ The upgrade will be executed, albeit it will take a minute (please note, as it h
 Next up, we'll test the new application client from a terminal window in DigiBank's application folder (it does not matter whether we test from Magnetocorp or DigiBank in this example - we should say the same data on the ledger from either application client :-).
 
 
-## Step 5. Perform transactions 'issue', 'buy' and 'redeem' to update the ledger
+### Step 5. Perform transactions 'issue', 'buy' and 'redeem' to update the ledger
 
 Lets create some transactions, which will have new invoking transactor info (for each transaction) we added in our code earlier. Note we've stood up a new `basic-network` so we will have a new ledger.  The sequence is:
 
@@ -304,7 +308,7 @@ Lets create some transactions, which will have new invoking transactor info (for
 
 Note that you will have installed any application NodeJS dependencies for the client applications, as a set of steps in the previous tutorial. We will also make use of the existing identity wallets previously populated in that tutorial (these are located at the same level as `application` under both `magnetocorp` and `digibank` subdirectories respectively.
 
-### Transaction #1: Execute an `issue` transaction as Isabella@MagnetoCorp
+#### Transaction #1: Execute an `issue` transaction as Isabella@MagnetoCorp
 
 1. Open a terminal window, and change directory to MagnetoCorp's application directory (assuming $HOME is the holding location below):
 
@@ -318,7 +322,7 @@ You should get messages confirming it was successful:
 
 [Issue message](/pics/issue-output.png)
 
-### Transaction #2: Execute a `buy` transaction as Balaji@DigiBank
+#### Transaction #2: Execute a `buy` transaction as Balaji@DigiBank
 
 1. In the same terminal window, change directory to DigiBank's application directory:
 
@@ -332,7 +336,7 @@ You should get messages confirming it was successful:
 
 [Buy message](/pics/buy-output.png)
 
-### Transaction #3: Execute another `buy` transaction as Bart@Hedgematic
+#### Transaction #3: Execute another `buy` transaction as Bart@Hedgematic
 
 DigiBank are re-structuring their investment portfolio, and have decided to sell on the commercial paper for a small profit to release funds earlier. The purchaser is 'Hedgematic' who see this as an opportunity to increase their commercial paper portfolio and recouping the face value later on. Let's execute this transaction as an employee of Hedgematic. (For convenience, we've provided a temporary wallet for the Hedgematic employee so that Hedgematic can invoke a `buy` transaction.)
 
@@ -359,7 +363,7 @@ You should get messages confirming it was successful:
 
 [Buy #2 message](/pics/buy2-output.png)
 
-### Transaction #4: Execute a `redeem` transaction as Bart@Hedgematic - six months later
+#### Transaction #4: Execute a `redeem` transaction as Bart@Hedgematic - six months later
 
 The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoups its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic's` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic have since bought the paper from DigiBank, we need to modify it to redeem it properly as Hedgematic's Bart !). For the purposes of this tutorial, we will simply run the client application script for `redeem` from the `digibank` application subdirectory.
 
@@ -392,7 +396,7 @@ You should get messages confirming it was successful:
 
 [Redeem message](docs/pics/redeem-output.png)
 
-## Step 6. Launch the sample DigiBank Client query application
+### Step 6. Launch the sample DigiBank Client query application
 
 1. From a terminal window, change directory to the `$HOME/fabric-samples/commercial-paper/organization/digibank/application` folder
 
@@ -402,7 +406,7 @@ You should get messages confirming it was successful:
 
 3. You should see the results from both the `queryHist` function and `queryOwner` functions in the terminal window. It also creates a file `results.json` for the `queryHist` part.
 
-## Step 7. Display the formatted results to a browser app
+### Step 7. Display the formatted results to a browser app
 
 For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, we just need to use a simple HTML file - it uses online CSS formatting and it performs a local `XMLHttpRequest() GET REST API` call to load the results (from the JSON file, avoiding CORS issues) and render it in the table. That `index.html` file is also in the `commpaper` Github repo that was cloned previously, please take time to peruse it. INFO: Note that this HTML file is provided 'as-is' and purely for the purposes of rendering in a FIREFOX browser (at the time of writing, some of the javascript (it doesn't use jquery by the way) formatting does not work in Chrome, but works fine in Firefox).
 
