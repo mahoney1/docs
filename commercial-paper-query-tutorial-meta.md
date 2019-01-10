@@ -15,13 +15,13 @@ components:
 
 draft: false
 
-excerpt: "Add Query functionality to the Commercial Paper Smart Contract with the IBM Blockchain VSCode Extension and render a full asset history in a browser-based application"
+excerpt: "Add Query functionality to the Commercial Paper Smart Contract with the IBM Blockchain VSCode Extension and render a full asset history in a browser-based UI application"
 
-meta_description: "Learn how to add Query functionality to the Commercial Paper Smart Contract with the IBM Blockchain VSCode Extension and then run the queries from client application."
+meta_description: "Learn how to add Query functionality to the Commercial Paper Smart Contract with the IBM Blockchain VSCode Extension and then execute the queries from client application, rendering them in Tabulator."
 
 meta_keywords: "commercial paper, queries, smart contract, IBM blockchain, IBM blockchain platform, VSCode extension, Hyperledger Fabric"
 
-last_updated: "2018-12-18"
+last_updated: "2019-01-08"
 
 primary_tag: "blockchain"
 
@@ -58,7 +58,7 @@ related_links:
 services:
  - "blockchain"
 
-subtitle: "Use IBM Blockchain Platform VSCode extension to upgrade an existing Commercial paper smart contract easily, and get the full lifecycle and history of a Commercial paper asset"
+subtitle: "Use IBM Blockchain Platform VSCode extension to upgrade an existing Commercial paper smart contract easily, and get the full lifecycle and history of a Commercial paper asset in a browser-based UI application"
 
 tags:
   - "finance"
@@ -277,7 +277,7 @@ We're now ready to upgrade our smart contract, using the IBP VSCode extension.
 
 3. Firstly, package the contract - click on the `IBM Blockchain Platform` sidebar icon and under 'Smart Contract Packages' choose to 'Add new package' icon ('+')  and you'll see that version '0.0.2' becomes the latest edition of available `papercontract' packages.
 
-4. Next, upgrade the contract itself: expand the 'Blockchain Connections' pane below, under the channel `mychannel` choose `peer0.org1.example.com` . Expand the `peer0.org1.example.com` twisty and select the `papercontract@0.0.1` entry specifically.  (You will notice also, that all of our transaction functions are listed, including the new query functions we added).
+4. Next, upgrade the contract itself: expand the 'Blockchain Connections' pane below, under the channel `mychannel` choose `peer0.org1.example.com` . Expand the `peer0.org1.example.com` twisty and select the `papercontract@0.0.1` entry specifically.  (You will notice also, that all of our transaction functions are listed below (expand the 'twisty' to view), including the new query functions we added).
 
 5. Now choose right-click on `papercontract@0.0.1`...'Upgrade Smart Contract', and choose "papercontract@0.0.2" from the list presented (up top). 
 
@@ -354,7 +354,7 @@ You should get messages confirming it was successful:
 
 #### Transaction #3: Execute another `buy` transaction as Bart@Hedgematic
 
-DigiBank are re-structuring their investment portfolio, and have decided to sell on the commercial paper for a small profit to release funds earlier. The purchaser is 'Hedgematic' who see this as an opportunity to increase their commercial paper portfolio and recouping the face value later on. Let's execute this transaction as an employee of Hedgematic. (For convenience, we've provided a temporary wallet for the Hedgematic employee so that Hedgematic can invoke a `buy` transaction.)
+DigiBank are re-structuring their investment portfolio, and have decided to sell on the commercial paper for a small profit to release funds earlier. The purchaser is 'Hedgematic' who see this as an opportunity to increase their commercial paper portfolio and seek to recoup the face value of the paper at some point in the future. Let's execute this transaction as an employee of Hedgematic. (For convenience, we've provided a temporary wallet for the Hedgematic employee 'Bart', so that Hedgematic can invoke a `buy` transaction.)
 
 1. Copy the  `buy2.js` client application script from the `commpaper` repo directory into the current `commercial-paper/organization/digibank/application` directory for now (make sure to insert the dot '.' in the command below):
 
@@ -371,7 +371,7 @@ DigiBank are re-structuring their investment portfolio, and have decided to sell
 
 It will unzip the user bart's wallet into a subdirectory under `/tmp/wallet`. After extraction, you will have a directory `/tmp/wallet/bart@hedgematic` containing `Bart@Hedgematic's` identity wallet.
 
-3. Now run the 2nd buy transaction (its using Bart's identity) as follows:
+3. Now run the 2nd buy transaction (its using Bart's identity in the client application `buy2.js`) as follows:
 
 `node buy2.js`
 
@@ -382,7 +382,7 @@ You should get messages confirming it was successful:
 
 #### Transaction #4: Execute a `redeem` transaction as Bart@Hedgematic - six months later
 
-The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoups its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic's` identity to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic have since bought the paper from DigiBank, we need to modify it to redeem it properly as Hedgematic's Bart !). For the purposes of this tutorial, we will simply run the client application script for `redeem` from the `digibank` application subdirectory.
+The time has come, in this Commercial Paper's lifecycle, for the Commercial paper to be redeemed by its current owner (Hedgematic), and at face value, so it recoups its investment outlay. There is a client application, called `redeem.js` which will perform this task, and it needs to use `bart@hedgematic's` identity from owner Hegematic, to perform it (currently the `redeem.js` sample script uses `balaji's` identity, but because Hedgematic have since bought the paper from DigiBank, we need to modify the JS script to redeem it properly as Hedgematic's Bart !). For the purposes of this tutorial, we will simply run the client application script for `redeem` from the `digibank` application subdirectory.
 
 1. Once again from a terminal window, and the same directory `$HOME/fabric-samples/commercial-paper/organization/digibank/application` - edit the file `redeem.js`
 
@@ -432,13 +432,13 @@ You should get messages confirming it was successful:
 
 For this part, we'll use a simple Tabulator that will render our results in a nice HTML table. For more info on Tabulator, see http://tabulator.info/examples/4.1 . We don't have to install any code or client per se, nor use jquery - we just need to use a simple HTML file - it uses online CSS formatting and it performs a local `XMLHttpRequest() GET REST API` call to load the local results (from the JSON file, avoiding CORS issues) and render it in the table. That `index.html` file comes from the `commpaper` Github repo that was cloned previously, please take time to peruse the HTML file. INFO: Note that this HTML file is provided 'as-is' and purely for the purposes of rendering in a FIREFOX browser (at the time of writing, some of the javascript (it doesn't use jquery by the way) formatting does not work in Chrome (doesn't like forEach !), but has been tested in Firefox).
 
-1. In a terminal window, open the digibank `application` directory (you should already be there). 
+1. In a terminal window, open the digibank `application` directory once again (you should already be there). 
 
-2. Copy the file `index.html` from the `commpaper` repo into it. Eg. (with trailing '.' for current dir):
+2. Copy the file `index.html` from the `commpaper` repo (cloned earlier) into it. Eg. (with trailing '.' below, for current dir):
 
 `cp $HOME/commpaper/index.html . `
 
-If you examine the HTML file in VScode Explorer, it performs a `REST /GET API` call and loads a results file called `results.json` (created by the queries invoked earlier) and render these in a table in a browser. The `results.json` contains the query results.
+If you examine the HTML file in VScode Explorer, it performs a `REST /GET API` call and loads a results file called `results.json` (created by the queries app invoked earlier) and render these in a table in a browser. The `results.json` contains the query results.
 
 3. Launch a Firefox browser session (see note earlier), providing the `index.html` file provided as a parameter - tested with Firefox eg.
 
@@ -456,5 +456,7 @@ Well done! You've completed the query tutorial for adding query functionality to
 You have learned how to add queries and upgrade your existing Commercial paper contract using the IBM Blockchain Platform VSCode extension, and use features from Hyperledger Fabric's new programming model.  Take time to peruse the transaction (query) functions in both `papercontract.js` and the Query class file `query.js` under the `lib` directory. Also, take time to peruse the client application `queryapp.js`.
 
 Finally, you've shown how to render the history results - ie history of a Commercial Paper asset - in a simple browser-based HTML application. The final tutorial (which is based on this), will be to show only 'deltas' or changes during the lifecycle.
+
+As a last step, it is good practice to close out your current folders in VSCode, in preparation for the next tutorial - adding smart contract functionality to query only the 'deltas' for the history of a particular asset - this will be the 3rd tutorial in the series
 
 Thank you for completing this! 
