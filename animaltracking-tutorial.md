@@ -1,4 +1,5 @@
 ---
+
 # Front matter (metadata).
 
 abstract: "Develop, integrate and deploy your smart contract, and integrate with a simple React-based dashboard app"
