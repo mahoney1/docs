@@ -61,18 +61,18 @@ related_links:
 services:
  - "blockchain"
 
-subtitle: "Use the IBM Blockchain Platform VSCode extension to deploy a Typescript Smart Contract, and integrate the ledger data with a React-based Dashboard app"
+subtitle: "Deploy a Typescript Smart Contract locally, then to IBM Cloud and integrate events/ledger data with a React-based client Dashboard app"
 
 tags:
-  - "animaltracking" "typescript" "defra" "government"
+  - "animaltracking" "typescript" "defra" "government" "ibm blockchain" "ibm blockchain platform" "ibm blockchain platform vscode extension" "ibp" "ibp2"
 
-title: "Use the IBM Blockchain Platform VSCode extension to deploy a Smart Contract, and integrate the ledger with a sample React-based dashboard app"
+title: "Use the IBM Blockchain Platform VSCode extension to deploy a Smart Contract locally, then IBM Cloud, and integrate events and ledger data with a sample React-based client dashboard app"
 
 type: tutorial
 
 ---
 
-**Figure 1. "Papernet" -- querying the blockchain for the history of a Commercial paper asset **
+**Figure 1. "Overview of React App Dashboard interacting with IBM Blockchain network" **
 ![Papernet: Asset history and lifecycle from a Blockchain query](images/final-results.gif)
 
 
