@@ -64,23 +64,23 @@ services:
 subtitle: "Deploy a Typescript Smart Contract locally, then to IBM Cloud and integrate events/ledger data with a React-based client Dashboard app"
 
 tags:
-  - "animaltracking" "typescript" "defra" "government" "ibm blockchain" "ibm blockchain platform" "ibm blockchain platform vscode extension" "ibp" "ibp2"
+  - "animaltracking" "typescript" "react" "government" "dashboard" "blockchain" "ibm blockchain" "ibm blockchain platform" "ibm blockchain platform vscode extension" "ibp" "ibp2" "SaaS"
 
-title: "Use the IBM Blockchain Platform VSCode extension to deploy a Smart Contract locally, then IBM Cloud, and integrate events and ledger data with a sample React-based client dashboard app"
+title: "Use the IBM Blockchain Platform VSCode extension to deploy a Smart Contract locally, then promote to IBM Blockchain SaaS, and integrate events and ledger data with a sample React-based client dashboard app"
 
 type: tutorial
 
 ---
 
-**Figure 1. "Overview of React App Dashboard interacting with IBM Blockchain network" **
-![Papernet: Asset history and lifecycle from a Blockchain query](images/final-results.gif)
+**Figure 1. "Overview of React App Dashboard interacting with the local Blockchain network" **
+![AnimalTracking: Integrate summary, query and events from the blockchain](images/final-results.gif)
 
 
 ## Introduction
 
 This tutorial aims to show how to integrate data and events from a blockchain ledger, into a client-side React Dashboard app. The tutorial provides the end-to-end steps to render the data and events, into a fictitious animal co-operative dashboard app, providing summary charts, tables and then query and event data sourced from a local Hyperledger Fabric runtime blockchain. We will use the IBM Blockchain Platform VS Code developer extension to start a Fabric, and invoke some sample transactions to create data. We'll also start an Event Listener, still within the extension and finally, launch the application, which will automatically render the new data in tables within the dashboard application.
 
-**Figure 1. "Papernet" -- overview of commercial paper history and organisations involved**
+**Figure 1. "CONGA Co-op" -- overview of Animal Tracking sample network and client interaction**
 
 ![Transaction flow](images/flow-overview.png)
 
@@ -90,10 +90,7 @@ We'll also be using the IBM Blockchain Platform VSCode Extension - and the new F
 
 
 ## Background
-
-Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as they are a very previous new evolutionary species (super-evolutionary in fact: so, they don't need any vaccines, tetanus jabs, immune to diseases that affect their cousins!). But Jane DOES need to keep tabs on numbers, and build the SHEEPGOAT community. She also monitors events affecting SHEEPGOATS for the region, from 'green' events like new born (registrations), to quarantine events, which could have far-reaching consequences for that community.
-
-Jane relies on her dashboard app, to let her know of recent SHEEPGOAT registrations on the blockchain network, and any events as a result of SHEEPGOAT lifecycle activity.
+This sample Typescript smart contract and accompanying React-based dashboard for the basis for showing end-to-end integration, from user interacting with an application client, to adding transactions, updating a blockchain ledger and querying the ledger to render results (whether aggregated summaries, filtered queries or listening for events) in a local application. The use case is an Animal Co-operative dashboard, which required the truth to be sourced from the ledger.
 
 ## Pre-requisites
 
@@ -118,15 +115,22 @@ Jane relies on her dashboard app, to let her know of recent SHEEPGOAT registrati
 
 5. IF you've previously deployed the `animal-tracking` smart contract, would suggest to perform a `teardown` in the IBM Blockchain Platform VS Code extension sidebar in VS Code (select 'FABRIC OPS', click in the '...'  then select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
  
+## Steps
 
 6. In VSCode, connect to your local Fabric gateway under 'Fabric Gateways' sidepanel, and use the user `admin` to connect.
 
- - Under 'Blockchain connections' select ` 'myfabric....mychannel....right-click... Instantiate Smart contract' `). 
- - Supply `org.papernet.commercialpaper:instantiate` when prompted for 'what function to call'.
+7. In VSCode Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/contract` directory. The `contract` folder must be your top-level project folder in VSCode before proceeding
 
-7. In VSCode Explorer, choose File > Open Folder, and select the `contracts` folder, by navigating to the `$HOME/fabric-samples/commercial-paper/organization/magnetocorp` directory. The `contracts` folder must be your top-level project folder in VSCode.
+8. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking@0.0.1`.
 
-Completion of the pre-reqs, is the basis from which this tutorial will proceed. From here, we will complet the detailed transaction Commercial Paper history, as part of this tutorial.
+9. Next, under 'Local Fabric Ops' choose to 'Install' the package onto the local peer, await a successful install message
+
+10. Next, instantiate the Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking@0.0.1` as the contract to instantiate. 
+
+    - When prompted to provide a function, supply the text `org.example.animaltracking:instantiate` and hit ENTER.
+    - Hit ENTER to accept the defaults for the remaining parameters. In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract, under the 'Fabric Local Ops' pane.
+
+Completion of these pre-reqs, is the basis from which this tutorial will proceed. 
 
 ## Estimated time
 
@@ -134,7 +138,9 @@ After the prerequisites are completed, this should take approximately *45-60 min
 
 ## Scenario
 
-Isabella, an employee of MagnetoCorp and investment trader Balaji from DigiBank - should be able to see the history (from the ledger) of a Commercial paper, now that it has been redeemed (some 6 months after it was initially issued). Luke (a developer@Digibank), needs to add query functionality to the smart contract, and provide the client apps for DigiBank, so that Balaji (or indeed Isabella) can query the ledger from the application. The upgraded smart contract should be active on the channel so that the client applications can perform queries and report on the ledger history. 
+Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as they are a very previous new evolutionary species (super-evolutionary in fact: so, they don't need any vaccines, tetanus jabs, immune to diseases that affect their cousins!). But Jane DOES need to keep tabs on numbers, and build the SHEEPGOAT community. She also monitors events affecting SHEEPGOATS for the region, from 'green' events like new born (registrations), to quarantine events, which could have far-reaching consequences for that community.
+
+Jane relies on her dashboard app, to let her know of recent SHEEPGOAT registrations on the blockchain network, and any events as a result of SHEEPGOAT lifecycle activity.
 
 OK, lets get started !
 
