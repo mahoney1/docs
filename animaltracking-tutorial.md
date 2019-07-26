@@ -78,46 +78,53 @@ type: tutorial
 
 ## Introduction
 
-In the [IBM Blockchain Platform VSCode Extension with Commercial Paper tutorial](https://github.ibm.com/IBMCode/Code-Tutorials/blob/master/run-commercial-paper-smart-contract-with-ibm-blockchain-vscode-extension/index.md), we saw how an example of deploying and interacting with the Commercial Paper smart contract, in a scenario that tracks the lifecycle of a Commercial paper. But now we want to see the 'paper' trail of all activity that took place during its lifecycle - ie an immutable history of the asset: who did what, and when did it take place etc etc.
+This tutorial aims to show how to integrate data and events from a blockchain ledger, into a client-side React Dashboard app. The tutorial provides the end-to-end steps to render the data and events, into a fictitious animal co-operative dashboard app, providing summary charts, tables and then query and event data sourced from a local Hyperledger Fabric runtime blockchain. We will use the IBM Blockchain Platform VS Code developer extension to start a Fabric, and invoke some sample transactions to create data. We'll also start an Event Listener, still within the extension and finally, launch the application, which will automatically render the new data in tables within the dashboard application.
 
 **Figure 1. "Papernet" -- overview of commercial paper history and organisations involved**
 
 ![Transaction flow](images/flow-overview.png)
 
-The aim of this tutorial, is to show the use of the IBM Blockchain Platform VSCode extension, to add query transaction functions to the Fabric Samples Commercial Paper smart contract, using the extension to upgrade the contract after adding query functionality. We'll provide the code changes in the tutorial by adding a new Query class (containing query functions) and with it, the means to query key/extract information from the ledger. We'll then show interaction with the smart contract from a client application in DigiBank. The goal is to get the history of transactions, for the lifecycle of a commercial paper instance, and display its history in a nicely formatted UI / HTML table, in a client browser. The tutorial is aimed at Developers, and exact instructions (in particular, editing source files to add provided code blocks) are provided. Take time to see what's going on - you don't necessarily have to understand javascript in great detail for this !
+The tutorial uses an 'intermediate' model-based Typescript contract and is aimed at Developers who wish to understand how to integrate blockchain data into a sample application, in this case a React-based application based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !
 
-We'll be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features under the covers - to complete these tasks.
+We'll also be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features under the covers - to complete these tasks. In particular, you will use Query and Event Typescript application clients - in addition to the IBP VS Code extension, to perform the required actions in this tutorial.
 
 
 ## Background
 
-There is a fantastic description of the Commercial Paper use case scenario in the latest [Fabric Developing Applications]( https://hyperledger-fabric.readthedocs.io/en/master/tutorial/commercial_paper.html) docs and the scenario depicted there makes fascinating reading.   In short,  its a way for large institutions/organisations to obtain funds, to meet short-term debt obligations - and a chance for investors to to get return on investment upon maturity.
+Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as they are a very previous new evolutionary species (super-evolutionary in fact: so, they don't need any vaccines, tetanus jabs, immune to diseases that affect their cousins!). But Jane DOES need to keep tabs on numbers, and build the SHEEPGOAT community. She also monitors events affecting SHEEPGOATS for the region, from 'green' events like new born (registrations), to quarantine events, which could have far-reaching consequences for that community.
 
-The Commercial paper scenario (in the last tutorial) began with employees from MagnetoCorp and DigiBank transacting as participants from their respective organisations, to create an initial history. In this tutorial, we'll complete the lifecycle but adding a third investor, Hedgematic into the mix - purely to show more historical data (its quick and easy to create this history).
-
+Jane relies on her dashboard app, to let her know of recent SHEEPGOAT registrations on the blockchain network, and any events as a result of SHEEPGOAT lifecycle activity.
 
 ## Pre-requisites
 
-1. You will need to have completed the [Commercial Paper tutorial](https://developer.ibm.com/tutorials/run-commercial-paper-smart-contract-with-ibm-blockchain-vscode-extension/), specifically, have version 0.0.1 of the Commercial paper smart contract package loaded in VSCode under your 'Smart Contract Packages' in the 'IBM Blockchain Platform' sidebar.
+1. You will need to have the following installed in order to use the extension:
 
-2. From a terminal window, go to the `basic-network` directory under the `$HOME/fabric-samples` (ie wherever you downloaded the cloned Github Fabric Samples repository), and run the following houskeeping commands/scripts in sequence:
+* (Node v8.x or greater and npm v5.x or greater)[https://nodejs.org/en/download/]
+* (Yeoman (yo) v2.x)[https://yeoman.io/]
+* (Docker version v17.06.2-ce or greater)[https://www.docker.com/get-started]
+* (Docker Compose v1.14.0 or greater)[https://docs.docker.com/compose/install/]
+* VS Code — see the (marketplace)[https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform] for the minimum version to install
 
-`cd $HOME/fabric-samples/basic-network`
+2. For Part 2 of this tutorial - deploying and integrating the dashboard App and smart contract to IBM Blockchain Platform SaaS - you will need to have an (IBM Blockchain Platform blockchain network)[https://cloud.ibm.com/catalog/services/blockchain] installed and running.
 
-`./teardown.sh`
+## Pre-requisites
+3. Create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point 
 
-`docker volume prune` (answer 'y' when prompted)
+`cd $HOME/dash` to enter that directory
 
-`docker network prune` (answer 'y' when prompted)
+4. Clone the tabler-react Github repository 
 
-`./start.sh`      
+`https://github.com/tabler/tabler-react.git`
 
-3. Go back into VSCode, then click on the IBM Blockchain Platform icon. You should see version `0.0.1` of your smart contract packages listed up top (this is from the previous tutorial). Go ahead and connect to your 'fresh' Fabric, via your running `myfabric` connection which should still be present in the 'Blockchain Connections' panel (from the previous tutorial), and `install` the smart contract package onto `peer0.org1.example.com` - then `instantiate` the contract by traversing your `myfabric` network, just as you had done in the previous tutorial:
+5. IF you've previously deployed the `animal-tracking` smart contract, would suggest to perform a `teardown` in the IBM Blockchain Platform VS Code extension sidebar in VS Code (select 'FABRIC OPS', click in the '...'  then select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
+ 
+
+6. In VSCode, connect to your local Fabric gateway under 'Fabric Gateways' sidepanel, and use the user `admin` to connect.
 
  - Under 'Blockchain connections' select ` 'myfabric....mychannel....right-click... Instantiate Smart contract' `). 
  - Supply `org.papernet.commercialpaper:instantiate` when prompted for 'what function to call'.
 
-4. In VSCode Explorer, choose File > Open Folder, and select the `contracts` folder, by navigating to the `$HOME/fabric-samples/commercial-paper/organization/magnetocorp` directory. The `contracts` folder must be your top-level project folder in VSCode.
+7. In VSCode Explorer, choose File > Open Folder, and select the `contracts` folder, by navigating to the `$HOME/fabric-samples/commercial-paper/organization/magnetocorp` directory. The `contracts` folder must be your top-level project folder in VSCode.
 
 Completion of the pre-reqs, is the basis from which this tutorial will proceed. From here, we will complet the detailed transaction Commercial Paper history, as part of this tutorial.
 
