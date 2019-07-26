@@ -84,7 +84,9 @@ This tutorial aims to show how to integrate data and events from a blockchain le
 
 ![Transaction flow](images/flow-overview.png)
 
-The tutorial uses an 'intermediate' model-based Typescript contract and is aimed at Developers who wish to understand how to integrate blockchain data into a sample application, in this case a React-based application based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !
+The tutorial uses an 'intermediate' model-based Typescript contract and is aimed at Developers who wish to understand how to integrate blockchain data into a sample application, in this case a React-based application based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !  The lifecycle of typical transactions contained in the animal tracking contract is shown below.
+
+![Typical contract transaction lifecycle](images/animaltracking.png)
 
 We'll also be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features under the covers - to complete these tasks. In particular, you will use Query and Event Typescript application clients - in addition to the IBP VS Code extension, to perform the required actions in this tutorial.
 
@@ -104,33 +106,40 @@ This sample Typescript smart contract and accompanying React-based dashboard for
 
 2. For Part 2 of this tutorial - deploying and integrating the dashboard App and smart contract to IBM Blockchain Platform SaaS - you will need to have an (IBM Blockchain Platform blockchain network)[https://cloud.ibm.com/catalog/services/blockchain] installed and running.
 
-## Pre-requisites
-3. Create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point 
+## Preparatory Steps
+
+31. From a Terminal window, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point 
 
 `cd $HOME/dash` to enter that directory
 
-4. Clone the tabler-react Github repository 
+2. Clone the `tabler-react` Github repository:
 
-`https://github.com/tabler/tabler-react.git`
+`git clone https://github.com/tabler/tabler-react.git`
 
-5. IF you've previously deployed the `animal-tracking` smart contract, would suggest to perform a `teardown` in the IBM Blockchain Platform VS Code extension sidebar in VS Code (select 'FABRIC OPS', click in the '...'  then select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
- 
-## Steps
+3. Clone the `animaltracking` Github repository:
 
-6. In VSCode, connect to your local Fabric gateway under 'Fabric Gateways' sidepanel, and use the user `admin` to connect.
+`git clone https://github.com/mahoney1/animaltracking.git`
 
-7. In VSCode Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/contract` directory. The `contract` folder must be your top-level project folder in VSCode before proceeding
+4. IF you've previously deployed the `animal-tracking` smart contract, would suggest to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
 
-8. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking@0.0.1`.
+5. In VSCode, connect to your local Fabric Gateway under the 'Fabric Gateways' sidepanel, and use the`admin` identity to connect.
 
-9. Next, under 'Local Fabric Ops' choose to 'Install' the package onto the local peer, await a successful install message
+6. In VSCode Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/contract` directory. The `contract` folder must be your top-level project folder in VSCode before proceeding
 
-10. Next, instantiate the Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking@0.0.1` as the contract to instantiate. 
+7. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking@0.0.1`. You should get confirmation the package was successfully created.
 
-    - When prompted to provide a function, supply the text `org.example.animaltracking:instantiate` and hit ENTER.
-    - Hit ENTER to accept the defaults for the remaining parameters. In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract, under the 'Fabric Local Ops' pane.
+8. Next, under 'Local Fabric Ops' choose to 'Install' the package onto the local peer - await a successful install message in VS Code.
 
-Completion of these pre-reqs, is the basis from which this tutorial will proceed. 
+9. Next, instantiate the `animaltracking` Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking@0.0.1` as the contract to instantiate. 
+
+    - When prompted to provide a function, supply the text:
+      `org.example.animaltracking:instantiate` 
+      and hit ENTER.
+    - Hit ENTER to accept the remaining defaults for the remaining parameters when prompted. 
+    
+In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking@xxx`, under the 'Fabric Local Ops' pane.
+
+Successful completion of these pre-reqs, is the basis from which this tutorial can now  proceed. 
 
 ## Estimated time
 
@@ -138,17 +147,52 @@ After the prerequisites are completed, this should take approximately *45-60 min
 
 ## Scenario
 
-Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as they are a very previous new evolutionary species (super-evolutionary in fact: so, they don't need any vaccines, tetanus jabs, immune to diseases that affect their cousins!). But Jane DOES need to keep tabs on numbers, and build the SHEEPGOAT community. She also monitors events affecting SHEEPGOATS for the region, from 'green' events like new born (registrations), to quarantine events, which could have far-reaching consequences for that community.
+Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as they are a rare species (super-evolutionary in fact: they don't need any vaccines, tetanus jabs, immune to diseases, that affect their cousins!). Jane needs key stats about SHEEPGOATS at her fingertips. Part of her remit is to monitor events affecting SHEEPGOATS in the co-op region, be they 'green' events like new registrations, or more critical ones such as quarantined SHEEPGOATs and needs to know they are imminently being inspected by a Farm Vet.
 
-Jane relies on her dashboard app, to let her know of recent SHEEPGOAT registrations on the blockchain network, and any events as a result of SHEEPGOAT lifecycle activity.
+Jane relies heavily on her dashboard app, in particular the events, from which she can instigate actions.
 
 OK, lets get started !
 
 ## Steps
 
-### Step 1. Add the main query transaction functions in papercontract.js
+### Step 1. Pre-populate the ledger with some demo records
 
-1.  In VSCode, open the folder (if not already open) `contract` , containing the smart contract completed in the previous tutorial.
+1.  In IBP in the VSCode extension, expand the `animaltracking@xxx` contract under 'Fabric Gateways'. You will see a list of transactions. Scroll down to the end and you will find a transaction called `setupdemo`. We'll use this to pre-populate the ledger with some sample data.
+
+2. Right-click on `setupdemo` and select `Submit Transaction` - accept all the default prompts for parameters etc - we won't need to supply any parameters.
+
+### Step 2. Start the Contract Event Listener in the VS Code terminal window
+
+1. Still in VS Code, click on `Terminal1` at the bottom - press ENTER if prompted to `hit any key to close`. You should now have a command prompt - change directory to the animaltracking `client` directory from the current `contract` subdirectory:
+
+`cd ../client/lib`
+
+2. Start the local Event Listener by running the bash script `listenLocal.sh`:
+
+`./listenLocal.sh`
+
+You should get messages ("Getting Listener" etc) that its started and you should also see an event from the earlier `setupdemo` transaction (it registers some demo animals: there will be an event for a SHEEPGOAT registration).
+
+### Step 3. Invoke Transactions in sequence through the IBP VS Code extension
+
+1. Go back to the list of `animaltracking` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : in between the two square brackets `[ ]` in the VS Code prompt: 
+
+`"SHEEPGOAT 000011 24/07/2019 BOVIS_ARIES FARMER.JOHN AVONDALE.LOC1 ARRIVALF1 IN_FIELD WOOL false"`
+ 
+2. Click on the adjacent Terminal in VS Code and check that we had an event reported by the Event Listener for id `000011` .
+
+3. Go back to the transaction list - this time, right-click on `quarantine` ... `Submit Transaction` . When prompted: paste these 2 parameters (each separated by double-quotes), in between the square brackets at the parameters prompt:
+
+`"SHEEPGOAT", "000011"`
+
+4. Once again, check from the terminal window that you've got an `ISOLATION` event posted.
+
+5. Lastly, select the transaction `assigninspection` ... `Submit Transaction` . When prompted, paste the following into the square brackets:
+
+`"SHEEPGOAT", "000011", "VET00007"`
+
+6. Once again, check the Event Listener pane - we should have an INSPECT event reported.
+
 
 **Figure 2. Open the commercial paper sample project in VSCode**
   ![Open the commercial paper sample project in VSCode](images/papercontract.png)
