@@ -259,7 +259,7 @@ The script performs a number of queries, some of which are fulfilled given the l
 `cp registration.json $HOME/dash/tabler-react/example/src/data`
 `cp events.json $HOME/dash/tabler-react/example/src/data`
 
-### Check the React Dashboard App for new Query and Events
+### Step 7. Check the React Dashboard App for new Query and Events
 
 Many of the charts/area diagrams contain summarised data can can be derived from the ledger, whether aggregated, calculated or indeed - in the case of temperatures trends - data that is aggregated from IoT temperatures over a period of time - this is just an example.
 
