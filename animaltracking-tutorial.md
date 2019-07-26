@@ -277,12 +277,12 @@ Well done! You've now completed this tutorial.
 
 This tutorial aimed to show a simple use case, of combining the new features of:
 
-    - the IBM Blockchain VS Code extension to manage the whole development inside VS Code - a powerful and seamless IDE for the developer.
-    - Fabric 1.4's new programming model (eg, application client SDK, gateways, wallets, event SDK enhancements, and of course the new Fabric Contract changes)
-    - Typescript Contract and Client applications (Event Listeners, Query Clients etc)
-    - Tabler React (the Github project at https://github.com/tabler/tabler-react for a React-based Dashboard app
-    - Adding customisations, suited to the use case / Ledger data being extracted.
+  - the IBM Blockchain VS Code extension to manage the whole development inside VS Code - a powerful and seamless IDE for the developer.
+  - Fabric 1.4's new programming model (eg, application client SDK, gateways, wallets, event SDK enhancements, and of course the new Fabric Contract changes)
+  - Typescript Contract and Client applications (Event Listeners, Query Clients etc)
+  - Tabler React (the Github project at https://github.com/tabler/tabler-react for a React-based Dashboard app
+  - Adding customisations, suited to the use case / Ledger data being extracted.
     
-Thanks for trying it out. If you have any issues, please raise an issue on my Github project (click 'Issues') with full details of the problem you're facing - thanks!)
+Thanks for trying it out! If you have any issues, please raise an issue on my Github project (click 'Issues') with full details of the problem you're facing - thanks!)
 
-As a last step, it is good practice to close out your current folders in VSCode, in preparation for your next tutorial or project.
+As a last step, it is good practice to close out your current folders in VS Code, in preparation for your next tutorial or project.
