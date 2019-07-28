@@ -82,7 +82,7 @@ This tutorial aims to show how to integrate data and events from a blockchain le
 
 **Figure 1. "CONGA Co-op" -- overview of Animal Tracking sample network and client interaction**
 
-![Transaction flow](images/flow-overview.png)
+![Transaction flow](img/overview.png)
 
 The tutorial uses an 'intermediate' level, model-based Typescript contract and is aimed at Developers who wish to understand how to integrate blockchain data into a sample React JS based application, based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !  The lifecycle of typical transactions contained in the animal tracking contract is shown below.
 
