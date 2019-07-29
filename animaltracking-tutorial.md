@@ -115,7 +115,7 @@ This sample Typescript smart contract and accompanying React-based dashboard for
 * VS Code — see the (marketplace)[https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform] for the minimum version to install
 * Yarn - install yarn as follows as a privileged user:
 
-     * `npm install -g yarn`
+     * `npm install yarn`
 
 2. For Part 2 of this tutorial - deploying and integrating the dashboard App and smart contract to IBM Blockchain Platform SaaS - you will need to have an (IBM Blockchain Platform blockchain network)[https://cloud.ibm.com/catalog/services/blockchain] installed and running.
 
@@ -205,9 +205,9 @@ We need to install dependencies for our client applications - to do this:
 
 `cp SiteWrapper.react.js SiteWrapper.react.js.bak`
 
-(The above copies are merely so that you can do a `diff` of the changes made, to implement the animal tracking dashboard. Check out in particular, the `json` objects, that represent JSON coming from the blockchain, via queries and events.
+(The above copies are merely so that you can do a `diff` of the changes made, to implement the animal tracking dashboard. Check out in particular, the `json` objects in `HomePage.react.js`, that represent JSON coming from the blockchain, via queries and events.
 
-3. Now copy in / move the customisations from the `animaltracking` cloned repo as follows - **perform from the `example/src` subdirectory** :
+3. Now copy in / move the customisations from the `animaltracking` cloned repo as follows - **perform steps in the `example/src` subdirectory** in your Tabler React directory:
 
 `cp $HOME/dash/animaltracking/react/* .`
 
@@ -215,7 +215,7 @@ We need to install dependencies for our client applications - to do this:
 
 ### Step 3. Start the React Dashboard app
 
-1. Start the React dashboard app - go up one level, to the `example` directory:
+1. Start the React dashboard app - change directory one level, to the `example` directory:
 
 `cd ..`
 
