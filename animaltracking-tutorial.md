@@ -215,6 +215,10 @@ We need to install dependencies for our client applications - to do this:
 
 `mv Tabler.css ../../src`
 
+4. Create a symbolic link to where our ledger data is persisted (for this tutorial, the React DashBoard App picks up data from a persisted file)
+
+`ln -s ledger $HOME/dash/animaltracking/typescript/client/lib`
+
 ### Step 3. Start the React Dashboard app
 
 1. Start the React dashboard app - change directory one level, to the `example` directory:
