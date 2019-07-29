@@ -102,7 +102,7 @@ We'll also be using the IBM Blockchain Platform VSCode Extension - and the new F
 
 
 ## Background
-This sample Typescript smart contract and accompanying React-based dashboard for the basis for showing end-to-end integration, from user interacting with an application client, to adding transactions, updating a blockchain ledger and querying the ledger to render results (whether aggregated summaries, filtered queries or listening for events) in a local application. The use case is an Animal Co-operative dashboard, which required the truth to be sourced from the ledger.
+This sample Typescript smart contract and accompanying React-based dashboard for the basis for showing end-to-end integration, from user interacting with an application client, to adding transactions, updating a blockchain ledger and querying the ledger to render results (whether aggregated summaries, filtered queries or listening for events) in a local application. The use case is an Animal Co-operative dashboard, which requires the truth to be sourced from the ledger.
 
 ## Pre-requisites
 
@@ -163,7 +163,7 @@ After the prerequisites are completed, this should take approximately *60 minute
 
 ## Scenario
 
-Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as they are a rare species (super-evolutionary in fact: they shouldn't need any vaccines, tetanus jabs, immune to diseases, that affect their cousins!). Jane needs key stats about SHEEPGOATS at her fingertips. Part of her remit is to monitor events affecting SHEEPGOATS in the co-op region, be they benign 'green' events like new registrations, or more critical ones such as quarantined SHEEPGOATs (why??) and needs to know they are imminently being inspected by a specialised SHEEPGOAT Vet.
+Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as a species their numbers needs growing (eventually, the goal is that they shouldn't need any vaccines, tetanus jabs etc and be immune to the everyday diseases that affect their cousins - but we can't take chances!). Jane needs key stats about SHEEPGOATS at her fingertips. Part of her remit is to monitor events affecting SHEEPGOATS in the co-op region, be they information level 'green' events (like new registrations), or more critical ones such as quarantined SHEEPGOATs (its a worry) and she needs to know they are imminently being inspected by a specialised SHEEPGOAT Vet.
 
 Jane relies heavily on her dashboard app, in particular the events, from which she can instigate actions.
 
