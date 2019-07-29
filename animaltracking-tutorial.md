@@ -79,9 +79,9 @@ This hands-on tutorial shows how integrate data and events from a blockchain led
 
 There are two sections: 
 
-    - the first, the development lifecycle: deploy everything local ; use the IBM Blockchain Platform VS Code extension to manage the full IDE, stand up the runtime local Fabric and drive transactions, invoke an event listener. Then switch to the browser to show integration to the React client app ; 
+  - the first, the development lifecycle: deploy everything local ; use the IBM Blockchain Platform VS Code extension to manage the full IDE, stand up the runtime local Fabric and drive transactions, invoke an event listener. Then switch to the browser to show integration to the React client app ; 
     
-    - the second, the promotion lifecycle: package up the contract in IBP extension and promote it to a Cloud instance, the IBM Blockchain Platform SaaS - once again, use the IBP VS Code extension to drive transactions, invoke the listener. Then again, show your React App interacting with data from the source IBP cloud ledger. 
+  - the second, the promotion lifecycle: package up the contract in IBP extension and promote it to a Cloud instance, the IBM Blockchain Platform SaaS - once again, use the IBP VS Code extension to drive transactions, invoke the listener. Then again, show your React App interacting with data from the source IBP cloud ledger. 
     
 The tutorial provides the end-to-end steps to stand up a React-based dashboard client containing a not-so-fictitious animal co-operative dashboard app, which providing summary charts, and ledger-based query and event data (emitted by the contract) sourced from the blockchain ledger. 
 
