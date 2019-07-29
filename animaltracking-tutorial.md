@@ -72,8 +72,8 @@ type: tutorial
 
 ---
 
-**Figure 1. "Overview of React App Dashboard interacting with the local Blockchain network" **
-![AnimalTracking: Integrate summary, query and events from the blockchain](images/final-results.gif)
+**Figure 1. "Overview of React App Dashboard interacting with a Blockchain network (lock icons)" **
+![AnimalTracking: Integrate summary, query and events from the blockchain](img/highlevel-overvw.png)
 
 
 ## Introduction
