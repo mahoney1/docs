@@ -78,7 +78,17 @@ type: tutorial
 
 ## Introduction
 
-This tutorial aims to show how to integrate data and events from a blockchain ledger, into a client-side React Dashboard app. It has two sections: the first, the development lifecycle: deploy everything local ; use the IBM Blockchain Platform VS Code extension to manage the full IDE and runtime local Fabric and show integration to a React client ; the second, the promotion lifecycle: package up the contract in IBP extension and promote it to a Cloud instance, the IBM Blockchain Platform SaaS and integrate your React client. The tutorial provides the end-to-end steps to stand up a React-based dashclient for a fictitious animal co-operative dashboard app, providing summary charts, tables and then query and event data (emitted by the contract) sourced the blockchain. We will use the IBM Blockchain Platform VS Code developer extension drive both end-to-end flows: local and SaaS. Finally, we will launch the React application client dashboard, and it will automatically render the new data in tables within the dashboard portal.
+This hands-on tutorial shows how integrate data and events from a blockchain ledger, into a client-side React Dashboard app and uses the new Hyperledger Fabric programming model (available since 1.4). You will also use the IBM Blockchain Platform VS Code developer extension drive both end-to-end flows: first: deploy locally, and then: promote to the Cloud. You will launch a locally installed React application client dashboard, to automatically render the source data (queries and events) in the dashboard portal.
+
+There are two sections: 
+
+    - the first, the development lifecycle: deploy everything local ; use the IBM Blockchain Platform VS Code extension to manage the full IDE, stand up the runtime local Fabric and drive transactions, invoke an event listener. Then switch to the browser to show integration to the React client app ; 
+    
+    - the second, the promotion lifecycle: package up the contract in IBP extension and promote it to a Cloud instance, the IBM Blockchain Platform SaaS - once again, use the IBP VS Code extension to drive transactions, invoke the listener. Then again, show your React App interacting with data from the source IBP cloud ledger. 
+    
+The tutorial provides the end-to-end steps to stand up a React-based dashboard client containing a not-so-fictitious animal co-operative dashboard app, which providing summary charts, and ledger-based query and event data (emitted by the contract) sourced from the blockchain ledger. 
+
+All data that is rendered from the blockchain will have a 'lock' icon alongside the record for viewing purposes)
 
 **Figure 1. "CONGA Co-op" -- overview of Animal Tracking sample network and client interaction**
 
@@ -138,6 +148,7 @@ This sample Typescript smart contract and accompanying React-based dashboard for
     - When prompted to provide a function, supply the text:
       `org.example.animaltracking:instantiate` 
       and hit ENTER.
+      
     - Hit ENTER to accept the remaining defaults for the remaining parameters when prompted. 
     
 In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking@xxx`, under the 'Fabric Local Ops' pane.
@@ -182,19 +193,25 @@ We need to install dependencies for our client applications - to do this:
 
 `yarn install`
 
-2. Copy the React dashboard customisations for this tutorial, into the `example` subdirectory in `tabler-react`, as follows:
+2. Backup some existing files in `tabler-react` - both in `src` and in the `example/src` subdirectories as follows:
 
+`cd src`
 
-`cd example/src`
+`cp Tabler.css Tabler.css.bak`
+
+`cd ../example/src`
 
 `cp HomePage.react.js HomePage.react.js.bak`
+
 `cp SiteWrapper.react.js SiteWrapper.react.js.bak`
 
-(The above copies are merely so that you can do a `diff` to gauge some of the changes made, to implement the animal tracking dashboard. Check out in particular, the `json` objects, that represent JSOn coming from the blockchain, via queries and events.
+(The above copies are merely so that you can do a `diff` of the changes made, to implement the animal tracking dashboard. Check out in particular, the `json` objects, that represent JSON coming from the blockchain, via queries and events.
 
-3. Now copy in the customisations from the `animaltracking` cloned repo as follows **into the `example/src` subdirectory**:
+3. Now copy in / move the customisations from the `animaltracking` cloned repo as follows - **perform from the `example/src` subdirectory** :
 
 `cp $HOME/dash/animaltracking/react/* .`
+
+`mv Tabler.css ../../src`
 
 ### Step 3. Start the React Dashboard app
 
@@ -281,11 +298,11 @@ Well done! You've now completed this first part of the tutorial.
 
 Note: If you wish to complete this part and you are not already signed up for an IBP Cloud instance, you will need to do so (here)[https://cloud.ibm.com/catalog/services/blockchain-platform]. Otherwise, access your service instance in the usual fashion through the IBM Kubernetes resource list. In my case it is called ('IBPDemo')
 
-The critical info, you will need for when you create your instance (as per the 'Build your network tutorial') is the following:
+The critical info, you will need for when you create your IBP SaaS instance (as per the ('Build your network tutorial')[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]) is the following (note: always check the source for the names/ids used) - the `animaltracking/client/lib` IBP-related .ts files (and compiled .js files) use the following currently:
 
-MSP ID = 'Org1MSP'
+MSP ID = 'org1msp'
 Registered Identity = 'ibpuser'
-Channel = "mychannel"
+Channel = "channel1"
 Instantiate Parameter = "org.example.animaltracking:instantiate" (ie when prompted to enter it for contract instantiation)
 Contract Name = "animaltracking-ts";
 
@@ -387,7 +404,7 @@ We now have 4 events: an initial registration (from setupdemo), a new SHEEPGOAT 
 
 The script performs a number of queries, some of which are fulfilled given the IBP SaaS ledger state at this point - results are written to a file called `registrations.json` 
 
-9. Now copy these to our Dashboard data location:
+12. Now copy these to our Dashboard data location:
 
 `cp registration.json $HOME/dash/tabler-react/example/src/data`
 `cp events.json $HOME/dash/tabler-react/example/src/data`
