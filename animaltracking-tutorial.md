@@ -95,7 +95,7 @@ Figure 1. "Overview of React App Dashboard interacting with a Blockchain network
 
 The tutorial uses an 'intermediate' level, model-based Typescript contract and is aimed at Developers who wish to understand how to integrate blockchain data into a sample React JS based application, based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !  The lifecycle of typical transactions contained in the animal tracking contract is shown below.
 
-![Typical contract transaction lifecycle](img/animaltracking.png)
+![Typical contract transaction lifecycle](img/animaltrackingcontract.png)
 
 We'll also be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features under the covers - to complete these tasks. In particular, you will use Query and Event Typescript application clients - in addition to the IBP VS Code extension, to perform the required actions in this tutorial.
 
