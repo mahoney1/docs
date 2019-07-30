@@ -297,12 +297,7 @@ We now have 4 events: an initial registration (from setupdemo), a new SHEEPGOAT 
 
 `node query.js`
 
-The script performs a number of queries, some of which are fulfilled given the ledger state at this point - however, the data we're interested in, will be the last query performed - and the results are written to a file called `registrations.json` 
-
-9. Now copy these to our Dashboard data location:
-
-`cp registration.json $HOME/dash/tabler-react/example/src/data`
-`cp events.json $HOME/dash/tabler-react/example/src/data`
+The script performs a number of queries, some of which are fulfilled given the ledger state at this point - however, the data we're interested in, will be the last query performed - and the results are written to a file called `registrations.json` and which our Dashboard will automatically pick up.
 
 ### Step 7. Check the React Dashboard App for new Query and Events
 
