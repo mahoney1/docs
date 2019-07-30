@@ -75,7 +75,13 @@ type: tutorial
 
 ## Introduction
 
-This hands-on tutorial shows how integrate data and events from a blockchain ledger, into a client-side React Dashboard app and uses the new Hyperledger Fabric programming model (available since 1.4). You will also use the IBM Blockchain Platform VS Code developer extension drive both end-to-end flows: first: deploy locally, and then: promote to the Cloud. You will launch a locally installed React application client dashboard, to automatically render the source data (queries and events) in the dashboard portal.
+This hands-on tutorial shows how to integrate query data and events from a blockchain ledger, into a client-side React Dashboard app. It uses the [IBM Blockchain Platform VS Code extension](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform) as the developer platform to manage the smart contract and clients - and essentially orchestrates the activity in this tutorial. The smart contract and the client apps, both written in Typescript, make use of the new features of the [new Hyperledger Fabric programming model](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/developing_applications.html) (available since 1.4). 
+
+The IBM Blockchain Platform VS Code developer extension is used to interact with two different environments - one local, one Cloud.
+
+The tutorial flow takes you through deploying locally, and then you promote your contract to the Cloud. 
+
+You will launch a locally installed React application client dashboard, which will automatically render the source data (queries and events) in the dashboard portal - firstly from a local Fabric environment (one started in IBP VS Code extension), then one configured in the [IBM Blockchain Platform in IBM Cloud](https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network)
 
 There are two sections: 
 
@@ -83,9 +89,9 @@ There are two sections:
     
   - the second, the promotion lifecycle: package up the contract in IBP extension and promote it to a Cloud instance, the IBM Blockchain Platform SaaS - once again, use the IBP VS Code extension to drive transactions, invoke the listener. Then again, show your React App interacting with data from the source IBP cloud ledger. 
     
-The tutorial provides the end-to-end steps to stand up a React-based dashboard client containing a not-so-fictitious animal co-operative dashboard app, which providing summary charts, and ledger-based query and event data (emitted by the contract) sourced from the blockchain ledger. 
+The tutorial provides the end-to-end steps to stand up a React-based dashboard client containing a not-so-fictitious animal co-operative dashboard app, which providing summary charts, and ledger-based query and event data (emitted by the contract) sourced from the blockchain ledger (we're particularly interested in SHEEPGOATS actually :-) !).  Deployed to the same ledger and Fabric channel, is a Typescript-based animaltracking smart contract that we will interact with from application clients, and the dashboard.
 
-All data that is rendered from the blockchain will have a 'lock' icon alongside the record for viewing purposes)
+NOTE: All data that is rendered from the blockchain will have a 'lock' icon alongside the record for viewing purposes.
 
 Figure 1. "Overview of React App Dashboard interacting with a Blockchain network (lock icons)"
 
@@ -93,29 +99,35 @@ Figure 1. "Overview of React App Dashboard interacting with a Blockchain network
 ![AnimalTracking: Integrate summary, query and events from the blockchain](img/highlevel-overvw.png)
 
 
-The tutorial uses an 'intermediate' level, model-based Typescript contract and is aimed at Developers who wish to understand how to integrate blockchain data into a sample React JS based application, based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !  The lifecycle of typical transactions contained in the animal tracking contract is shown below.
+The tutorial uses an 'intermediate' level, model-based Typescript contract and is aimed at Developers who wish to understand how to run this contract and then integrate resultant blockchain data into a locally installed sample React JS based application, based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !  The lifecycle of typical transactions contained in the animal tracking contract is shown below.
 
 ![Typical contract transaction lifecycle](img/animaltrackingcontract.png)
 
-We'll also be using the IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features under the covers - to complete these tasks. In particular, you will use Query and Event Typescript application clients - in addition to the IBP VS Code extension, to perform the required actions in this tutorial.
+As mentioned, we're using IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features under the covers - to complete these tasks. In particular, you will use Query and Event Typescript application clients - in addition to the IBP VS Code extension, to perform the required actions in this tutorial.
 
 
 ## Background
 
 ![General Flow with local Fabric or IBM Blockchain Platform SaaS edition](img/overview.png)
 
-This sample Typescript smart contract and accompanying React-based dashboard for the basis for showing end-to-end integration, from user interacting with an application client, to adding transactions, updating a blockchain ledger and querying the ledger to render results (whether aggregated summaries, filtered queries or listening for events) in a local application. The use case is an Animal Co-operative dashboard, which requires the truth to be sourced from the ledger.
+The use case is an Animal Co-operative dashboard, which requires the truth to be sourced from the ledger.
+
+## Scenario
+
+Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as a species their numbers needs growing (eventually, the goal is that they shouldn't need any vaccines, tetanus jabs etc and be immune to the everyday diseases that affect their cousins - but we can't take chances!). Jane needs key stats about SHEEPGOATS at her fingertips. Part of her remit is to monitor events affecting SHEEPGOATS in the co-op region, be they information level 'green' events (like new registrations), or more critical ones such as quarantined SHEEPGOATs (its a worry) and she needs to know they are imminently being inspected by a specialised SHEEPGOAT Vet.
+
+Jane relies heavily on her dashboard app, in particular the events, from which she can instigate any actions.
 
 ## Pre-requisites
 
-1. You will need to have the following installed in order to use the extension:
+1. You will need to have the following installed in order to proceed:
 
 * (Node v8.x or greater and npm v5.x or greater)[https://nodejs.org/en/download/]
 * (Yeoman (yo) v2.x)[https://yeoman.io/]
 * (Docker version v17.06.2-ce or greater)[https://www.docker.com/get-started]
 * (Docker Compose v1.14.0 or greater)[https://docs.docker.com/compose/install/]
 * VS Code — see the (marketplace)[https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform] for the minimum version to install
-* Yarn - install yarn as follows as a privileged user:
+* Yarn - install yarn as follows in your $HOME directory:
 
      * `npm install yarn`
 
@@ -141,11 +153,11 @@ This sample Typescript smart contract and accompanying React-based dashboard for
 
 6. In VSCode Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/contract` directory. The `contract` folder must be your top-level project folder in VSCode before proceeding
 
-7. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking@0.0.1`. You should get confirmation the package was successfully created.
+7. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking-ts@0.0.1`. You should get confirmation the package was successfully created.
 
 8. Next, under 'Local Fabric Ops' choose to 'Install' the package onto the local peer - await a successful install message in VS Code.
 
-9. Next, instantiate the `animaltracking` Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking@0.0.1` as the contract to instantiate. 
+9. Next, instantiate the `animaltracking-ts` Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking-ts@0.0.1` as the contract to instantiate. 
 
     - When prompted to provide a function, supply the text:
       `org.example.animaltracking:instantiate` 
@@ -153,21 +165,26 @@ This sample Typescript smart contract and accompanying React-based dashboard for
       
     - Hit ENTER to accept the remaining defaults for the remaining parameters when prompted. 
     
-In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking@xxx`, under the 'Fabric Local Ops' pane.
+In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking-ts@xxx`, under the 'Fabric Local Ops' pane.
 
-10. For Part 2 of this tutorial, you will need an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]
+10. Replace the HOME directory assignment in these typescript files (currently it is '/home/demo') - to your own home directory ('/home/userxx') in the following TS files:
+`EventClient.ts`
+'EventClient_IBP.ts`
+`QueryClient.ts`
+`QueryClient_IBP.ts`
+`QueryEvents.ts`
+
+next, run:
+
+`npm run build` to compile to Javascript.
+
+11. For Part 2 of this tutorial, you will need an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]
 
 Successful completion of these pre-reqs, is the basis from which this tutorial can now proceed. 
 
 ## Estimated time
 
 After the prerequisites are completed, this should take approximately *60 minutes* to complete.
-
-## Scenario
-
-Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as a species their numbers needs growing (eventually, the goal is that they shouldn't need any vaccines, tetanus jabs etc and be immune to the everyday diseases that affect their cousins - but we can't take chances!). Jane needs key stats about SHEEPGOATS at her fingertips. Part of her remit is to monitor events affecting SHEEPGOATS in the co-op region, be they information level 'green' events (like new registrations), or more critical ones such as quarantined SHEEPGOATs (its a worry) and she needs to know they are imminently being inspected by a specialised SHEEPGOAT Vet.
-
-Jane relies heavily on her dashboard app, in particular the events, from which she can instigate actions.
 
 OK, lets get started !
 
@@ -231,9 +248,9 @@ We need to install dependencies for our client applications - to do this:
  
 ### Step 4. In IBP VS Code extension, pre-populate the ledger with demo data
 
-1.  In IBP in the VSCode extension, expand the `animaltracking@xxx` contract under 'Fabric Gateways'. You will see a list of transactions. Scroll down to the end and you will find a transaction called `setupdemo`. We'll use this to pre-populate the ledger with some sample data.
+1.  In IBP in the VSCode extension, expand the `animaltracking-ts@xxx` contract under 'Fabric Gateways'. You will see a list of transactions. Scroll down to the end and you will find a transaction called `setupdemo`. We'll use this to pre-populate the ledger with some sample data.
 
-2. Right-click on `setupdemo` and select `Submit Transaction` - accept all the default prompts for parameters etc - we won't need to supply any parameters.
+2. Right-click on `setupdemo` and select `Submit Transaction` - accept all the default prompts for parameters (don't need to enter anything) etc - we won't need to supply any parameters.
 
 ### Step 5. In a VS Code terminal window, start the Contract Event Listener
 
@@ -249,7 +266,7 @@ You should get messages ("Getting Listener" etc) that its started and you should
 
 ### Step 6. Invoke Transactions in sequence to register further events
 
-1. Go back to the list of `animaltracking` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : in between the two square brackets `[ ]` in the VS Code prompt: 
+1. Go back to the list of `animaltracking-ts` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : in between the two square brackets `[ ]` in the VS Code prompt: 
 
 `"SHEEPGOAT 000011 24/07/2019 BOVIS_ARIES FARMER.JOHN AVONDALE.LOC1 ARRIVALF1 IN_FIELD WOOL false"`
  
@@ -296,7 +313,7 @@ The data we're interested is 'new registrations' and separately, a 'Blockchain E
 
 2. Check that you have a list of new SHEEPGOAT registrations - these are the list of registrations extracted by the Query client earlier.
 
-3. Scroll down to 'Recent Blockchain Events' - these represent our 4 blockchain events emitted by the `animaltracking` Contract instantiated on channel `mychannel` and which were picked up by our Contract Listener earlier.
+3. Scroll down to 'Recent Blockchain Events' - these represent our 4 blockchain events emitted by the `animaltracking-ts` Contract instantiated on channel `mychannel` and which were picked up by our Contract Listener earlier.
 
 Well done! You've now completed this first part of the tutorial.
 
@@ -323,7 +340,7 @@ When you create your IBM Kubernetes Cluster on IBM Cloud, take a note of it's na
 
 We will need to package up our TypeScript smart contract into a (CDS file)[https://hyperledger-fabric.readthedocs.io/en/release-1.4/chaincode4noah.html#packaging] to deploy as a chaincode package for the IBP SaaS environment. We can do this easily from the IBM Blockchain Platform VS Code extension
 
-1. Click on the IBP extension icon in the sidebar, and under 'Smart Contract Packages' select `animaltracking@0.0.1` and right-click .... 'export Package' . Accept the default file name `animaltracking@0.0.1.cds` and export it to a temporary directory on your filesystem. You should get a 'successful export' message popup at the bottom.
+1. Click on the IBP extension icon in the sidebar, and under 'Smart Contract Packages' select `animaltracking-ts@0.0.1` and right-click .... 'export Package' . Accept the default file name `animaltracking-ts@0.0.1.cds` and export it to a temporary directory on your filesystem. You should get a 'successful export' message popup at the bottom.
 
 2. Login to your IBM Blockchain Platform Cloud instance and launch the IBM Blockchain Platform Console, close the welcome banner if required.
 
@@ -331,7 +348,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 <install smart contract img>
   
-4. Next, click on the 'Overflow' menu alongside the `animaltracking` smart contract. On the side panel that opens, select the channel `channel1` to instantiate the smart contract on - click Next. 
+4. Next, click on the 'Overflow' menu alongside the `animaltracking-ts` smart contract. On the side panel that opens, select the channel `channel1` to instantiate the smart contract on - click Next. 
   
 5. Accept the default endorsement policy and select the Org MSP set up for your environment: `org1msp`
 
@@ -375,9 +392,9 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 ## Step 5. Execute transactions and test out integration of new events, queries from the IBP SaaS environment
 
-1. From the IBP VS Code extension, expand the channel `channel` and the `animaltracking@0.0.1` instantiated contract to reveal the list of available transactions - scroll down and select the `setupdemo` transaction and right-click on it.
+1. From the IBP VS Code extension, expand the channel `channel` and the `animaltracking-ts@0.0.1` instantiated contract to reveal the list of available transactions - scroll down to the `setupdemo` transaction.
 
-2. Right-click and click 'Submit Transaction' and hit ENTER to accept all the default prompts - this will populate our ledger with some new registrations.
+2. Right-click on `setupdemo` and click 'Submit Transaction' and when prompted, supply a value of "IBP" inside the 'parameter' prompt -  hit ENTER to accept all the remaining default prompts - this will populate our ledger with some new registrations and which are prefixed 'IBP' - so we can see the data is different in our dashboard.
 
 3. Click on the terminal window in VS Code and from the `animaltracking/typescript/client/lib` subdirectory: start our IBP event listener process from the command prompt as follows:
 
@@ -385,21 +402,21 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 You'll get messages that it is started and we should see an event has already occurred from the `setupdemo` transaction where new registrations means an emitted event.
 
-4. Go back to the list of `animaltracking` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : in between the two square brackets `[ ]` in the VS Code prompt: 
+4. Go back to the list of `animaltracking-ts` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : in between the two square brackets `[ ]` in the VS Code prompt: 
 
-`"SHEEPGOAT 000011 24/07/2019 BOVIS_ARIES FARMER.JOHN AVONDALE.LOC1 ARRIVALF1 IN_FIELD WOOL false"`
+`"SHEEPGOAT IBP-000099 24/07/2019 BOVIS_ARIES FARMER.JOHN AVONDALE.LOC1 ARRIVALF1 IN_FIELD WOOL false"`
  
 5. Click on the adjacent Terminal in VS Code and check that we had an event reported by the Event Listener for id `000011` .
 
 6. Go back to the transaction list - this time, right-click on `quarantine` ... `Submit Transaction` . When prompted: paste these 2 parameters (each separated by double-quotes), in between the square brackets at the parameters prompt:
 
-`"SHEEPGOAT", "000011"`
+`"SHEEPGOAT", "IBP-000099"`
 
 7. Once again, check from the terminal window that you've got an `ISOLATION` event posted.
 
 8. Lastly, select the transaction `assigninspection` ... `Submit Transaction` . When prompted, paste the following into the square brackets:
 
-`"SHEEPGOAT", "000011", "VET00007"`
+`"SHEEPGOAT", "IBP-000099", "VET00007"`
 
 9. Once again, check the Event Listener pane - we should have an INSPECT event reported.
 
@@ -428,7 +445,7 @@ Once again, the data we're interested in our Dashboard app are the 'new registra
 
 2. Check that the refreshed list of new SHEEPGOAT registrations - these are the list of registrations extracted by the IBP Query client above.
 
-3. Scroll down to 'Recent Blockchain Events' - these represent our 4 IBP blockchain events emitted by the `animaltracking` Contract instantiated on channel `channel1` in IBP SaaS and which were picked up by our IBP Contract Listener above.
+3. Scroll down to 'Recent Blockchain Events' - these represent our 4 IBP blockchain events (one from `setupdemo`, one from `register` and one each from `quarantine` and `assigninspection`) emitted by the `animaltracking-ts` Contract instantiated on channel `channel1` in IBP SaaS and which were picked up by our IBP Contract Listener above.
 
 Well done! You've now completed this section of the tutorial.
 
