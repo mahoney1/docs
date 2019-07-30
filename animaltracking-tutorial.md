@@ -426,12 +426,8 @@ We now have 4 events: an initial registration (from setupdemo), a new SHEEPGOAT 
 
 `node query_IBP.js`
 
-The script performs a number of queries, some of which are fulfilled given the IBP SaaS ledger state at this point - results are written to a file called `registrations.json` 
+The script performs a number of queries, some of which are fulfilled given the IBP SaaS ledger state at this point - results are written to a file called `registrations.json` which is automatically detected/rendered by the React Dashboard App.
 
-12. Now copy these to our Dashboard data location:
-
-`cp registration.json $HOME/dash/tabler-react/example/src/data`
-`cp events.json $HOME/dash/tabler-react/example/src/data`
 
 ### Step 6. Check the React Dashboard App for new Query and Events
 
