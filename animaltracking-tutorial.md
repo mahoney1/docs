@@ -110,13 +110,14 @@ As mentioned, we're using IBM Blockchain Platform VSCode Extension - and the new
 
 ![General Flow with local Fabric or IBM Blockchain Platform SaaS edition](img/overview.png)
 
-The use case is an Animal Co-operative dashboard, which requires the truth to be sourced from the ledger.
 
 ## Scenario
 
-Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as a species their numbers needs growing (eventually, the goal is that they shouldn't need any vaccines, tetanus jabs etc and be immune to the everyday diseases that affect their cousins - but we can't take chances!). Jane needs key stats about SHEEPGOATS at her fingertips. Part of her remit is to monitor events affecting SHEEPGOATS in the co-op region, be they information level 'green' events (like new registrations), or more critical ones such as quarantined SHEEPGOATs (its a worry) and she needs to know they are imminently being inspected by a specialised SHEEPGOAT Vet.
+The use case centres around an Animal Co-operative dashboard, and the need to source the truth from the ledger for reporting purposes.
 
-Jane relies heavily on her dashboard app, in particular the events, from which she can instigate any actions.
+Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as a species their numbers needs growing, data concerning their welfare or any incidents need to be monitored - Jane needs key stats about SHEEPGOATS at her fingertips. While all data on the dashboard is important, part of her remit is to monitor any events affecting SHEEPGOATS in the co-op region - whether information level 'green' events (like new registrations), or more critical ones such as quarantined SHEEPGOATs (now that's a worry) and she also needs to know they are imminently being inspected by a specialised SHEEPGOAT Vet.
+
+Jane relies heavily on her dashboard app, in particular the events, from which she can instigate any inline actions.
 
 ## Pre-requisites
 
