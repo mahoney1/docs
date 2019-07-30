@@ -302,15 +302,20 @@ Well done! You've now completed this first part of the tutorial.
 
 # PART 2: Integrate React Dashboard App, Blockchain Ledger data from an IBM Blockchain Platform SaaS instance
 
-Note: If you wish to complete this part and you are not already signed up for an IBP Cloud instance, you will need to do so (here)[https://cloud.ibm.com/catalog/services/blockchain-platform]. Otherwise, access your service instance in the usual fashion through the IBM Kubernetes resource list. In my case it is called ('IBPDemo')
+Note: If you wish to complete this part, and you are not already signed up for an IBP Cloud instance, you will need to do so (here)[https://cloud.ibm.com/catalog/services/blockchain-platform]. Otherwise, access your service instance in the usual fashion through the IBM Kubernetes resource list. In my case it is called ('IBPDemo')
 
-The critical info, you will need for when you create your IBP SaaS instance (as per the ('Build your network tutorial')[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]) is the following (note: always check the source for the names/ids used) - the `animaltracking/client/lib` IBP-related .ts files (and compiled .js files) use the following currently:
+The critical info, you will need for when you create your IBP SaaS instance (based on the ('Build your network tutorial')[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]) tutorial is the following (note: always check the source for the names/ids used) - the `animaltracking/client/lib` IBP-related .ts files (and compiled .js files) use the following currently:
 
 MSP ID = 'org1msp'
 Registered Identity = 'ibpuser'
 Channel = "channel1"
 Instantiate Parameter = "org.example.animaltracking:instantiate" (ie when prompted to enter it for contract instantiation)
 Contract Name = "animaltracking-ts";
+
+When you create your IBM Kubernetes Cluster on IBM Cloud, take a note of it's name in IBM Kubernetes, if you need to re-launch the IBP console at any point (and you have other services etc)  - you can elect to create a cluster now, as you create a Blockchain Service (available under 'Catalog'......'Blockchain') or you can connect to an existing cluster in IBM Cloud - make sure to give your Service name a meaningful name like 'IBPDemo'
+
+(Creating the Blockchain Service)[img/ibpdemo-svc.png]
+
 
 ## Steps
 
