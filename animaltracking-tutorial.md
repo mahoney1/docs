@@ -241,6 +241,8 @@ We need to install dependencies for our client applications - to do this:
 
 `mv Tabler.css ../../src`
 
+`mkdir ../public/demo/icons`
+
 `cp $HOME/dash/animaltracking/react/icons/* ../public/demo/icons`
 
 4. Create a symbolic link to where our ledger data is persisted (for this tutorial, the React DashBoard App picks up data from a persisted file)
