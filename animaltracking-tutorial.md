@@ -174,16 +174,21 @@ Jane relies heavily on her dashboard app, in particular the events, from which s
     
 In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking-ts@xxx`, under the 'Fabric Local Ops' pane.
 
-11. Replace the HOME directory assignment in these typescript files (currently it is '/home/demo') - to your own home directory ('/home/userxx') in the following TS files:
+11. Replace the HOME directory assignment in these typescript files (currently it is set to '/home/demo') - to your own home directory ('/home/userxx') in the following TS files:
+
 `EventClient.ts`
+
 'EventClient_IBP.ts`
+
 `QueryClient.ts`
+
 `QueryClient_IBP.ts`
+
 `QueryEvents.ts`
 
 next, run:
 
-`npm run build` to compile to Javascript.
+`npm run build` to re-compile the source TS to Javascript.
 
 12. For Part 2 of this tutorial, you will need an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]
 
