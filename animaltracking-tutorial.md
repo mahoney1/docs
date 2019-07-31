@@ -174,7 +174,7 @@ Jane relies heavily on her dashboard app, in particular the events, from which s
     
 In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking-ts@xxx`, under the 'Fabric Local Ops' pane.
 
-11. Replace the HOME directory assignment in these typescript files (currently it is set to '/home/demo') - to your own home directory ('/home/userxx') in the following TS files:
+11. From a terminal, navigate to the `animaltracking/client/lib` subdirectory, and replace the HOME directory assignment by editing these Typescript files (currently it is set to '/home/demo') - to your own home directory ('/home/userxx') where your project is being installed - in the following TS files:
 
 `EventClient.ts`
 
