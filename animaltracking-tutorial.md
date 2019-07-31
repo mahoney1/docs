@@ -134,7 +134,7 @@ Jane relies heavily on her dashboard app, in particular the events, from which s
 
 ## Preparatory Steps
 
-1. Install `typescript` (if not installed) and `yarn` (ditto) as follows in your current user's HOME directory ('demo' in this case):
+1.From a terminal window in your $HOME directory, install `typescript` (if not already installed) and `yarn` (ditto) as follows in your current user's HOME directory ('demo' in this case):
 
 `npm config set prefix /home/demo`
 
@@ -142,7 +142,7 @@ Jane relies heavily on her dashboard app, in particular the events, from which s
 
 `export PATH=$HOME/bin:$PATH`
 
-2. From a Terminal window, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point 
+2. Next, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point 
 
 `cd $HOME/dash` to enter that directory
 
