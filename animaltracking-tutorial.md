@@ -128,37 +128,43 @@ Jane relies heavily on her dashboard app, in particular the events, from which s
 * (Docker version v17.06.2-ce or greater)[https://www.docker.com/get-started]
 * (Docker Compose v1.14.0 or greater)[https://docs.docker.com/compose/install/]
 * VS Code — see the (marketplace)[https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform] for the minimum version to install
-* Yarn - install yarn as follows in your $HOME directory:
-
-     * `npm install yarn`
+* Install Yarn and Typescript (if not already installed) - see the 'Preparatory steps' to set the NPM prefix below
 
 2. For Part 2 of this tutorial - deploying and integrating the dashboard App and smart contract to IBM Blockchain Platform SaaS - you will need to have an (IBM Blockchain Platform blockchain network)[https://cloud.ibm.com/catalog/services/blockchain] installed and running.
 
 ## Preparatory Steps
 
-1. From a Terminal window, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point 
+1. Install `typescript` (if not installed) and `yarn` (ditto) as follows in your current user's HOME directory ('demo' in this case):
+
+`npm config set prefix /home/demo`
+
+`npm install -g typescript yarn`
+
+`export PATH=$HOME/bin:$PATH`
+
+2. From a Terminal window, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point 
 
 `cd $HOME/dash` to enter that directory
 
-2. Clone the `tabler-react` Github repository:
+3. Clone the `tabler-react` Github repository:
 
 `git clone https://github.com/tabler/tabler-react.git`
 
-3. Clone the `animaltracking` Github repository:
+4. Clone the `animaltracking` Github repository:
 
 `git clone https://github.com/mahoney1/animaltracking.git`
 
-4. IF you've previously deployed the `animal-tracking` smart contract, would suggest to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
+5. IF you've previously deployed the `animal-tracking` smart contract, would suggest to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
 
-5. In VSCode, connect to your local Fabric Gateway under the 'Fabric Gateways' sidepanel, and use the`admin` identity to connect.
+6. In VSCode, connect to your local Fabric Gateway under the 'Fabric Gateways' sidepanel, and use the`admin` identity to connect.
 
-6. In VSCode Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/contract` directory. The `contract` folder must be your top-level project folder in VSCode before proceeding
+7. In VSCode Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/contract` directory. The `contract` folder must be your top-level project folder in VSCode before proceeding
 
-7. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking-ts@0.0.1`. You should get confirmation the package was successfully created.
+8. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking-ts@0.0.1`. You should get confirmation the package was successfully created.
 
-8. Next, under 'Local Fabric Ops' choose to 'Install' the package onto the local peer - await a successful install message in VS Code.
+9. Next, under 'Local Fabric Ops' choose to 'Install' the package onto the local peer - await a successful install message in VS Code.
 
-9. Next, instantiate the `animaltracking-ts` Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking-ts@0.0.1` as the contract to instantiate. 
+10. Next, instantiate the `animaltracking-ts` Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking-ts@0.0.1` as the contract to instantiate. 
 
     - When prompted to provide a function, supply the text:
       `org.example.animaltracking:instantiate` 
@@ -168,7 +174,7 @@ Jane relies heavily on her dashboard app, in particular the events, from which s
     
 In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking-ts@xxx`, under the 'Fabric Local Ops' pane.
 
-10. Replace the HOME directory assignment in these typescript files (currently it is '/home/demo') - to your own home directory ('/home/userxx') in the following TS files:
+11. Replace the HOME directory assignment in these typescript files (currently it is '/home/demo') - to your own home directory ('/home/userxx') in the following TS files:
 `EventClient.ts`
 'EventClient_IBP.ts`
 `QueryClient.ts`
@@ -179,7 +185,7 @@ next, run:
 
 `npm run build` to compile to Javascript.
 
-11. For Part 2 of this tutorial, you will need an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]
+12. For Part 2 of this tutorial, you will need an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]
 
 Successful completion of these pre-reqs, is the basis from which this tutorial can now proceed. 
 
