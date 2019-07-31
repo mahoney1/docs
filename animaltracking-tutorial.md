@@ -219,9 +219,11 @@ We need to install dependencies for our client applications - to do this:
 
 `cd $HOME/dash/tabler-react`
 
+2. Edit the `package.json` file and change the devDependency for `eslint` to be `5.6.0` explicitly - then save the file.
+
 `yarn install`
 
-2. Backup some existing files in `tabler-react` - both in `src` and in the `example/src` subdirectories as follows:
+3. Backup some existing files in `tabler-react` - both in `src` and in the `example/src` subdirectories as follows:
 
 `cd src`
 
@@ -235,7 +237,7 @@ We need to install dependencies for our client applications - to do this:
 
 (The above copies are merely so that you can do a `diff` of the changes made, to implement the animal tracking dashboard. Check out in particular, the `json` objects in `HomePage.react.js`, that represent JSON coming from the blockchain, via queries and events.
 
-3. Now copy in/move the customisations from the `animaltracking` cloned repo as follows - **perform steps in the `example/src` subdirectory** in your Tabler React directory - ignore the warning (in the 1st copy cmd below) about being unable to copy a subdirectory at this point.
+4. Now copy in/move the customisations from the `animaltracking` cloned repo as follows - **perform steps in the `example/src` subdirectory** in your Tabler React directory - ignore the warning (in the 1st copy cmd below) about being unable to copy a subdirectory at this point.
 
 `cp $HOME/dash/animaltracking/react/* .`
 
@@ -245,11 +247,11 @@ We need to install dependencies for our client applications - to do this:
 
 `cp $HOME/dash/animaltracking/react/icons/* ../public/demo/icons`
 
-4. Create a symbolic link to where our ledger data is persisted (for this tutorial, the React DashBoard App picks up data from a persisted file)
+5. Create a symbolic link to where our ledger data is persisted (for this tutorial, the React DashBoard App picks up data from a persisted file)
 
 `ln -s $HOME/dash/animaltracking/typescript/client/lib ledger`
 
-5. Next, we need to install the dependencies/packages for the `example` application itself (up one directory level):
+6. Next, we need to install the dependencies/packages for the `example` application itself (up one directory level):
 
 `cd ..`
 
@@ -271,9 +273,11 @@ We need to install dependencies for our client applications - to do this:
 
 ### Step 5. In a VS Code terminal window, start the Contract Event Listener
 
-1. Still in VS Code, click on the `Terminal` tab at the bottom - press ENTER if prompted to `hit any key to close`. You should now have a command prompt - change directory to the animaltracking `client` directory (from the `contract` subdirectory):
+1. Still in VS Code, click on the `Terminal` tab at the bottom - press ENTER if prompted to `hit any key to close`. You should now have a command prompt - change directory to the animaltracking `client/lib` directory (from the `contract` subdirectory) and add execute permissions to some listener scripts as shown:
 
 `cd ../client/lib`
+
+`chmod +x listen*`
 
 2. Start the local Event Listener by running the bash script `listenLocal.sh`:
 
