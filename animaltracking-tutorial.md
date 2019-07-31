@@ -243,13 +243,17 @@ We need to install dependencies for our client applications - to do this:
 
 4. Create a symbolic link to where our ledger data is persisted (for this tutorial, the React DashBoard App picks up data from a persisted file)
 
-`ln -s ledger $HOME/dash/animaltracking/typescript/client/lib`
+`ln -s $HOME/dash/animaltracking/typescript/client/lib ledger`
+
+5. Next, we need to install the dependencies/packages for the `example` application itself (up one directory level):
+
+`cd ..`
+
+`yarn install`
 
 ### Step 3. Start the React Dashboard app
 
 1. Start the React dashboard app - change directory one level, to the `example` directory:
-
-`cd ..`
 
 `yarn start`
 
