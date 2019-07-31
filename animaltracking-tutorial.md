@@ -186,9 +186,11 @@ In approx. one minute or less, you should get confirmation the contract was succ
 
 `QueryEvents.ts`
 
-next, run:
+next, run the following from `client/lib` subdirectory:
 
-`npm run build` to re-compile the source TS to Javascript.
+`tsc *.ts --lib ES2017` 
+
+to re-compile the source TS to Javascript with the added changes.
 
 12. For Part 2 of this tutorial, you will need an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]
 
