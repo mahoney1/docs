@@ -207,9 +207,11 @@ We need to install dependencies for our client applications - to do this:
 
 `cd $HOME/dash/animaltracking/client`
 
-2. Do an NPM install of dependencies:
+2. Do an NPM install of dependencies and run a tsc build:
 
 `npm install`
+
+`npm run build`
 
 ### Step 2. Install packages for React Dashboard using Yarn
 
