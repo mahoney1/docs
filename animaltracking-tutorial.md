@@ -75,31 +75,31 @@ type: tutorial
 
 ## Introduction
 
-This hands-on tutorial shows how to integrate query data and events from a blockchain ledger, into a client-side React Dashboard app. It uses the [IBM Blockchain Platform VS Code extension](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform) as the developer platform to manage the smart contract and clients - and essentially orchestrates the activity in this tutorial. The smart contract and the client apps, both written in Typescript, make use of the new features of the [new Hyperledger Fabric programming model](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/developing_applications.html) (available since v1.4). 
+This hands-on tutorial shows how to integrate query data from a blockchain ledger and events emitted by a smart contract instantiated on a channel, into a client-side React Dashboard app. It uses the [IBM Blockchain Platform VS Code extension](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform) as the developer platform to manage the smart contract and clients - and essentially orchestrates the activity in this tutorial. The smart contract and the client apps, both written in Typescript, make use of the new features of the [new Hyperledger Fabric programming model](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/developing_applications.html) (available since v1.4). 
 
-The IBM Blockchain Platform VS Code developer extension is used to interact with two different environments - one local, one Cloud.
+The IBM Blockchain Platform VS Code developer extension is used to interact with two different environments - one local, and later on, IBM Blockchain Platform in the Cloud.
 
-The tutorial flow takes you through deploying locally, and then promoting your contract to the Cloud. 
+The tutorial flow takes you through deploying a TypeScript smart contract (using the new Fabric programming model) locally, and then promoting your contract to the Cloud. 
 
-You will launch a locally installed React-based client dashboard, which will automatically render the source data (queries and events) in the dashboard portal - firstly from a local Fabric environment (started in IBP VS Code extension), then one configured in the [IBM Blockchain Platform in IBM Cloud](https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network)
+You will launch a locally installed React-based client dashboard, which will automatically render the source data (queries and emitted events) in the dashboard portal - the local Fabric environment is started in the IBP VS Code extension ; the Cloud instance uses the 'build a network' tutorial in the [IBM Blockchain Platform SaaS environment in IBM Cloud](https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network)
 
 There are two sections: 
 
-  - the first, the development lifecycle: deploy everything local ; use the IBM Blockchain Platform VS Code extension to manage the full IDE, stand up the runtime local Fabric and drive transactions, invoke an event listener. Then switch to the browser to show integration to the React client app ; 
+  - the first, **the development lifecycle**: deploy everything local ; use the IBM Blockchain Platform VS Code extension to manage the full IDE, stand up the runtime local Fabric and drive transactions, start an event listener. Then switch to the browser to show integration to the React client app; 
     
-  - the second, the promotion lifecycle: package up the contract in IBP extension and promote it to a Cloud instance, the IBM Blockchain Platform SaaS - once again, use the IBP VS Code extension to drive transactions, and invoke the IBP Cloud listener. Then again, show your React App dashboard interacting with data from the source IBP cloud ledger. 
+  - the second, **the promotion lifecycle**: package up the contract in IBP extension and promote it to the Cloud instance ie IBM Blockchain Platform SaaS environment - once again, use the IBP VS Code extension to drive the transaction flow, and again start a listener for emitted events from the Cloud. Once more, show your React App dashboard interacting with data from the IBM Cloud based ledger.
     
-The tutorial provides the end-to-end steps to stand up a React-based dashboard client containing a not-so-fictitious animal co-operative dashboard app, which providing summary charts, and ledger-based query and event data (emitted by the contract) sourced from the blockchain ledger (we're particularly interested in SHEEPGOAT (a Sheep/Goat cross-breed) related events :-) !).  You'll use a Typescript-based animaltracking smart contract, and interact with it from Typescript application clients, and of course, the dashboard.
+The tutorial provides the end-to-end steps to stand up a React-based dashboard client containing a fictitious 'animal co-operative' dashboard app, which providing summary charts, and ledger-based query and event data (emitted by the contract) sourced from the blockchain ledger (we're particularly interested in SHEEPGOAT (a Sheep/Goat cross-breed) related events :-) !). You'll use a Typescript-based animaltracking smart contract, and interact with it from Typescript application clients, and of course, the dashboard.
 
 NOTE: All data that is rendered from the blockchain will have a 'lock' icon alongside the record for viewing purposes.
 
-Figure 1. "Overview of React App Dashboard interacting with a Blockchain network (lock icons)"
+Figure 1. "Overview of React App Dashboard interacting with the Blockchain ledger for source data and events"
 
 
-![AnimalTracking: Integrate summary, query and events from the blockchain](img/highlevel-overvw.png)
+![AnimalTracking: Integrate summary, query data and events from the blockchain](img/highlevel-overvw.png)
 
 
-The tutorial uses an 'intermediate' level, model-based Typescript contract and is aimed at Developers who wish to understand how to run this contract and then integrate resultant blockchain data into a locally installed sample React JS based application, based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !  The lifecycle of typical transactions contained in the animal tracking contract is shown below.
+The tutorial uses an 'intermediate' level, 'strongly typed', model-based Typescript contract and is aimed at Developers who wish to understand how to run this contract and then integrate resultant blockchain data into a locally installed sample React JS based application, based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !  The lifecycle of typical transactions contained in the animal tracking contract is shown below.
 
 ![Typical contract transaction lifecycle](img/animaltrackingcontract.png)
 
