@@ -245,7 +245,7 @@ We need to install dependencies for our client applications - to do this:
 
 (The above copies are merely so that you can do a `diff` of the changes made, to implement the animal tracking dashboard. Check out in particular, the `json` objects in `HomePage.react.js`, that represent JSON coming from the blockchain, via queries and events.
 
-4. Now copy in/move the customisations from the `animaltracking` cloned repo as follows - **perform steps in the `example/src` subdirectory** in your Tabler React directory - ignore the warning (in the 1st copy cmd below) about being unable to copy a subdirectory at this point.
+4. Now copy in/move the customisations from the `animaltracking` cloned repo as follows - **perform steps in the `example/src` subdirectory** in your Tabler React directory - ignore the warning (in the 1st copy command below) about being unable to copy a subdirectory, at this point.
 
 `cp $HOME/dash/animaltracking/react/* .`
 
