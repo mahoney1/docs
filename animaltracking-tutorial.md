@@ -14,15 +14,15 @@ components:
   - "hyperledger-fabric"
   - "hyperledger"
   - "IBM Blockchain Platform"
-  - "IBM Blockchain Platform VSCode extension"
+  - "IBM Blockchain Platform VS Code extension"
 
 draft: false
 
 excerpt: "Develop, integrate and deploy your smart contract, and integrate ledger history and events into a React-based app"
 
-meta_description: "Learn how to develop/deploy a Typescript Smart Contract using IBM Blockchain VSCode Extension, invoke transactins/queries and render the results in a React Dashboard App"
+meta_description: "Learn how to develop/deploy a Typescript Smart Contract using IBM Blockchain VS Code Extension, invoke transactins/queries and render the results in a React Dashboard App"
 
-meta_keywords: "animal tracking, queries, smart contract, IBM Blockchain, IBM blockchain platform, VSCode extension, typescript, Hyperledger Fabric, React"
+meta_keywords: "animal tracking, queries, smart contract, IBM Blockchain, IBM blockchain platform, VS Code extension, typescript, Hyperledger Fabric, React"
 
 last_updated: "2019-07-21"
 
@@ -43,7 +43,7 @@ related_content:
     slug: create-and-execute-blockchain-smart-contracts
 
 related_links:
-  - title: "Part 1: Run a Commercial paper smart contract with the IBM Blockchain VSCode extension" 
+  - title: "Part 1: Run a Commercial paper smart contract with the IBM Blockchain VS Code extension" 
     url: "https://developer.ibm.com/series/blockchain-running-enhancing-commercial-paper-smart-contract/"
   - title: "Video: Start developing with the IBM Blockchain Platform VSCode Extension"
     url: "https://youtu.be/0NkGGIUPhqk"
@@ -89,7 +89,7 @@ There are two sections:
     
   - the second, the promotion lifecycle: package up the contract in IBP extension and promote it to a Cloud instance, the IBM Blockchain Platform SaaS - once again, use the IBP VS Code extension to drive transactions, invoke the listener. Then again, show your React App interacting with data from the source IBP cloud ledger. 
     
-The tutorial provides the end-to-end steps to stand up a React-based dashboard client containing a not-so-fictitious animal co-operative dashboard app, which providing summary charts, and ledger-based query and event data (emitted by the contract) sourced from the blockchain ledger (we're particularly interested in SHEEPGOATS actually :-) !).  Deployed to the same ledger and Fabric channel, is a Typescript-based animaltracking smart contract that we will interact with from application clients, and the dashboard.
+The tutorial provides the end-to-end steps to stand up a React-based dashboard client containing a not-so-fictitious animal co-operative dashboard app, which providing summary charts, and ledger-based query and event data (emitted by the contract) sourced from the blockchain ledger (we're particularly interested in SHEEPGOATS (a Sheep/Goat cross-breed) actually :-) !).  Deployed to the same ledger and Fabric channel, is a Typescript-based animaltracking smart contract that we will interact with from application clients, and the dashboard.
 
 NOTE: All data that is rendered from the blockchain will have a 'lock' icon alongside the record for viewing purposes.
 
@@ -115,13 +115,13 @@ As mentioned, we're using IBM Blockchain Platform VSCode Extension - and the new
 
 The use case centres around an Animal Co-operative dashboard, and the need to source the truth from the ledger for reporting purposes.
 
-Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers, as a species their numbers needs growing, data concerning their welfare or any incidents need to be monitored - Jane needs key stats about SHEEPGOATS at her fingertips. While all data on the dashboard is important, part of her remit is to monitor any events affecting SHEEPGOATS in the co-op region - whether information level 'green' events (like new registrations), or more critical ones such as quarantined SHEEPGOATs (now that's a worry) and she also needs to know they are imminently being inspected by a specialised SHEEPGOAT Vet.
+Jane Pearson has been at CONGA Co-op for 10 years now, and of late, she has taken on a very special role: she is responsible for keeping a handle on the SHEEPGOAT numbers (as a species their numbers needs growing). Data concerning their welfare or any incidents need to be monitored. Jane also needs key stats about SHEEPGOATS at her fingertips. While all data on the dashboard is important, part of her remit is to monitor info & events affecting SHEEPGOATS in the co-op region. In particular events that are critical, like SHEEPGOAT quarantines or ensuring vet inspections, as well as the less important new registrations.
 
-Jane relies heavily on her dashboard app, in particular the events, from which she can instigate any inline actions.
+Jane relies heavily on her dashboard app, from which she can instigate any inline actions against events as mentioned.
 
 ## Pre-requisites
 
-1. You will need to have the following installed in order to proceed:
+1. You will need to have the following installed in order to proceed - it has been tested on a Linux virtual machine:
 
 * (Node v8.x or greater and npm v5.x or greater)[https://nodejs.org/en/download/]
 * (Yeoman (yo) v2.x)[https://yeoman.io/]
@@ -154,11 +154,11 @@ Jane relies heavily on her dashboard app, in particular the events, from which s
 
 `git clone https://github.com/mahoney1/animaltracking.git`
 
-5. IF you've previously deployed the `animal-tracking` smart contract, would suggest to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
+5. IF you've previously deployed the `animal-tracking` smart contract, you are recommended to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
 
 6. In VSCode, connect to your local Fabric Gateway under the 'Fabric Gateways' sidepanel, and use the`admin` identity to connect.
 
-7. In VSCode Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/contract` directory. The `contract` folder must be your top-level project folder in VSCode before proceeding
+7. In VSCode Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/contract` directory. Depending on your VS Code version, you may be prompted to open the VS Code workspace provided in that directory. In any case, the `contract` folder must be your top-level project folder in VSCode Explorer before proceeding
 
 8. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking-ts@0.0.1`. You should get confirmation the package was successfully created.
 
@@ -174,7 +174,7 @@ Jane relies heavily on her dashboard app, in particular the events, from which s
     
 In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking-ts@xxx`, under the 'Fabric Local Ops' pane.
 
-11. From a terminal, navigate to the `animaltracking/client/lib` subdirectory, and replace the HOME directory assignment by editing these Typescript files (currently it is set to '/home/demo') - to your own home directory ('/home/userxx') where your project is being installed - in the following TS files:
+11. From a terminal, navigate to the `animaltracking/client/lib` subdirectory. Edit the following Typescript files and replace the current the setting of the variable `currentDir` HOME directory (at approx line 28) to your own HOME directory setting assignment (currently it is set to '/home/demo') - to your own home directory ('/home/userxx') ie where your project is installed. 
 
 `EventClient.ts`
 
@@ -198,7 +198,7 @@ Successful completion of these pre-reqs, is the basis from which this tutorial c
 
 ## Estimated time
 
-After the prerequisites are completed, this should take approximately *60 minutes* to complete.
+After the preparatory steps are completed, this should take approximately *60 minutes* to complete.
 
 OK, lets get started !
 
