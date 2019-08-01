@@ -155,7 +155,7 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
 5. IF you've previously deployed the `animal-tracking` smart contract, you are recommended to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
 
-6. In VSCode, connect to your local Fabric Gateway under the 'Fabric Gateways' sidepanel, and use the`admin` identity to connect.
+6. In the VS Code extension under 'Fabric Gateways', connect to your `local_fabric`  sidepanel, and use the`admin` identity to connect.
 
 7. In VSCode Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/contract` directory. Depending on your VS Code version, you may be prompted to open the VS Code workspace provided in that directory. In any case, the `contract` folder must be your top-level project folder in VSCode Explorer before proceeding
 
@@ -172,6 +172,8 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
     - Hit ENTER to accept the remaining defaults for the remaining parameters when prompted. 
     
 In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking-ts@xxx`, under the 'Fabric Local Ops' pane.
+
+11. Still in the VS Code extension, navigate to Nodes under 'Local Fabric Ops' and highlight `peer0.org1.example.com` and right-click....Export Connection profile and save it in your $HOME directory as filename `connection.json` - the client applications will use this.
 
 11. From a terminal, navigate to the `animaltracking/client/lib` subdirectory. Edit the following Typescript files and replace the current the setting of the variable `currentDir` HOME directory (at approx line 28) to your own HOME directory setting assignment (currently it is set to '/home/demo') - to your own home directory ('/home/userxx') ie where your project is installed. 
 
