@@ -189,7 +189,7 @@ In approx. one minute or less, you should get confirmation the contract was succ
 
 next, run the following from `client/lib` subdirectory:
 
-`tsc *.ts --lib ES2017` 
+`npm run build` 
 
 to re-compile the source TS to Javascript with the added changes.
 
