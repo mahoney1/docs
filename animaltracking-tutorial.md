@@ -75,21 +75,21 @@ type: tutorial
 
 ## Introduction
 
-This hands-on tutorial shows how to integrate query data and events from a blockchain ledger, into a client-side React Dashboard app. It uses the [IBM Blockchain Platform VS Code extension](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform) as the developer platform to manage the smart contract and clients - and essentially orchestrates the activity in this tutorial. The smart contract and the client apps, both written in Typescript, make use of the new features of the [new Hyperledger Fabric programming model](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/developing_applications.html) (available since 1.4). 
+This hands-on tutorial shows how to integrate query data and events from a blockchain ledger, into a client-side React Dashboard app. It uses the [IBM Blockchain Platform VS Code extension](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform) as the developer platform to manage the smart contract and clients - and essentially orchestrates the activity in this tutorial. The smart contract and the client apps, both written in Typescript, make use of the new features of the [new Hyperledger Fabric programming model](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/developing_applications.html) (available since v1.4). 
 
 The IBM Blockchain Platform VS Code developer extension is used to interact with two different environments - one local, one Cloud.
 
-The tutorial flow takes you through deploying locally, and then you promote your contract to the Cloud. 
+The tutorial flow takes you through deploying locally, and then promoting your contract to the Cloud. 
 
-You will launch a locally installed React application client dashboard, which will automatically render the source data (queries and events) in the dashboard portal - firstly from a local Fabric environment (one started in IBP VS Code extension), then one configured in the [IBM Blockchain Platform in IBM Cloud](https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network)
+You will launch a locally installed React-based client dashboard, which will automatically render the source data (queries and events) in the dashboard portal - firstly from a local Fabric environment (started in IBP VS Code extension), then one configured in the [IBM Blockchain Platform in IBM Cloud](https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network)
 
 There are two sections: 
 
   - the first, the development lifecycle: deploy everything local ; use the IBM Blockchain Platform VS Code extension to manage the full IDE, stand up the runtime local Fabric and drive transactions, invoke an event listener. Then switch to the browser to show integration to the React client app ; 
     
-  - the second, the promotion lifecycle: package up the contract in IBP extension and promote it to a Cloud instance, the IBM Blockchain Platform SaaS - once again, use the IBP VS Code extension to drive transactions, invoke the listener. Then again, show your React App interacting with data from the source IBP cloud ledger. 
+  - the second, the promotion lifecycle: package up the contract in IBP extension and promote it to a Cloud instance, the IBM Blockchain Platform SaaS - once again, use the IBP VS Code extension to drive transactions, and invoke the IBP Cloud listener. Then again, show your React App dashboard interacting with data from the source IBP cloud ledger. 
     
-The tutorial provides the end-to-end steps to stand up a React-based dashboard client containing a not-so-fictitious animal co-operative dashboard app, which providing summary charts, and ledger-based query and event data (emitted by the contract) sourced from the blockchain ledger (we're particularly interested in SHEEPGOATS (a Sheep/Goat cross-breed) actually :-) !).  Deployed to the same ledger and Fabric channel, is a Typescript-based animaltracking smart contract that we will interact with from application clients, and the dashboard.
+The tutorial provides the end-to-end steps to stand up a React-based dashboard client containing a not-so-fictitious animal co-operative dashboard app, which providing summary charts, and ledger-based query and event data (emitted by the contract) sourced from the blockchain ledger (we're particularly interested in SHEEPGOAT (a Sheep/Goat cross-breed) related events :-) !).  You'll use a Typescript-based animaltracking smart contract, and interact with it from Typescript application clients, and of course, the dashboard.
 
 NOTE: All data that is rendered from the blockchain will have a 'lock' icon alongside the record for viewing purposes.
 
@@ -104,7 +104,6 @@ The tutorial uses an 'intermediate' level, model-based Typescript contract and i
 ![Typical contract transaction lifecycle](img/animaltrackingcontract.png)
 
 As mentioned, we're using IBM Blockchain Platform VSCode Extension - and the new Fabric programming model and SDK features under the covers - to complete these tasks. In particular, you will use Query and Event Typescript application clients - in addition to the IBP VS Code extension, to perform the required actions in this tutorial.
-
 
 ## Background
 
@@ -352,7 +351,7 @@ Channel = "channel1"
 Instantiate Parameter = "org.example.animaltracking:instantiate" (ie when prompted to enter it for contract instantiation)
 Contract Name = "animaltracking-ts";
 
-When you create your IBM Kubernetes Cluster on IBM Cloud, take a note of it's name in IBM Kubernetes, if you need to re-launch the IBP console at any point (and you have other services etc)  - you can elect to create a cluster now, as you create a Blockchain Service (available under 'Catalog'......'Blockchain') or you can connect to an existing cluster in IBM Cloud - make sure to give your Service name a meaningful name like 'IBPDemo'
+When you create your IBM Kubernetes Cluster on IBM Cloud, take a note of it's name in IBM Kubernetes, if you need to re-launch the IBP console at any point (and you have other services etc). Make sure to give your Service name a meaningful name eg. something like 'IBPDemo'
 
 (Creating the Blockchain Service)[img/ibpdemo-svc.png]
 
@@ -361,9 +360,9 @@ When you create your IBM Kubernetes Cluster on IBM Cloud, take a note of it's na
 
 ### Step 1. Export CDS package and install/instantiate the contract using a peer Admin in IBP SaaS
 
-We will need to package up our TypeScript smart contract into a (CDS file)[https://hyperledger-fabric.readthedocs.io/en/release-1.4/chaincode4noah.html#packaging] to deploy as a chaincode package for the IBP SaaS environment. We can do this easily from the IBM Blockchain Platform VS Code extension
+We will need to package up our TypeScript smart contract into a (CDS file)[https://hyperledger-fabric.readthedocs.io/en/release-1.4/chaincode4noah.html#packaging] to deploy as a chaincode package for the IBP SaaS environment. We can do this easily from the IBM Blockchain Platform VS Code extension.
 
-1. Click on the IBP extension icon in the sidebar, and under 'Smart Contract Packages' select `animaltracking-ts@0.0.1` and right-click .... 'export Package' . Accept the default file name `animaltracking-ts@0.0.1.cds` and export it to a temporary directory on your filesystem. You should get a 'successful export' message popup at the bottom.
+1. In VS Code, click on the IBP extension icon in the sidebar, and under 'Smart Contract Packages' select `animaltracking-ts@0.0.1` and right-click .... 'export Package' . Accept the default file name `animaltracking-ts@0.0.1.cds` and export it to a temporary directory on your filesystem. You should get a 'successful export' message popup at the bottom.
 
 2. Login to your IBM Blockchain Platform Cloud instance and launch the IBM Blockchain Platform Console, close the welcome banner if required.
 
@@ -379,7 +378,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 7. Lastly, enter `org.example.animaltracking:instantiate` when prompted to enter an initialisation function. Then accept the defaults thereafter. Your contract should be successfully instantiated on the channel `channel` and appear in the instantiated contracts further down the same panel.
 
-## Step 2. Register an IBP identity and export wallet for use later
+### Step 2. Register an IBP identity and export wallet for use later
 
 1. Click on the 'Org1 CA' node and click on the button to 'Register User' - register a user 'ibpuser' with an enrol secret of 'demo' - 'register user'. This user will be the identity we use to invoke transactions, run queries etc from the IBP VS Code extension later.
 
@@ -387,7 +386,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 3. Enter a 'display name' of 'ibpuser' and click on 'Export Identity' - this will prompt you to save the identity to your local filesystem as a JSON file - we will use this later.
 
-## Step 3. Export the connection profile to use in the IBP VS Code extension as a Gateway Connection
+### Step 3. Export the connection profile to use in the IBP VS Code extension as a Gateway Connection
 
 1. From the 'Smart Contracts' panel, scroll down to the 'Instantiated Smart Contracts' section
 
@@ -397,7 +396,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 4. The exported file will be called something like `channel1_animaltracking-ts_profile.json` in your Downloads directrory - rename this connection JSON file locally as `connection_IBP.json` and move it to your $HOME directory. This directory location will be used later by the Query Client application script that will query the IBP SaaS `channel` based ledger FYI.
 
-## Step 4. Setup the IBP Gateway and import the Wallet to connect to IBP SaaS environment
+### Step 4. Setup the IBP Gateway and import the Wallet to connect to IBP SaaS environment
 
 1. Back in the IBP VS Code panel in your local development environment, disconnect from any currently connected local gateways.
 
@@ -413,7 +412,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 7. Now connect to the Gateway under the 'Fabric Gateways' panel and click on 'IBPGW' - select to connect with the user `ibpuser`. You will see that this user is now connected through the IBPGW gateway as highlighted in the graphic below. We are now ready to try out our integration from the React Dashboard app, all the way through to the SaaS environment. At this point of course, we have no ledger data in the Saas environment, so we will need to populate it and start creating some transactions.
 
-## Step 5. Execute transactions and test out integration of new events, queries from the IBP SaaS environment
+### Step 5. Execute transactions and test out integration of new events, queries from the IBP SaaS environment
 
 1. From the IBP VS Code extension, expand the channel `channel` and the `animaltracking-ts@0.0.1` instantiated contract to reveal the list of available transactions - scroll down to the `setupdemo` transaction.
 
@@ -466,7 +465,7 @@ Once again, the data we're interested in our Dashboard app are the 'new registra
 
 3. Scroll down to 'Recent Blockchain Events' - these represent our 4 IBP blockchain events (one from `setupdemo`, one from `register` and one each from `quarantine` and `assigninspection`) emitted by the `animaltracking-ts` Contract instantiated on channel `channel1` in IBP SaaS and which were picked up by our IBP Contract Listener above.
 
-Well done! You've now completed this section of the tutorial.
+Well done! You've now completed this second section of the tutorial.
 
 ## Conclusion
 
@@ -474,11 +473,11 @@ This tutorial aimed to show a simple use case, of combining the new features of:
 
   - the IBM Blockchain VS Code extension to manage the whole development inside VS Code - a powerful and seamless IDE for the developer.
   - Fabric 1.4's new programming model (eg, application client SDK, gateways, wallets, event SDK enhancements, and of course the new Fabric Contract changes)
-  - Typescript Contract and Client applications (Event Listeners, Query Clients etc)
-  - Tabler React (the Github project at https://github.com/tabler/tabler-react for a React-based Dashboard app
-  - Adding customisations, suited to the use case / Ledger data being extracted.
-  - starting local, verifying from your IBM Blockchain IDE that everything works locally ; then promote the smart contract to an IBM Blockchain Platform Cloud instance, and show integration to that SaaS environment from your IBP Clients and the React Dashboard app.
+  - Typescript Contract and Client applications (Event Listeners, App Clients etc)
+  - Tabler React (the Github project at https://github.com/tabler/tabler-react for a React-based Dashboard app template dashboard app
+  - Adding customisations, suited to the use case / Ledger data being extracted
+  - starting local, verifying from your IBM Blockchain IDE that everything works locally ; then promote the smart contract to an IBM Blockchain Platform Cloud instance, and show integration to that SaaS environment from your IBP Clients and to the React Dashboard app.
     
-Thanks for trying it out! If you have any issues, please raise an issue on my Github project (click 'Issues') with full details of the problem you're facing - thanks!)
+Thanks for trying it out! If you have any issues, please raise an issue on my Github project (click 'Issues') at https://github.com/mahoney1/animaltracking with full details of the problem you're facing - thanks!)
 
 As a last step, it is good practice to close out your current folders in VS Code, in preparation for your next tutorial or project.
