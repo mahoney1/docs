@@ -136,7 +136,7 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
 `npm config set prefix /home/demo`
 
-`npm install -g typescript yarn`
+`npm install typescript yarn`
 
 `export PATH=$HOME/bin:$PATH`
 
@@ -188,7 +188,7 @@ In approx. one minute or less, you should get confirmation the contract was succ
 
 `QueryEvents.ts`
 
-next, run the following from `client/lib` subdirectory, to install client module dependencies then transpile the Typescript files to Javascript
+next, run the following from the `client` subdirectory, to install client module dependencies then transpile the Typescript files to Javascript
 
 `npm install`
 
