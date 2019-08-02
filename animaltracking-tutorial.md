@@ -309,9 +309,7 @@ We now have 4 events: an initial registration (from setupdemo), a new SHEEPGOAT 
 
 (Note: generally, these events would picked up by an application using either Websockets (more efficient) or AJAX (less efficient) calls from the React or node application using React to render the UI. But for the purposes of this tutorial, we will write the events (emitted by the contract) to a simple JSON file: it is this that the React Dashboard app picks up, to dynamically present the ledger data in the application.
 
-8. We also want to query all SHEEPGOAT registrations from the ledger, and present this in the dashboard. To do this, we need to run the QueryClient script as follows:
-
-`cd $HOME/dash/animaltracking/typescript/client/lib`
+8. We also want to query all SHEEPGOAT registrations from the ledger, and present this in the dashboard. To do this, we need to run the QueryClient script - still in the same `client/lib` subdirectory - as follows:
 
 `node query.js`
 
