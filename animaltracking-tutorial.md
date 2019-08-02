@@ -279,7 +279,7 @@ You should get messages ("Getting Listener" etc) that its started and you should
 
 ### Step 4. In IBP VS Code extension, pre-populate the ledger with demo data
 
-1.  In IBP in the VS Code extension, expand the `animaltracking-ts@xxx` contract under 'Fabric Gateways'. You will see a list of transactions. Scroll down to the end and you will find a transaction called `setupdemo`. We'll use this to pre-populate the ledger with some sample data.
+1.  In the IBP VS Code extension, connect to the 'Local Fabric' as `admin and expand the tree to reveal the `animaltracking-ts@xxx` contract under 'Fabric Gateways'. You will see a list of transactions. Scroll down to the end and you will find a transaction called `setupdemo`. We'll use this to pre-populate the ledger with some sample data.
 
 2. Right-click on `setupdemo` and select `Submit Transaction` - accept all the default prompts for parameters (don't need to enter anything) etc - we won't need to supply any parameters.
 
