@@ -307,13 +307,13 @@ We now have 4 events: an initial registration (from setupdemo), a new SHEEPGOAT 
 
 7. In the Terminal window with the running Event Listener, stop it using CONTROL and C to stop. You should see an `Events Processed` message after interruption. We now have a set of 4 events, in JSON, contained in a file called `events.json`
 
-(Note: generally, these events would picked up by an application using either Websockets (more efficient) or AJAX (less efficient) calls from the React or node application using React to render the UI. But for the purposes of this tutorial, we will write the events (emitted by the contract) to a simple JSON file: it is this that the React Dashboard app picks up, to dynamically present the ledger data in the application.
+(Note: generally, these events would picked up by an application using either something like Sockets.io (more efficient) or AJAX (less efficient) calls from the React or node application using React to render the UI. But for the purposes of this tutorial, we will write the events (emitted by the contract) to a simple JSON file: it is this that the React Dashboard app picks up, to dynamically present the ledger data in the application.
 
 8. We also want to query all SHEEPGOAT registrations from the ledger, and present this in the dashboard. To do this, we need to run the QueryClient script - still in the same `client/lib` subdirectory - as follows:
 
 `node query.js`
 
-The script performs a number of queries, some of which are fulfilled given the ledger state at this point - however, the data we're interested in, will be the last query performed - and the results are written to a file called `registrations.json` and which our Dashboard will automatically pick up.
+The script performs a number of queries, some of which are fulfilled given the ledger state at this point - however, the data we're interested in, will be the last query performed - and the results are written to a file called `registrations.json` and which our Dashboard will automatically pick up. One thing to note: registration ID `000011` will not show in the list in the latest registrations table: that's because (in this sample contract), the last function performed on that registration is one of assignment to a Vet.
 
 ### Step 6. Check the React Dashboard App for new Query and Events
 
