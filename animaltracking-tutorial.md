@@ -336,14 +336,18 @@ Note: If you wish to complete this part, and you are not already signed up for a
 The critical info, you will need for when you create your IBP SaaS instance (based on the ('Build your network tutorial')[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]) tutorial is the following (note: always check the source for the names/ids used) - the `animaltracking/typescript/client/lib` IBP-related .ts files (and compiled .js files) use the following currently:
 
 MSP ID = 'org1msp'
+
 Registered Identity = 'ibpuser'
+
 Channel = "channel1"
+
 Instantiate Parameter = "org.example.animaltracking:instantiate" (ie when prompted to enter it for contract instantiation)
+
 Contract Name = "animaltracking-ts";
 
 When you create your IBM Kubernetes Cluster on IBM Cloud, take a note of it's name in IBM Kubernetes, if you need to re-launch the IBP console at any point (and you have other services etc). Make sure to give your Service name a meaningful name eg. something like 'IBPDemo'
 
-![img/welcomeback.png](Creating the Blockchain Service)
+![Creating the Blockchain Service)](img/welcomeback.png)
 
 
 ## Steps
@@ -358,8 +362,8 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 3. Click on the 'Smart Contracts' tab in your single-Org IBP SaaS environment. As part of my build a network tutorial, I associated a peer admin identity (of type 'peer'), having added it to my wallet. Choose the 'Smart Contracts' tab and click on 'Install Smart Contract'. Upload your CDS package from earlier and 'Install Smart Contract' - await the 'success' message.
 
-![img/installcontract.png](Upload and Install the Contract)
-  
+![Upload and Install the Contract](img/installcontract.png)
+
 4. Next, click on the 'Overflow' menu alongside the `animaltracking-ts` smart contract. On the side panel that opens, select the channel `channel1` to instantiate the smart contract on - click Next. 
   
 5. Accept the default endorsement policy and select the Org MSP set up for your environment: `org1msp`
@@ -376,7 +380,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 3. Enter a 'display name' of 'ibpuser' and click on 'Export Identity' - this will prompt you to save the identity to your local filesystem as a JSON file - we will use this later.
 
-![img/registeruser.png](Register and Enrol user ibpuser)
+![Register and Enrol user ibpuser](img/registeruser.png)
 
 ### Step 3. Export the connection profile to use in the IBP VS Code extension as a Gateway Connection
 
@@ -388,7 +392,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 4. The exported file will be called something like `channel1_animaltracking-ts_profile.json` in your Downloads directrory - rename this connection JSON file locally as `connection_IBP.json` and move it to your $HOME directory. This directory location will be used later by the Query Client application script that will query the IBP SaaS `channel` based ledger FYI.
 
-![img/connectwithSDK.png](Export SDK Connection Profile info)
+![Export SDK Connection Profile info](img/connect-with-SDK.png)
 
 ### Step 4. Setup the IBP Gateway and import the Wallet to connect to IBP SaaS environment
 
@@ -406,13 +410,13 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 7. Now connect to the Gateway under the 'Fabric Gateways' panel and click on 'IBPGW' - select to connect with the user `ibpuser`. You will see that this user is now connected through the IBPGW gateway as highlighted in the graphic below. We are now ready to try out our integration from the React Dashboard app, all the way through to the SaaS environment. At this point of course, we have no ledger data in the Saas environment, so we will need to populate it and start creating some transactions.
 
-![img/ibpuser-connect.png](Connect to IBP SaaS environment)
+![Connect to IBP SaaS environment](img/ibpuser-connect.png)
 
 ### Step 5. Execute transactions and test out integration of new events, queries from the IBP SaaS environment
 
 1. From the IBP VS Code extension, expand the channel `channel` and the `animaltracking-ts@0.0.1` instantiated contract to reveal the list of available transactions - scroll down to the `setupdemo` transaction.
 
-![img/ibpsaas-txn-list.png](Transaction Functions from IBP)
+![Transaction Functions from IBP](img/ibpsaas-txn-list.png)
 
 2. Right-click on `setupdemo` and click 'Submit Transaction' and when prompted, supply a value of "IBP" inside the 'parameter' prompt -  hit ENTER to accept all the remaining default prompts - this will populate our ledger with some new registrations and which are prefixed 'IBP' - so we can see the data is different in our dashboard.
 
@@ -465,7 +469,7 @@ Once again, the data we're interested in our Dashboard app are the 'new registra
 
 Well done! You've now completed this second and final section of the tutorial.
 
-![img/highlevel-overvw.png](React Dashboard with Ledger data rendered)
+![React Dashboard with Ledger data](img/highlevel-overvw.png)
 
 ## Conclusion
 
