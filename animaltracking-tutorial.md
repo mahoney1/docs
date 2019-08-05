@@ -244,7 +244,7 @@ OK, lets get started !
 
 `cp $HOME/dash/animaltracking/react/icons/* ../public/demo/icons`
 
-5. Create a symbolic link to where our ledger data is persisted (for this tutorial, the React DashBoard App picks up data from a persisted file)
+5. Create a symbolic link to where our ledger data is persisted (for this tutorial, the React DashBoard App picks up data retrieved from the blockchain and persisted to a file)
 
 `ln -s $HOME/dash/animaltracking/typescript/client/lib ledger`
 
