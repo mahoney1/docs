@@ -358,7 +358,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 3. Click on the 'Smart Contracts' tab in your single-Org IBP SaaS environment. As part of my build a network tutorial, I associated a peer admin identity (of type 'peer'), having added it to my wallet. Choose the 'Smart Contracts' tab and click on 'Install Smart Contract'. Upload your CDS package from earlier and 'Install Smart Contract' - await the 'success' message.
 
-![img/installcontract.png]
+![img/installcontract.png](Upload and Install the Contract)
   
 4. Next, click on the 'Overflow' menu alongside the `animaltracking-ts` smart contract. On the side panel that opens, select the channel `channel1` to instantiate the smart contract on - click Next. 
   
@@ -376,7 +376,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 3. Enter a 'display name' of 'ibpuser' and click on 'Export Identity' - this will prompt you to save the identity to your local filesystem as a JSON file - we will use this later.
 
-![img/registeruser.png]
+![img/registeruser.png](Register and Enrol user ibpuser)
 
 ### Step 3. Export the connection profile to use in the IBP VS Code extension as a Gateway Connection
 
@@ -384,11 +384,11 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 2. Click on the Overflow menu and select 'Connect with SDK'
 
-3. Enter 'org1msp' for the MSP choice and 'Org1 CA' as the Certificate Authority of choice. Scroll down to the end and click on 'Download Connection Profile' - 
+3. Enter `org1msp` for the MSP choice and 'Org1 CA' as the Certificate Authority of choice. Scroll down to the end and click on 'Download Connection Profile' - 
 
 4. The exported file will be called something like `channel1_animaltracking-ts_profile.json` in your Downloads directrory - rename this connection JSON file locally as `connection_IBP.json` and move it to your $HOME directory. This directory location will be used later by the Query Client application script that will query the IBP SaaS `channel` based ledger FYI.
 
-![img/connectwithSDK.png]
+![img/connectwithSDK.png](Export SDK Connection Profile info)
 
 ### Step 4. Setup the IBP Gateway and import the Wallet to connect to IBP SaaS environment
 
@@ -400,19 +400,19 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 4. Select to 'Create a new wallet and add identity' and give it a name of `ibpuser` . Next enter `ibpuser2` in response to the 'name of the identity' prompt
 
-5. Enter 'org1msp' when prompted to enter an MSP ID and hit ENTER
+5. Enter `org1msp` when prompted to enter an MSP ID and hit ENTER
 
 6. Choose the 'Provide a JSON file' when prompted to choose a method for adding an identity and browser for the `ibpuser.json` file in your HOME directory - select this. You should see messages that it was imported successfully and it will appear on the list.
 
 7. Now connect to the Gateway under the 'Fabric Gateways' panel and click on 'IBPGW' - select to connect with the user `ibpuser`. You will see that this user is now connected through the IBPGW gateway as highlighted in the graphic below. We are now ready to try out our integration from the React Dashboard app, all the way through to the SaaS environment. At this point of course, we have no ledger data in the Saas environment, so we will need to populate it and start creating some transactions.
 
-![img/ibpuser-connect.png]
+![img/ibpuser-connect.png](Connect to IBP SaaS environment)
 
 ### Step 5. Execute transactions and test out integration of new events, queries from the IBP SaaS environment
 
 1. From the IBP VS Code extension, expand the channel `channel` and the `animaltracking-ts@0.0.1` instantiated contract to reveal the list of available transactions - scroll down to the `setupdemo` transaction.
 
-![img/ibpsaas-txn-list.png]
+![img/ibpsaas-txn-list.png](Transaction Functions from IBP)
 
 2. Right-click on `setupdemo` and click 'Submit Transaction' and when prompted, supply a value of "IBP" inside the 'parameter' prompt -  hit ENTER to accept all the remaining default prompts - this will populate our ledger with some new registrations and which are prefixed 'IBP' - so we can see the data is different in our dashboard.
 
@@ -465,7 +465,7 @@ Once again, the data we're interested in our Dashboard app are the 'new registra
 
 Well done! You've now completed this second and final section of the tutorial.
 
-![img/highlevel-overvw.png]
+![img/highlevel-overvw.png](React Dashboard with Ledger data rendered)
 
 ## Conclusion
 
