@@ -99,7 +99,7 @@ Figure 1. "Overview of React App Dashboard interacting with the Blockchain ledge
 ![AnimalTracking: Integrate summary, query data and events from the blockchain](img/highlevel-overvw.png)
 
 
-The tutorial uses an 'intermediate' level, 'strongly typed', model-based Typescript contract and is aimed at Developers who wish to understand how to run this contract and then integrate resultant blockchain data into a locally installed sample React JS based application, based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !  The lifecycle of typical transactions contained in the animal tracking contract is shown below.
+The tutorial uses an 'intermediate' level, 'strongly typed', model-based Typescript contract and is aimed at Developers who wish to understand how to run this contract and then integrate resulting blockchain data (as returned to app clients) into a locally installed sample React JS based application, based on (Tabler UI React-based Dashboard)[https://github.com/tabler/tabler-react]. Take time to see what's going on - you don't necessarily have to understand Typescript, Javascript or React in great detail to understand this !  The lifecycle of typical transactions contained in the animal tracking contract is shown below. For more on the very useful Tabler React project, you can check out the README and licence info (here)[https://github.com/tabler/tabler-react/blob/master/README.md]
 
 ![Typical contract transaction lifecycle](img/animaltrackingcontract.png)
 
@@ -485,3 +485,5 @@ This tutorial aimed to show a simple use case, of combining the new features of:
 Thanks for trying it out! If you have any issues, please raise an issue on my Github project (click 'Issues') at https://github.com/mahoney1/animaltracking with full details of the problem you're facing - thanks!)
 
 As a last step, it is good practice to close out your current folders in VS Code, in preparation for your next tutorial or project.
+
+With thanks to Robert Thatcher, IBM Early Experience Programs for his valued reviews input and testing of the tutorial.
