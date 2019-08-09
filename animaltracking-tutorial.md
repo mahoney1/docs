@@ -140,31 +140,43 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
 `export PATH=$HOME/bin:$PATH`
 
-2. Next, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point 
+2. Next, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point. 
 
 `cd $HOME/dash` to enter that directory
 
-3. Clone the `tabler-react` Github repository:
+3. Export the designated project directory as an Operating system variable called **PROJECT** - this is important,  as this variable is used as a relative path by the Application Client scripts later (without it, they won't locate config information). Eg my project directory is shown below:
+
+`gedit /home/demo/.profile` 
+
+Add to the bottom:
+
+`export PROJECT=/home/demo/dash`
+
+Source the file to read the variable setting:
+
+source $HOME/.profile
+
+4. Clone the `tabler-react` Github repository:
 
 `git clone https://github.com/tabler/tabler-react.git`
 
-4. Clone the `animaltracking` Github repository:
+5. Clone the `animaltracking` Github repository:
 
 `git clone https://github.com/mahoney1/animaltracking.git`
 
-5. IF you've previously deployed the `animal-tracking` smart contract, you are recommended to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
+6. IF you've previously deployed the `animal-tracking` smart contract, you are recommended to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
 
-6. In the VS Code extension under 'Fabric Gateways', connect to your `local_fabric`  sidepanel, and use the`admin` identity to connect.
+7. In the VS Code extension under 'Fabric Gateways', connect to your `local_fabric`  sidepanel, and use the`admin` identity to connect.
 
-7. In VS Code Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/typescript/contract` directory. Depending on your VS Code version, you may be prompted to open the VS Code workspace provided in that directory. In any case, the `contract` folder must be your top-level project folder in VS Code Explorer before proceeding.
+8. In VS Code Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/typescript/contract` directory. Depending on your VS Code version, you may be prompted to open the VS Code workspace provided in that directory. In any case, the `contract` folder must be your top-level project folder in VS Code Explorer before proceeding.
 
-8. In the Terminal Window, run `npm install` to install the dependencies for the imported contract
+9. In the Terminal Window, run `npm install` to install the dependencies for the imported contract
 
-9. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking-ts@0.0.1`. You should get confirmation the package was successfully created.
+10. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking-ts@0.0.1`. You should get confirmation the package was successfully created.
 
-10. Next, under 'Local Fabric Ops' choose to 'Install' the package onto the local peer - await a successful install message in VS Code.
+11. Next, under 'Local Fabric Ops' choose to 'Install' the package onto the local peer - await a successful install message in VS Code.
 
-11. Next, instantiate the `animaltracking-ts` Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking-ts@0.0.1` as the contract to instantiate. 
+12. Next, instantiate the `animaltracking-ts` Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking-ts@0.0.1` as the contract to instantiate. 
 
     - When prompted to provide a function, supply the text:
       `org.example.animaltracking:instantiate` 
@@ -174,12 +186,12 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
     
 In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking-ts@xxx`, under the 'Fabric Local Ops' pane.
 
-12. Still in the VS Code extension, navigate to Nodes under 'Local Fabric Ops' and highlight `peer0.org1.example.com` and right-click....Export Connection profile and save it in your $HOME directory as filename `connection.json` - the client applications maintain configuration settings via a JSON configuration file called `clientCfg.json`.
+13. Still in the VS Code extension, navigate to Nodes under 'Local Fabric Ops' and highlight `peer0.org1.example.com` and right-click....Export Connection profile and save it in your $HOME directory as filename `connection.json` - the client applications maintain configuration settings via a JSON configuration file called `clientCfg.json`.
 
-13. From a terminal, navigate to the `animaltracking/typescript/client/lib` subdirectory. Edit the `clientCfg.json` file and replace the HOME directory with your own HOME directory - ie where your project is installed. All the other settings should be good for now.
+14. From a terminal, navigate to the `animaltracking/typescript/client/lib` subdirectory. Edit the `clientCfg.json` file and replace the HOME directory with your own HOME directory - ie where your project is installed. All the other settings should be good for now.
 
 
-14. For Part 2 of this tutorial, you will need an set up an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]  and set your `IBP` related parameters in the same `clientCfg.json` file - more on that in part 2 of the tutorial.
+15. For Part 2 of this tutorial, you will need an set up an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]  and set your `IBP` related parameters in the same `clientCfg.json` file - more on that in part 2 of the tutorial.
  
 Successful completion of these pre-reqs, is the basis from which this tutorial can now proceed. 
 
