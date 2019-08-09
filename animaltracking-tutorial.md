@@ -273,13 +273,13 @@ You should get messages ("Getting Listener" etc) that its started and you should
 
 `"SHEEPGOAT", "000011", "24/07/2019", "BOVIS_ARIES", "FARMER.JOHN", "AVONDALE.LOC1", "ARRIVAL.F1", "IN_FIELD", "WOOL", "false"`
  
-2. Click on the adjacent Terminal in VS Code and check that we had an event reported by the Event Listener for id `000011` .
+2. Click on the adjacent `Terminal` window in VS Code and check that we had an event reported by the Event Listener for id `000011` .
 
 3. Go back to the transaction list - this time, right-click on `quarantine` ... `Submit Transaction` . When prompted: paste these 2 parameters (each separated by double-quotes), in between the square brackets at the parameters prompt:
 
 `"SHEEPGOAT", "000011"`
 
-4. Once again, check from the terminal window that you've got an `ISOLATION` event posted.
+4. Once again, check from the `Terminal` window that you've got an `ISOLATION` event posted.
 
 5. Lastly, select the transaction `assigninspection` ... `Submit Transaction` . When prompted, paste the following into the square brackets:
 
