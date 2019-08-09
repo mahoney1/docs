@@ -144,17 +144,19 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
 `cd $HOME/dash` to enter that directory
 
-3. Export the designated project directory as an Operating system variable called **PROJECT** - this is important,  as this variable is used as a relative path by the Application Client scripts later (without it, they won't locate config information). Eg my project directory is shown below:
+3. Edit your Operating system profile and add a variable **PROJECT** - this is important,  as this variable is used as a relative path by the Application Client scripts later (without it, they won't locate config information). Eg below:
 
 `gedit /home/demo/.profile` 
 
-Add to the bottom:
+Add a line to the bottom:
 
 `export PROJECT=/home/demo/dash`
 
-Source the file to read the variable setting:
+Now source the file to read the variable setting and check:
 
-source $HOME/.profile
+`source $HOME/.profile`
+
+`echo $PROJECT`
 
 4. Clone the `tabler-react` Github repository:
 
