@@ -174,28 +174,12 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
     
 In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking-ts@xxx`, under the 'Fabric Local Ops' pane.
 
-12. Still in the VS Code extension, navigate to Nodes under 'Local Fabric Ops' and highlight `peer0.org1.example.com` and right-click....Export Connection profile and save it in your $HOME directory as filename `connection.json` - the client applications will use this.
+12. Still in the VS Code extension, navigate to Nodes under 'Local Fabric Ops' and highlight `peer0.org1.example.com` and right-click....Export Connection profile and save it in your $HOME directory as filename `connection.json` - the client applications maintain configuration settings via a JSON configuration file called `clientCfg.json`.
 
-13. From a terminal, navigate to the `animaltracking/typescript/client/lib` subdirectory. Edit the following Typescript files and replace the current the setting of the variable `currentDir` HOME directory (at approx line 28) to your own HOME directory setting assignment (currently it is set to '/home/demo') - to your own home directory ('/home/userxx') ie where your project is installed. 
-
-`EventClient.ts`
-
-'EventClient_IBP.ts`
-
-`QueryClient.ts`
-
-`QueryClient_IBP.ts`
-
-`QueryEvents.ts`
-
-next, run the following from the `client` subdirectory, to install client module dependencies then transpile the Typescript files to Javascript
-
-`npm install`
-
-`npm run build` 
+13. From a terminal, navigate to the `animaltracking/typescript/client/lib` subdirectory. Edit the `clientCfg.json` file and replace the HOME directory with your own HOME directory - ie where your project is installed. All the other settings should be good for now.
 
 
-14. For Part 2 of this tutorial, you will need an set up an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network] 
+14. For Part 2 of this tutorial, you will need an set up an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]  and set your `IBP` related parameters in the same `clientCfg.json` file - more on that in part 2 of the tutorial.
  
 Successful completion of these pre-reqs, is the basis from which this tutorial can now proceed. 
 
@@ -333,26 +317,13 @@ Well done! You've now completed this first part of the tutorial.
 
 Note: If you wish to complete this part, and you are not already signed up for an IBP Cloud instance, you will need to do so (here)[https://cloud.ibm.com/catalog/services/blockchain-platform]. 
 
-The tutorial use configuration metadata based on the ('Build your network tutorial')[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]) tutorial ie: 
-
-MSP ID = 'org1msp'
-
-Registered Identity = 'ibpuser'
-
-Channel = "channel1"
-
-When instantiating the animal tracking smart contract in the IBP environment, provide the following when prompted to enter a function for contract initialisation: 
-
-Instantiate Parameter = "org.example.animaltracking:instantiate"
-
-Contract Name = "animaltracking-ts";
-
 ![Creating the Blockchain Service)](img/welcomeback.png)
 
+The tutorial use configuration metadata based on the ('Build your network tutorial')[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]) tutorial - but if you've set up a different MSP ID, channel or Identity, you can change these settings in the `clientCfg.json` file in the `client/lib` subdirectory - the related variables all begin with `IBPxx`
 
 ## Steps
 
-### Step 1. Export CDS package and install/instantiate the contract using a peer Admin in IBP SaaS
+### Step 1. Export the CDS package and install/instantiate the contract in IBP
 
 We will need to package up our TypeScript smart contract into a (CDS file)[https://hyperledger-fabric.readthedocs.io/en/release-1.4/chaincode4noah.html#packaging] to deploy as a chaincode package for the IBP SaaS environment. We can do this easily from the IBM Blockchain Platform VS Code extension.
 
@@ -368,11 +339,11 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
   
 5. Accept the default endorsement policy and select the Org MSP set up for your environment: `org1msp`
 
-6. Next, select the Org1 peer which is already joined to the channel. Skip the 'private data collections' prompt and click Next to proceed to instantiation
+6. Next, select the `Org1 peer` which is already joined to the channel you created previously. Skip the 'private data collections' prompt and click `Next` to proceed to instantiation.
 
 7. Lastly, paste in the text  `org.example.animaltracking:instantiate` when prompted to enter an initialisation function. Then accept the defaults thereafter. Your contract should be successfully instantiated on the channel `channel` and appear in the instantiated contracts further down the same page.
 
-### Step 2. Register an IBP identity and export wallet for use later
+### Step 2. Register an IBP identity and export the wallet for use later
 
 1. Click on the 'Org1 CA' node and click on the button to 'Register User' - register a user 'ibpuser' with an enrol secret of 'demo' - 'register user'. This user will be the identity we use to invoke transactions, run queries etc from the IBP VS Code extension later.
 
@@ -390,7 +361,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 3. Enter `org1msp` for the MSP choice and 'Org1 CA' as the Certificate Authority of choice. Scroll down to the end and click on 'Download Connection Profile' - 
 
-4. The exported file will be called something like `channel1_animaltracking-ts_profile.json` in your Downloads directrory - rename this connection JSON file locally as `connection_IBP.json` and move it to your $HOME directory. This directory location will be used later by the Query Client application script that will query the IBP SaaS `channel` based ledger FYI.
+4. The exported file will be called something like `channel1_animaltracking-ts_profile.json` in your Downloads directrory - rename this connection JSON file locally as `connection_IBP.json` and move it to your $HOME directory. This directory location will be used later by the Query Client application script (which reads the setting from `clientCfg.json` in `client/lib`) that will query the IBP SaaS channel based ledger FYI.
 
 ![Export SDK Connection Profile info](img/connect-with-SDK.png)
 
@@ -402,9 +373,9 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 3. Next, import the `ibpuser` identity which was exported as a JSON file earlier. Click on the '+' symbol under 'Fabric Wallets'
 
-4. Select to 'Create a new wallet and add identity' and give it a name of `IBPWallet` . Next enter `ibpuser` in response to the 'name of the identity' prompt
+4. Select to 'Create a new wallet and add identity' and give it a name of `ibp-wallet` . Next enter `ibpuser` in response to the 'name of the identity' prompt
 
-5. Enter `org1msp` when prompted to enter an MSP ID and hit ENTER
+5. Enter `org1msp` (or whatever your Org1 MSP is called) when prompted to enter an MSP ID and hit ENTER
 
 6. Choose the 'Provide a JSON file' when prompted to choose a method for adding an identity and browser for the `ibpuser.json` file in your HOME directory - select this. You should see messages that it was imported successfully and it will appear on the list.
 
@@ -432,7 +403,7 @@ You'll get messages that it is started and we should see an event has already oc
 
 `"SHEEPGOAT IBP-000099 24/07/2019 BOVIS_ARIES FARMER.JOHN AVONDALE.LOC1 ARRIVALF1 IN_FIELD WOOL false"`
  
-5. Click on the adjacent Terminal in VS Code and check that we had an event reported by the Event Listener for id `000011` .
+5. Click on the adjacent Terminal in VS Code and check that we had an event reported by the Event Listener for id `000099` .
 
 6. Go back to the transaction list - this time, right-click on `quarantine` ... `Submit Transaction` . When prompted: paste these 2 parameters (each separated by double-quotes), in between the square brackets at the parameters prompt:
 
