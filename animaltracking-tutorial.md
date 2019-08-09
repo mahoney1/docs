@@ -269,9 +269,9 @@ You should get messages ("Getting Listener" etc) that its started and you should
 
 ### Step 5. Invoke Transactions in sequence to register further events
 
-1. Go back to the list of `animaltracking-ts` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : in between the two square brackets `[ ]` in the VS Code prompt: 
+1. Go back to the list of `animaltracking-ts` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : **in between** the two square brackets `[ ]` in the VS Code prompt: 
 
-`"SHEEPGOAT 000011 24/07/2019 BOVIS_ARIES FARMER.JOHN AVONDALE.LOC1 ARRIVALF1 IN_FIELD WOOL false"`
+`"SHEEPGOAT", "000011", "24/07/2019", "BOVIS_ARIES", "FARMER.JOHN", "AVONDALE.LOC1", "ARRIVAL.F1", "IN_FIELD", "WOOL", "false"`
  
 2. Click on the adjacent Terminal in VS Code and check that we had an event reported by the Event Listener for id `000011` .
 
@@ -401,7 +401,7 @@ You'll get messages that it is started and we should see an event has already oc
 
 4. Go back to the list of `animaltracking-ts` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : in between the two square brackets `[ ]` in the VS Code prompt: 
 
-`"SHEEPGOAT IBP-000099 24/07/2019 BOVIS_ARIES FARMER.JOHN AVONDALE.LOC1 ARRIVALF1 IN_FIELD WOOL false"`
+`"SHEEPGOAT", "IBP-000099", "24/07/2019", "BOVIS_ARIES", "FARMER.JOHN", "AVONDALE.LOC1", "ARRIVAL.F1", "IN_FIELD", "WOOL", "false"`
  
 5. Click on the adjacent Terminal in VS Code and check that we had an event reported by the Event Listener for id `000099` .
 
