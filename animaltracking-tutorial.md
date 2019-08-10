@@ -75,6 +75,8 @@ type: tutorial
 
 ## Introduction
 
+### Updated: Sat 10th Aug 10.00am BST and github.com/animaltracking refreshed at the same time please note)
+
 This hands-on tutorial shows how to integrate query data from a blockchain ledger and events emitted by a smart contract instantiated on a channel, into a client-side React Dashboard app. It uses the [IBM Blockchain Platform VS Code extension](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform) as the developer platform to manage the smart contract and clients - and essentially orchestrates the activity in this tutorial. The smart contract and the client apps, both written in Typescript, make use of the new features of the [new Hyperledger Fabric programming model](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/developing_applications.html), available since Hyperledger Fabric v1.4. 
 
 The IBM Blockchain Platform VS Code developer extension is used to interact with two different environments - one local, and later on, IBM Blockchain Platform in the Cloud.
