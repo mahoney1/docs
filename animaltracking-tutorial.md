@@ -236,7 +236,7 @@ OK, lets get started !
 
 `cp -v $HOME/dash/animaltracking/react/* .`
 
-`mv Tabler.css ../../src`
+`mv -v Tabler.css ../../src`
 
 `mkdir ../public/demo/icons`
 
