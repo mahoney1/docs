@@ -20,7 +20,7 @@ draft: false
 
 excerpt: "Develop, integrate and deploy your smart contract, and integrate ledger history and events into a React-based app"
 
-meta_description: "Learn how to develop/deploy a Typescript Smart Contract using IBM Blockchain VS Code Extension, invoke transactins/queries and render the results in a React Dashboard App"
+meta_description: "Learn how to develop/deploy a Typescript Smart Contract using IBM Blockchain VS Code Extension, invoke transactions/queries and render the results in a React Dashboard App"
 
 meta_keywords: "animal tracking, queries, smart contract, IBM Blockchain, IBM blockchain platform, VS Code extension, typescript, Hyperledger Fabric, React"
 
@@ -307,7 +307,7 @@ We now have 4 events: an initial registration (from setupdemo), a new SHEEPGOAT 
 
 7. In the Terminal window with the running Event Listener, stop it using CONTROL and C to stop. You should see an `Events Processed` message after interruption. We now have a set of 4 events, in JSON, contained in a file called `events.json`
 
-(Note: generally, these events would picked up by an application using either something like Sockets.io (more efficient) or AJAX (less efficient) calls from the React or node application using React to render the UI. But for the purposes of this tutorial, we will write the events (emitted by the contract) to a simple JSON file: it is this that the React Dashboard app picks up, to dynamically present the ledger data in the application.
+(Note: generally, these events would picked up by an application using either something like Sockets.io (more efficient) or AJAX (less efficient) calls from the React or node application using React to render the UI. But for the purposes of this tutorial, the client listener writes the events (emitted by the contract) to a simple JSON file: it is this that the React Dashboard app picks up, to dynamically present the ledger data in the application. 
 
 8. We also want to query all SHEEPGOAT registrations from the ledger, and have the results rendered in the dashboard. To do this, we need to run the query application client script - so, from the same `client/lib` subdirectory - execute it as follows:
 
@@ -327,7 +327,7 @@ The data we're interested is 'new registrations' and separately, a 'Blockchain E
 
 2. Check that you have a list of new SHEEPGOAT registrations - these are the list of registrations extracted by the Query client earlier.
 
-3. Scroll down to 'Recent Blockchain Events' - these represent our 4 blockchain events emitted by the `animaltracking-ts` Contract instantiated on channel `mychannel` and which were picked up by our Contract Listener earlier.
+3. Scroll down to 'Recent Blockchain Events' - these represent our 4 blockchain events emitted by the `animaltracking-ts` Contract instantiated on channel `mychannel` and which were picked up by our Contract Listener earlier. (Note: The 'inline' actions on each event entry have not been coded up)
 
 Well done! You've now completed this first part of the tutorial.
 
