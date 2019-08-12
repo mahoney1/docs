@@ -195,7 +195,7 @@ In approx. one minute or less, you should get confirmation the contract was succ
 14. Navigate inside the `cfg` subdirectory from the `client` directory. Edit the `clientCfg.json` file and replace the HOME directory with your own HOME directory (eg '/home/demo') as required. All the other settings should be good for now.
 
 
-15. For Part 2 of this tutorial, you will need an set up an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]  and set your `IBP` related parameters in the same `clientCfg.json` file - more on that in part 2 of the tutorial.
+For Part 2 of this tutorial, you will need to set up an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]  and set your `IBP` related parameters in the same `clientCfg.json` file - more on that in part 2 of the tutorial.
  
 Successful completion of these pre-reqs, is the basis from which this tutorial can now proceed. 
 
@@ -403,7 +403,7 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 ### Step 5. Execute transactions and test out integration of new events, queries from the IBP SaaS environment
 
-Note: before invoking the listener client and query client apps below - you should verify that your IBP parameters (eg. MSP ID, channel name, etc) mentioned at the start of 'Part 2' above have been implemented in the scripts.
+Note: before invoking the listener client and query client apps below - you should verify that your IBP-related parameters (eg. MSP ID, channel name, etc) mentioned at the start of 'Part 2' above have been set correctly in the `client/lib/clientCfg.json` file. For convenience, the demo data generated in the ledger (in IBM Cloud) uses animal IDS prefixed 'IBP-xx', for convenience. That prefix ID can be changed as required, in the `clientCfg.json` file FYI.
 
 1. From the IBP VS Code extension, expand the channel `channel` and the `animaltracking-ts@0.0.1` instantiated contract to reveal the list of available transactions - scroll down to the `setupdemo` transaction.
 
