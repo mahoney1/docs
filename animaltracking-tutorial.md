@@ -166,11 +166,11 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
 7. In VS Code Explorer, choose `File > Open Folder`, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/typescript/contract` directory. Depending on your VS Code version, you may be prompted to open the VS Code workspace provided in that directory. In any case, the `contract` folder must be your top-level project folder in VS Code Explorer before proceeding.
 
-8. In the Terminal Window, run the following command to install the dependencies for the imported Typescript contract - it can take up to a minute to complete.
+8. In the Terminal Window pane, run the following command to install the dependencies for the imported Typescript contract in the `animaltracking/typescript/contract` subdirectory - it can take up to a minute to complete.
 
 `npm install`
 
-9. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking-ts@0.0.1`. You should get confirmation the package was successfully created.
+9. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package Open Project' - choose `animaltracking-ts@0.0.1`. You should get confirmation the package was successfully created.
 
 10. Next, under 'Local Fabric Ops' on the left, choose to 'Install' the package onto the local peer - await a successful install message in VS Code.
 
@@ -178,13 +178,11 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
       `org.example.animaltracking:instantiate` 
       
-      and hit ENTER.
-      
-    - Hit ENTER to accept the remaining defaults for the remaining parameters when prompted. 
+      and hit ENTER. Choose to select ENTER to accept the remaining defaults for the remaining parameters when prompted. 
     
 In approx. one minute or less, you should get confirmation the contract was successfully instantiated and you should see the instantiated contract called `animaltracking-ts@xxx`, under the 'Fabric Local Ops' pane.
 
-12. Still in the VS Code extension, navigate to Nodes under 'Local Fabric Ops' and highlight `peer0.org1.example.com` and right-click....Export Connection profile and save it in your $HOME directory as filename `connection.json` - the client applications maintain configuration settings via a JSON configuration file called `clientCfg.json` located in the `animaltracking/typescript/client/cfg` subdirectory.
+12. Still in the VS Code extension, navigate to Nodes under 'Local Fabric Ops' and highlight `peer0.org1.example.com` and right-click....`Export Connection profile` and save it in your $HOME directory as filename `connection.json` . This file is used by the client applications to know how to connect to the Fabric network and in particular the configured peer.
 
 13. From a terminal, navigate to the `animaltracking/typescript/client/` subdirectory - run the following commands:
 
@@ -192,7 +190,7 @@ In approx. one minute or less, you should get confirmation the contract was succ
 
 `npm run build`
 
-14. Navigate inside the `cfg` subdirectory from the `client` directory. Edit the `clientCfg.json` file and replace the HOME directory with your own HOME directory (eg '/home/demo') as required. All the other settings should be good for now.
+14. The client applications maintain configuration settings via a JSON configuration file called `clientCfg.json` located in the `animaltracking/typescript/client/cfg` directory. Navigate inside the `cfg` subdirectory from the `client` directory and edit the `clientCfg.json` file. Replace the HOME directory with your own HOME directory (eg '/home/demo') as required. All the other settings should be good for now.
 
 
 For Part 2 of this tutorial, you will need to set up an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]  and set your `IBP` related parameters in the same `clientCfg.json` file - more on that in part 2 of the tutorial.
@@ -224,25 +222,25 @@ OK, lets get started !
 
 `cd src`
 
-`cp Tabler.css Tabler.css.bak`
+`cp -v Tabler.css Tabler.css.bak`
 
 `cd ../example/src`
 
-`cp HomePage.react.js HomePage.react.js.bak`
+`cp -v HomePage.react.js HomePage.react.js.bak`
 
-`cp SiteWrapper.react.js SiteWrapper.react.js.bak`
+`cp -v SiteWrapper.react.js SiteWrapper.react.js.bak`
 
-(The above copies are merely so that you can do a `diff` of the changes made, to implement the animal tracking dashboard. Check out in particular, the `json` objects in `HomePage.react.js`, that represent JSON coming from the blockchain, via queries and events.
+(The above copies are merely so that you can do a `diff` of the changes made, to implement the animal tracking dashboard. Check out in particular, the `json` objects in `HomePage.react.js`, that represent JSON coming from the blockchain, via queries and events).
 
 4. Now copy in/move the customisations from the `animaltracking` cloned repo as follows - **perform steps in the `example/src` subdirectory** in your Tabler React directory - ignore the warning (in the 1st copy command below) about being unable to copy a subdirectory, at this point.
 
-`cp $HOME/dash/animaltracking/react/* .`
+`cp -v $HOME/dash/animaltracking/react/* .`
 
 `mv Tabler.css ../../src`
 
 `mkdir ../public/demo/icons`
 
-`cp $HOME/dash/animaltracking/react/icons/* ../public/demo/icons`
+`cp -v $HOME/dash/animaltracking/react/icons/* ../public/demo/icons`
 
 5. Create a symbolic link to where our ledger data is persisted (for this tutorial, the React DashBoard App picks up data retrieved from the blockchain and persisted to a file)
 
@@ -254,16 +252,8 @@ OK, lets get started !
 
 `yarn install`
 
-### Step 2. Start the React Dashboard app
 
-1. Start the React dashboard app - change directory one level, to the `example` directory:
-
-`yarn start`
-
-2. You should get a browser launched with the Dashboard app active (when writing this tutorial, it launched Firefox on Ubuntu)
-
-
-### Step 3. In a VS Code terminal window, start the Contract Event Listener
+### Step 2. In a VS Code terminal window, start the Contract Event Listener
 
 1. Still in VS Code, click on the `Terminal` tab at the bottom - press ENTER if prompted to `hit any key to close`. You should now have a command prompt - change directory to the animaltracking `client/lib` directory (from the `contract` subdirectory) and add execute permissions to some listener scripts as shown:
 
@@ -275,15 +265,17 @@ OK, lets get started !
 
 `./listenLocal.sh`
 
-You should get messages ("Getting Listener" etc) that its started and you should also see an event from the earlier `setupdemo` transaction (during setup, an event for a SHEEPGOAT registration was emitted).
+You should get messages ("Getting Listener" etc) that its started.
 
-### Step 4. In IBP VS Code extension, pre-populate the ledger with demo data
+### Step 3. In IBP VS Code extension, pre-populate the ledger with demo data
 
 1.  In the IBP VS Code extension, connect to the 'Local Fabric' as `admin and expand the tree to reveal the `animaltracking-ts@xxx` contract under 'Fabric Gateways'. You will see a list of transactions. Scroll down to the end and you will find a transaction called `setupdemo`. We'll use this to pre-populate the ledger with some sample data.
 
 2. Right-click on `setupdemo` and select `Submit Transaction` - accept all the default prompts for parameters (don't need to enter anything) etc - we won't need to supply any parameters.
 
-### Step 5. Invoke Transactions in sequence to register further events
+3. Check the adjacent `Terminal` window in VSCode, you'll see there was an event registered for the `setupdemo` invocation.
+
+### Step 4. Invoke Transactions in sequence to register further events
 
 1. Go back to the list of `animaltracking-ts` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : **in between** the two square brackets `[ ]` in the VS Code prompt: 
 
@@ -303,7 +295,7 @@ You should get messages ("Getting Listener" etc) that its started and you should
 
 6. Once again, check the Event Listener pane - we should have an INSPECT event reported.
 
-We now have 4 events: an initial registration (from setupdemo), a new SHEEPGOAT registration, and two lifecycle events for this SHEEPGOAT.
+We now have 4 events: an initial registration (from `setupdemo`), a new SHEEPGOAT registration, and two lifecycle events for this SHEEPGOAT.
 
 7. In the Terminal window with the running Event Listener, stop it using CONTROL and C to stop. You should see an `Events Processed` message after interruption. We now have a set of 4 events, in JSON, contained in a file called `events.json`
 
@@ -317,13 +309,19 @@ The script performs a number of types of queries, fulfilled by the ledger state 
 
 One thing to note: registration ID `000011` will not show in the list in the latest registrations table: that's because (in this sample contract), the last function performed on that registration is one of assignment to a Vet.
 
+### Step 5. Start the React Dashboard app
+
+1. Back in terminal with the current `$HOME/dash/tabler-react/example` subdirectory earlier, start the React dashboard app - from the current `example` directory:
+
+`yarn start`
+
+2. You should get a browser launched with the Dashboard app active (when writing this tutorial, it launched Firefox on Ubuntu)
+
 ### Step 6. Check the React Dashboard App for new Query and Events
 
 Many of the charts/area diagrams contain summarised data can can be derived from the ledger, whether aggregated, calculated or indeed - in the case of temperatures trends - data that is aggregated from IoT temperatures over a period of time - this is just an example.
 
-The data we're interested is 'new registrations' and separately, a 'Blockchain Events' table.
-
-1. Switch to your browser launched earlier - all the data/records we're interested in contains a grey/blue 'lock' icon
+The data we're interested is 'new registrations' and separately, a 'Blockchain Events' table. All of the data/records we've received from the smart contract (events) and the blockchain ledger (queries) are conspicuous by the appended grey/blue 'lock' icon in each row.
 
 2. Check that you have a list of new SHEEPGOAT registrations - these are the list of registrations extracted by the Query client earlier.
 
@@ -403,21 +401,21 @@ We will need to package up our TypeScript smart contract into a (CDS file)[https
 
 ### Step 5. Execute transactions and test out integration of new events, queries from the IBP SaaS environment
 
-Note: before invoking the listener client and query client apps below - you should verify that your IBP-related parameters (eg. MSP ID, channel name, etc) mentioned at the start of 'Part 2' above have been set correctly in the `client/lib/clientCfg.json` file. For convenience, the demo data generated in the ledger (in IBM Cloud) uses animal IDS prefixed 'IBP-xx', for convenience. That prefix ID can be changed as required, in the `clientCfg.json` file FYI.
+Note: before invoking the listener client and query client apps below - you should verify that your IBP-related parameters (eg. MSP ID, channel name, etc) mentioned at the start of 'Part 2' above have been set correctly in the `client/cfg/clientCfg.json` file. For convenience, the demo data generated in the ledger (in IBM Cloud) uses animal IDS prefixed 'IBP-xx', for convenience. That prefix ID can be changed as required, in the `clientCfg.json` file FYI.
 
 1. From the IBP VS Code extension, expand the channel `channel` and the `animaltracking-ts@0.0.1` instantiated contract to reveal the list of available transactions - scroll down to the `setupdemo` transaction.
 
 ![Transaction Functions from IBP](img/ibpsaas-txn-list.png)
 
-2. Right-click on `setupdemo` and click 'Submit Transaction' and when prompted, supply a value of "IBP" inside the 'parameter' prompt -  hit ENTER to accept all the remaining default prompts - this will populate our ledger with some new registrations and which are prefixed 'IBP' - so we can see the data is different in our dashboard.
-
-3. Click on the terminal window in VS Code and from the `animaltracking/typescript/client/lib` subdirectory: start our IBP event listener process from the command prompt as follows:
+2. Click on the terminal window in VS Code and from the `animaltracking/typescript/client/lib` subdirectory: start our IBP event listener process from the command prompt as follows:
 
 `./listenIBP.sh`
 
-You'll get messages that it is started and we should see an event has already occurred from the `setupdemo` transaction where new registrations means an emitted event.
+3. Right-click on `setupdemo` and click 'Submit Transaction' and when prompted, **supply a value of "IBP"** inside the 'parameter' prompt -  hit ENTER to accept all the remaining default prompts - this will populate our ledger with some new registrations and which are prefixed 'IBP' - so we can see the data is different in our dashboard.
 
-4. Go back to the list of `animaltracking-ts` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : in between the two square brackets `[ ]` in the VS Code prompt: 
+In the Terminal pane in VS Code - you'll get messages that about an event (from `setupdemo`) being emitted from IBP in the Cloud.
+
+4. Go back to the list of `animaltracking-ts` transactions in the IBP VS Code extension - in the instantiated contract under 'Fabric Gateways',  right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : in between the two square brackets `[ ]` in the VS Code prompt: 
 
 `"SHEEPGOAT", "IBP-000099", "24/07/2019", "BOVIS_ARIES", "FARMER.JOHN", "AVONDALE.LOC1", "ARRIVAL.F1", "IN_FIELD", "WOOL", "false"`
  
@@ -452,11 +450,11 @@ The script performs a number of queries, some of which are fulfilled given the I
 
 Once again, the data we're interested in our Dashboard app are the 'new registrations' and separately, the 'Blockchain Events' table.
 
-1. Switch to your React Dashboard browser tab launched earlier - all the data/records we're interested in contains a grey/blue 'lock' icon
+1. Switch to your React Dashboard browser tab launched earlier - once again,  the data/records we're interested in contains a grey/blue 'lock' icon indicating its from the blockchain network -  the Dashboard will momentarily refresh the new query data and events from earlier.
 
-2. Check that the refreshed list of new SHEEPGOAT registrations - these are the list of registrations extracted by the IBP Query client above.
+2. Check that the refreshed list of new SHEEPGOAT registrations - these are the list of registrations extracted by the IBP Query client above and prefixed "IBP-" for clarity.
 
-3. Scroll down to 'Recent Blockchain Events' - these represent our 4 IBP blockchain events (one from `setupdemo`, one from `register` and one each from `quarantine` and `assigninspection`) emitted by the `animaltracking-ts` Contract instantiated on channel `channel1` in IBP SaaS and which were picked up by our IBP Contract Listener above.
+3. Scroll down to 'Recent Blockchain Events' - these represent our 4 IBP blockchain events (one from `setupdemo`, one from `register` and one each from `quarantine` and `assigninspection`) emitted by the `animaltracking-ts` Contract, instantiated on channel `channel1` in IBP SaaS (or however you configured it in `clientCfg.json`) and which were picked up by our IBP Contract Listener above.
 
 Well done! You've now completed this second and final section of the tutorial.
 
@@ -476,5 +474,6 @@ This tutorial aimed to show a simple use case, of combining the new features of:
 Thanks for trying it out! If you have any issues, please raise an issue on my Github project (click 'Issues') at https://github.com/mahoney1/animaltracking with full details of the problem you're facing - thanks!)
 
 As a last step, it is good practice to close out your current folders in VS Code, in preparation for your next tutorial or project.
+ed reviews input and testing of the tutorial.
 
 With thanks to Robert Thatcher, IBM Early Experience Programs for his valued reviews input and testing of the tutorial.
