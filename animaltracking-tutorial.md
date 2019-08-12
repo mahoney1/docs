@@ -138,9 +138,9 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
 `npm config set prefix /home/demo`
 
-`npm install typescript yarn`
+`npm install -g typescript yarn`
 
-`export PATH=$HOME/bin:$PATH`
+`export PATH=$PATH:$HOME/bin`
 
 2. Next, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point. 
 
