@@ -134,13 +134,17 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
 ## Preparatory Steps
 
+1. Create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point in this example (Note: if you already have typescript installed, you may not wish to install typescript locally in your environment). 
+
+`cd $HOME/dash` 
+
 1.From a terminal window in your $HOME directory, install `typescript` (if not already installed) and `yarn` (ditto) as follows in your current user's HOME directory ('demo' in this case):
 
-`npm config set prefix /home/demo`
+`npm config set prefix /home/demo/dash`
 
 `npm install -g typescript yarn`
 
-`export PATH=$PATH:$HOME/bin`
+`export PATH=$PATH:$HOME/dash/bin`
 
 2. Next, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point. 
 
