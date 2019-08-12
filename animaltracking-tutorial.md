@@ -186,10 +186,16 @@ In approx. one minute or less, you should get confirmation the contract was succ
 
 12. Still in the VS Code extension, navigate to Nodes under 'Local Fabric Ops' and highlight `peer0.org1.example.com` and right-click....Export Connection profile and save it in your $HOME directory as filename `connection.json` - the client applications maintain configuration settings via a JSON configuration file called `clientCfg.json` located in the `animaltracking/typescript/client/cfg` subdirectory.
 
-13. From a terminal, navigate to the `animaltracking/typescript/client/lib` subdirectory. Edit the `clientCfg.json` file and replace the HOME directory with your own HOME directory as required - ie where your project is installed. All the other settings should be good for now.
+13. From a terminal, navigate to the `animaltracking/typescript/client/` subdirectory - run the following commands:
+
+`npm install`
+
+`npm run build`
+
+14. Navigate inside the `cfg` subdirectory from the `client` directory. Edit the `clientCfg.json` file and replace the HOME directory with your own HOME directory (eg '/home/demo') as required. All the other settings should be good for now.
 
 
-14. For Part 2 of this tutorial, you will need an set up an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]  and set your `IBP` related parameters in the same `clientCfg.json` file - more on that in part 2 of the tutorial.
+15. For Part 2 of this tutorial, you will need an set up an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]  and set your `IBP` related parameters in the same `clientCfg.json` file - more on that in part 2 of the tutorial.
  
 Successful completion of these pre-reqs, is the basis from which this tutorial can now proceed. 
 
@@ -206,7 +212,7 @@ OK, lets get started !
 
 ### Step 1. Install packages for React Dashboard using Yarn
 
-1. Change directory to the cloned `tabler-react` directory and perform an install using the yarn package manager:
+1. In a new terminal window, change directory to the cloned `tabler-react` directory and perform an install using the yarn package manager:
 
 `cd $HOME/dash/tabler-react`
 
