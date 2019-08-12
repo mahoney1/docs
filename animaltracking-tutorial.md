@@ -134,11 +134,11 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
 ## Preparatory Steps
 
-1. Create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point in this example (Note: if you already have typescript installed, you may not wish to install typescript locally in your environment). 
+1. From a terminal window, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point in this example (Note: if you already have typescript installed, you may not wish to install typescript locally in your environment). 
 
 `cd $HOME/dash` 
 
-1.From a terminal window in your $HOME directory, install `typescript` (if not already installed) and `yarn` (ditto) as follows in your current user's HOME directory ('demo' in this case):
+2. Still in the terminal window, and your `$HOME/dash` **project** directory, install `typescript` (if not already installed) and `yarn` (ditto) via the command line as follows:
 
 `npm config set prefix /home/demo/dash`
 
@@ -146,9 +146,10 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
 `export PATH=$PATH:$HOME/dash/bin`
 
-2. Next, create a project directory (as a non-root user on Linux) called `dash`   eg assume `$HOME/dash` is the starting point. 
-
-`cd $HOME/dash` to enter that directory
+ Verify that both `tsc` and `yarn` are available in your PATH - eg, on Ubuntu:
+ 
+ `which tsc`
+ `which yarn`
 
 3. Clone the `tabler-react` Github repository:
 
