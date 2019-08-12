@@ -149,32 +149,35 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
  Verify that both `tsc` and `yarn` are available in your PATH - eg, on Ubuntu:
  
  `which tsc`
+ 
  `which yarn`
 
-3. Clone the `tabler-react` Github repository:
+3. Clone the `tabler-react` Github repository, inside your project directory (above):
 
 `git clone https://github.com/tabler/tabler-react.git`
 
-4. Clone the `animaltracking` Github repository:
+4. Next, clone the `animaltracking` Github repository:
 
 `git clone https://github.com/mahoney1/animaltracking.git`
 
-5. IF you've previously deployed the `animal-tracking` smart contract, you are recommended to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric, and with the Nodes started, in the left sidepanel.
+5. IF you've previously deployed the `animal-tracking` smart contract, you are recommended to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric inside the VS Code IBP extension, with the Fabric Nodes started, in the left sidepanel.
 
-6. In the VS Code extension under 'Fabric Gateways', connect to your `local_fabric`  sidepanel, and use the`admin` identity to connect.
+6. In the IBP VS Code extension under 'Fabric Gateways', connect to your `local_fabric`  sidepanel, and use the`admin` identity to connect.
 
-7. In VS Code Explorer, choose File > Open Folder, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/typescript/contract` directory. Depending on your VS Code version, you may be prompted to open the VS Code workspace provided in that directory. In any case, the `contract` folder must be your top-level project folder in VS Code Explorer before proceeding.
+7. In VS Code Explorer, choose `File > Open Folder`, and navigate to the `animaltracking` folder in your cloned repo - then select the `contracts` folder, eg. navigating to the `$HOME/animaltracking/typescript/contract` directory. Depending on your VS Code version, you may be prompted to open the VS Code workspace provided in that directory. In any case, the `contract` folder must be your top-level project folder in VS Code Explorer before proceeding.
 
-8. In the Terminal Window, run `npm install` to install the dependencies for the imported contract
+8. In the Terminal Window, run the following command to install the dependencies for the imported Typescript contract - it can take up to a minute to complete.
+
+`npm install`
 
 9. Click on the IBM Blockchain Platform icon and from '...' ellipses on the 'Smart Contract Packages' panel, choose to 'Package a Smart Contract' - choose `animaltracking-ts@0.0.1`. You should get confirmation the package was successfully created.
 
-10. Next, under 'Local Fabric Ops' choose to 'Install' the package onto the local peer - await a successful install message in VS Code.
+10. Next, under 'Local Fabric Ops' on the left, choose to 'Install' the package onto the local peer - await a successful install message in VS Code.
 
-11. Next, instantiate the `animaltracking-ts` Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking-ts@0.0.1` as the contract to instantiate. 
+11. Next, instantiate the `animaltracking-ts` Smart Contract by choosing 'Instantiate'  and when prompted, select `animaltracking-ts@0.0.1` as the contract to instantiate.  When prompted to provide a function, supply the text:
 
-    - When prompted to provide a function, supply the text:
       `org.example.animaltracking:instantiate` 
+      
       and hit ENTER.
       
     - Hit ENTER to accept the remaining defaults for the remaining parameters when prompted. 
