@@ -105,7 +105,10 @@ The tutorial uses an 'intermediate' level, 'strongly typed', model-based Typescr
 
 ![Typical contract transaction lifecycle](img/animaltrackingcontract.png)
 
-As mentioned, we're using IBM Blockchain Platform VS Code Extension - and the new Fabric programming model and SDK features under the covers - to complete these tasks. In particular, you will use Query and Event Typescript application clients - in addition to the IBP VS Code extension, to perform the required actions in this tutorial.
+As mentioned, we're using IBM Blockchain Platform VS Code Extension - and the new Fabric programming model and SDK features under the covers - to complete these tasks. In particular, you will use Query and Event Typescript application clients - in addition to the IBP VS Code extension, to perform the required actions in this tutorial. A general overview of the application client / SDK interaction with the Smart Contract deployed to a Fabric environment is shown below
+
+![Client interaction overview](img/contract-overview.png)
+
 
 ## Background
 
