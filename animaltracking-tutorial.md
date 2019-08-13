@@ -160,7 +160,7 @@ Jane relies heavily on her dashboard app, from which she can instigate any inlin
 
 `git clone https://github.com/mahoney1/animaltracking.git`
 
-5. IF you've previously deployed the `animal-tracking` smart contract, you are recommended to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric inside the VS Code IBP extension, with the Fabric Nodes started, in the left sidepanel.
+5. **IF** you've previously deployed the `animal-tracking` smart contract, you are recommended to perform a `teardown` in the IBM Blockchain Platform VS Code extension (click on the icon) in VS Code - then select 'FABRIC OPS', click in the '...'  select 'TearDown Runtime Fabric' and confirm you want to tear down. After doing a teardown, start a new Fabric, again from 'FABRIC OPS' .....click on 'Start New Fabric' and ensure that you have a running, functional Fabric inside the VS Code IBP extension, with the Fabric Nodes started, in the left sidepanel.
 
 6. In the IBP VS Code extension under 'Fabric Gateways', connect to your `local_fabric`  sidepanel, and use the`admin` identity to connect.
 
@@ -190,7 +190,7 @@ In approx. one minute or less, you should get confirmation the contract was succ
 
 `npm run build`
 
-14. The client applications maintain configuration settings via a JSON configuration file called `clientCfg.json` located in the `animaltracking/typescript/client/cfg` directory. Navigate inside the `cfg` subdirectory from the `client` directory and edit the `clientCfg.json` file. Replace the HOME directory with your own HOME directory (eg '/home/demo') as required. All the other settings should be good for now.
+14. The client applications maintain configuration settings via a JSON configuration file called `clientCfg.json` located in the `animaltracking/typescript/client/cfg` directory. Navigate inside the `cfg` subdirectory from the `client` subdirectory and edit the `clientCfg.json` file. Replace the HOME directory with your own HOME directory (eg '/home/demo') as required. All the other settings should be good for now.
 
 
 For Part 2 of this tutorial, you will need to set up an (IBM Blockchain Platform SaaS instance)[https://cloud.ibm.com/catalog/services/blockchain-platform] and have completed the (Build a network tutorial)[https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network]  and set your `IBP` related parameters in the same `clientCfg.json` file - more on that in part 2 of the tutorial.
@@ -210,7 +210,7 @@ OK, lets get started !
 
 ### Step 1. Install packages for React Dashboard using Yarn
 
-1. In a new terminal window, change directory to the cloned `tabler-react` directory and perform an install using the yarn package manager:
+1. In a new terminal window, change directory to the cloned `tabler-react` directory and perform an install using the `yarn` package manager:
 
 `cd $HOME/dash/tabler-react`
 
@@ -246,14 +246,22 @@ OK, lets get started !
 
 `ln -s $HOME/dash/animaltracking/typescript/client/lib ledger`
 
-6. Next, we need to install the dependencies/packages for the `example` application itself (up one directory level):
+6. Next, we need to install the dependencies/packages in the `example` application itself (ie. up one directory level):
 
 `cd ..`
 
 `yarn install`
 
+### Step 2. Start the React Dashboard app
 
-### Step 2. In a VS Code terminal window, start the Contract Event Listener
+1. Back in terminal with the current `$HOME/dash/tabler-react/example` subdirectory earlier, start the React dashboard app - from the current `example` directory:
+
+`yarn start`
+
+2. You should get a browser launched with the Dashboard app active (when writing this tutorial, it launched Firefox on Ubuntu)
+
+
+### Step 3. In a VS Code terminal window, start the Contract Event Listener
 
 1. Still in VS Code, click on the `Terminal` tab at the bottom - press ENTER if prompted to `hit any key to close`. You should now have a command prompt - change directory to the animaltracking `client/lib` directory (from the `contract` subdirectory) and add execute permissions to some listener scripts as shown:
 
@@ -267,7 +275,7 @@ OK, lets get started !
 
 You should get messages ("Getting Listener" etc) that its started.
 
-### Step 3. In IBP VS Code extension, pre-populate the ledger with demo data
+### Step 4. In the IBP VS Code extension, populate ledger with demo data
 
 1.  In the IBP VS Code extension, connect to the 'Local Fabric' as `admin and expand the tree to reveal the `animaltracking-ts@xxx` contract under 'Fabric Gateways'. You will see a list of transactions. Scroll down to the end and you will find a transaction called `setupdemo`. We'll use this to pre-populate the ledger with some sample data.
 
@@ -275,7 +283,7 @@ You should get messages ("Getting Listener" etc) that its started.
 
 3. Check the adjacent `Terminal` window in VSCode, you'll see there was an event registered for the `setupdemo` invocation.
 
-### Step 4. Invoke Transactions in sequence to register further events
+### Step 5. Invoke Transactions via IBP extension, register further events
 
 1. Go back to the list of `animaltracking-ts` transactions under 'Fabric Gateways' and right-click on `register` ... `Submit Transaction`.  When prompted, paste the following parameter list - including the double-quotes "" : **in between** the two square brackets `[ ]` in the VS Code prompt: 
 
@@ -309,13 +317,6 @@ The script performs a number of types of queries, fulfilled by the ledger state 
 
 One thing to note: registration ID `000011` will not show in the list in the latest registrations table: that's because (in this sample contract), the last function performed on that registration is one of assignment to a Vet.
 
-### Step 5. Start the React Dashboard app
-
-1. Back in terminal with the current `$HOME/dash/tabler-react/example` subdirectory earlier, start the React dashboard app - from the current `example` directory:
-
-`yarn start`
-
-2. You should get a browser launched with the Dashboard app active (when writing this tutorial, it launched Firefox on Ubuntu)
 
 ### Step 6. Check the React Dashboard App for new Query and Events
 
@@ -435,7 +436,7 @@ In the Terminal pane in VS Code - you'll get messages that about an event (from 
 
 We now have 4 events: an initial registration (from setupdemo), a new SHEEPGOAT registration, and two lifecycle events for this SHEEPGOAT.
 
-10. In the Terminal window with the running Event Listener, stop it using CONTROL and C to stop. You should see an `Events Processed` message after interruption. We now have a set of 4 IBP events (with very recent timestamps), in JSON, contained in a file called `events.json`
+10. In the Terminal window with the running Event Listener, stop the Listener using CONTROL and C inside the Terminal pane. You should see an `Events Processed` message after interruption. We now have a set of 4 IBP events (with very recent timestamps), in JSON, contained in a file called `events.json`
 
 11. We also want to query all SHEEPGOAT registrations from the ledger, and present this in the dashboard. To do this, we need to run the QueryClient script as follows:
 
@@ -450,7 +451,7 @@ The script performs a number of queries, some of which are fulfilled given the I
 
 Once again, the data we're interested in our Dashboard app are the 'new registrations' and separately, the 'Blockchain Events' table.
 
-1. Switch to your React Dashboard browser tab launched earlier - once again,  the data/records we're interested in contains a grey/blue 'lock' icon indicating its from the blockchain network -  the Dashboard will momentarily refresh the new query data and events from earlier.
+1. Switch to your active React Dashboard browser tab launched earlier - once again,  the data/records we're interested in contains a grey/blue 'lock' icon inline, indicating its from the blockchain network -  the Dashboard will momentarily refresh the new query data and events from earlier.
 
 2. Check that the refreshed list of new SHEEPGOAT registrations - these are the list of registrations extracted by the IBP Query client above and prefixed "IBP-" for clarity.
 
