@@ -1,5 +1,6 @@
 # Running the Commercial Paper Smart Contract with the IBM Blockchain VSCode Extension
 
+OLD TUTORIAL - THIS IS REPLACED - TRY https://developer.ibm.com/series/blockchain-running-enhancing-commercial-paper-smart-contract/
 ## Introduction
 
 Using the new IBM Blockchain Platform VSCode extension and the latest Hyperledger Fabric features, developing blockchain applications and smart contracts couldn't be simpler ! The extension is an intuitive tool that enables the developer to discover, code, test, debug, package, and deploy smart contracts to a blockchain network in one, single tool. And what better way, than to show it in action! You can read more about it [here ](https://developer.ibm.com/announcements/ibm-blockchain-platform-vscode-smart-contract/).  Its also worth mentioning that, while we're working with a local Fabric environment below, you'll also be able to (coming soon) deploy the example you build here, to your own IBM Blockchain Platform Cloud instance.
